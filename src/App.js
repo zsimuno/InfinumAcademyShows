@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class App extends Component {
+export class App extends Component {
   constructor(args) {
     super(args);
 
@@ -40,18 +40,7 @@ export default class App extends Component {
 
   }
 
-  // Get id of the show you want to fetch episodes of
-  fetchEpisodes(id) {
 
-    // Copy episodes data so we can change it
-    const episodeData = Object.assign({}, this.state.episodes);
-
-    // Add episodes of the show that has a specific id
-    fetch(`https://api.infinum.academy/api/shows/${id}/episodes`)
-      .then((response) => response.json())
-      .then((response) => episodeData[id] = response.data)
-      .then(() => this.setState({ episodes: episodeData }));
-  }
 
   // Fetch comments for one episode
   fetchComments(episode) {
