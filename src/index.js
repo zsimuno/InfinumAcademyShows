@@ -10,8 +10,8 @@ import { EpisodeContainer } from './EpisodeContainer';
 ReactDOM.render((
     <BrowserRouter>
         <div>
-            <Route exact path = "/"                 component = {ShowContainer} />
-            <Route exact path = "/episodes/:showId" component = {EpisodeContainer} />
+            <Route exact path="/" component={ShowContainer} />
+            <Route exact path="/episodes/:showId" component={EpisodeContainer} />
         </div>
     </BrowserRouter>
 ), document.querySelector('.js-app'));
