@@ -31,10 +31,7 @@ export class ShowContainer extends Component {
                   this.setState({ info: inf });
                 });
             }
-          });
-
-        
-      
+          });      
     }
 
 
