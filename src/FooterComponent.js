@@ -28,7 +28,6 @@ const socialLinks = css`
 
 export class FooterComponent extends Component {
     render() {
-        // const {  } = this.props;
         return (
             <div className={container} >
                 <div>
