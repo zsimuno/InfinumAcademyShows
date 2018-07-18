@@ -51,6 +51,7 @@ export class LoginComponent extends Component {
             .then((data) => {
                 console.log(data);
                 localStorage.setItem('token', data.data.token);
+                sessionStorage.setItem('user', this.state.username);
             })
             .catch((error) => console.log(error));
     }

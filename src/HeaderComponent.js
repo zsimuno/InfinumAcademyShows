@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
-import { image } from './style';
+import { image, buttonStyle } from './style';
 
 const container = css`
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     height: 30px;
     margin-bottom: 50px;
 `;
@@ -18,6 +18,15 @@ const login = css`
 
 
 export class HeaderComponent extends Component {
+    constructor(args){
+        super(args);
+
+        this._logout = this._logout.bind(this);
+    }
+
+    _logout(){
+        sessionStorage.clear();
+    }
     render() {
         // const {  } = this.props;
         return (
@@ -30,10 +39,19 @@ export class HeaderComponent extends Component {
 
                 <div></div>
 
-                <div>
-                    <Link to='/login' className={login}>
-                        Login
-                    </Link>
+                <div >
+                    {
+                        sessionStorage.getItem('user') ?
+                        <div className={login}>
+                            Hi, {sessionStorage.getItem('user')}
+                            <button onClick={this._logout} className={buttonStyle}>LOGOUT</button>
+                        </div> 
+                        :
+                        <Link to='/login' className={login}>
+                            Login
+                        </Link> 
+                    }
+                    
                 </div>
             </div>
 
