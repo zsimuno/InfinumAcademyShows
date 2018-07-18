@@ -18,17 +18,7 @@ const login = css`
 
 
 export class HeaderComponent extends Component {
-    constructor(args){
-        super(args);
-
-        this._logout = this._logout.bind(this);
-    }
-
-    _logout(){
-        sessionStorage.clear();
-    }
     render() {
-        // const {  } = this.props;
         return (
             <div className={container}>
                 <div>
