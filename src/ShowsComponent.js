@@ -20,8 +20,6 @@ const link = css`
     text-decoration: none;
 `;
 
-const images = require.context('./images/shows/', true);
-
 export class ShowsComponent extends Component {
     render() {
         const { shows } = this.props;
@@ -31,11 +29,10 @@ export class ShowsComponent extends Component {
                 <div className={container}>
                     {
                         shows.map((show) => {
-                            const imageLink = images(`./${show._id}.jpg`);
                             return (
                                 <div key={show._id}>
                                     <Link to={`/show/${show._id}`} className={link}>
-                                        <img className={image} src={imageLink} alt={show.title} />
+                                        <img className={image} src={require(`./images/shows/${show._id}.jpg`)} alt={show.title} />
                                         <div>{show.title}</div>
                                     </Link>
 
