@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 
-import { EpisodeComponent } from './EpisodeComponent';
+import { ShowDetailsComponent } from './ShowDetailsComponent';
 
-export class EpisodeContainer extends Component {
+export class ShowDetailsContainer extends Component {
     constructor(args) {
         super(args);
 
         this.state = {
             episodes: [],
             errorMessage: null,
+            showInfo: [],
         };
     }
 
@@ -17,7 +18,7 @@ export class EpisodeContainer extends Component {
     componentDidMount() {
         const { showId } = this.props.match.params;
 
-        // Check if show exists with that id
+        // Check if show exists with that id and if it does save information about it
         fetch(`https://api.infinum.academy/api/shows/${showId}`)
             .then((response) => response.json())
             .then((response) => {
@@ -25,7 +26,7 @@ export class EpisodeContainer extends Component {
                 if (response.errors !== undefined) {
                     return Promise.reject(response.errors[0]);
                 }
-
+                this.setState({ showInfo: response.data });
             })
             .then(() => {
                 // Add episodes of the show that has a specific id
@@ -38,7 +39,7 @@ export class EpisodeContainer extends Component {
     }
 
     render() {
-        return <EpisodeComponent episodes={this.state.episodes} errorMessage={this.state.errorMessage} />
+        return <ShowDetailsComponent episodes={this.state.episodes} errorMessage={this.state.errorMessage} showInfo={this.state.showInfo}/>
 
     }
 }
