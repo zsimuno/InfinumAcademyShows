@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 import { css } from 'emotion';
 import { image } from './style';
 import { Link } from 'react-router-dom';
-import { facebook } from './images/img-logo-horizontal@3x.png';
-
-console.log(facebook);
 
 const container = css`
     display: grid;

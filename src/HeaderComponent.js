@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
-import { image, buttonStyle } from './style';
+import { image } from './style';
 
 const container = css`
     display: grid;
@@ -39,19 +39,10 @@ export class HeaderComponent extends Component {
 
                 <div></div>
 
-                <div >
-                    {
-                        sessionStorage.getItem('user') ?
-                        <div className={login}>
-                            Hi, {sessionStorage.getItem('user')}
-                            <button onClick={this._logout} className={buttonStyle}>LOGOUT</button>
-                        </div> 
-                        :
-                        <Link to='/login' className={login}>
-                            Login
-                        </Link> 
-                    }
-                    
+                <div>
+                    <Link to='/login' className={login}>
+                        Login
+                    </Link>                     
                 </div>
             </div>
 
