@@ -10,8 +10,8 @@ const container = css`
 `;
 
 const image = css`
-    width: 100px;
-    height: 125px;
+    width: 150px;
+    height: 200px;
 `;
 
 const link = css`

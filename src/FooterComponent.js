@@ -19,12 +19,6 @@ const information = css`
     align-items: center;
 `;
 
-const socialLinks = css`
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: end;
-`;
-
 
 export class FooterComponent extends Component {
     render() {
@@ -45,12 +39,10 @@ export class FooterComponent extends Component {
                 <div>
                     &copy;2018 Shows. All right reserved Aditional terms and conditions may apply.
                 </div>
-                <div className={socialLinks}>
-                    <div>
+                <div>
                         <img className={image} src={require('./images/ic-facebook@3x.png')} alt="Facebook" />
                         <img className={image} src={require('./images/ic-linkedin@3x.png')} alt="LinkedIn" />
                         <img className={image} src={require('./images/ic-twitter@3x.png')} alt="Twitter" />
-                    </div>
                 </div>
             </div>
 

@@ -39,7 +39,7 @@ export class HeaderComponent extends Component {
 
                 <div></div>
 
-                <div>
+                <div className={login}>
                     <Link to='/login' className={login}>
                         Login
                     </Link>                     
