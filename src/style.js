@@ -25,7 +25,7 @@ export const customInput = css`
     margin-top: 15px;
     `;
 
-export const input = css`
+export const inputLabel = css`
     font-size: 30px;
     
 `;

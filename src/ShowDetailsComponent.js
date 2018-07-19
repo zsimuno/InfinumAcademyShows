@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { css } from 'emotion';
 
-const topContainer = css`
-
-`;
 
 export class ShowDetailsComponent extends Component {
     render() {
         const { episodes, errorMessage, showInfo } = this.props;
         return (
-            <div className={topContainer}>
+            <div>
                 {
                     errorMessage !== null ?
                         <h2>{errorMessage}</h2>

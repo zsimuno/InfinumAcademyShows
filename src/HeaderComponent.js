@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { css } from 'emotion';
 import { Link } from 'react-router-dom';
-import { image } from './style';
+
+import { css } from 'emotion';
+import { image, buttonStyle } from './style';
+
+import showLogo from './images/img-logo-horizontal@3x.png';
 
 const container = css`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    height: 30px;
+    grid-template-columns: 1fr 1fr;
+    height: 40px;
     margin-bottom: 50px;
 `;
 
@@ -18,21 +21,39 @@ const login = css`
 
 
 export class HeaderComponent extends Component {
+    constructor(args){
+        super(args);
+
+        this._logout = this._logout.bind(this);
+    }
+
+    _logout(){
+        sessionStorage.clear();
+    }
+
     render() {
         return (
             <div className={container}>
                 <div>
                     <Link to='/'>
-                        <img className={image} src={require('./images/img-logo-horizontal@3x.png')} alt="shows" />
+                        <img className={image} src={showLogo} alt="shows" />
                     </Link>
                 </div>
 
-                <div></div>
-
                 <div className={login}>
-                    <Link to='/login' className={login}>
-                        Login
-                    </Link>                     
+                    {
+                        sessionStorage.getItem('user') ?
+                        <div className={login}>
+                            Hi, {sessionStorage.getItem('user')} 
+                            <Link to='/'>
+                                <button onClick={this._logout} className={buttonStyle}>LOGOUT</button>
+                            </Link>
+                        </div> 
+                        :
+                        <Link to='/login' className={login}>
+                            Login
+                        </Link> 
+                    }
                 </div>
             </div>
 
