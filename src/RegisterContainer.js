@@ -52,9 +52,9 @@ export class RegisterContainer extends Component {
         this.setState({ password: event.target.value });
     }
 
-    _showHidePassword() {
-        const x = document.getElementById("password");
-        x.type = (x.type === "password") ? "text" : "password";
+    _showHidePassword(){
+        const passInput = document.getElementById("password");
+        passInput.type = (passInput.type === "password") ? "text" : "password";
     }
 
     render() {

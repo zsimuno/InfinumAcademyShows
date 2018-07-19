@@ -46,7 +46,6 @@ export class LoginContainer extends Component {
             .then((data) => {
                 console.log(data);
                 localStorage.setItem('token', data.data.token);
-                sessionStorage.setItem('user', this.state.username.split('@')[0]);
             })
             .catch((error) => console.log(error));
     }
@@ -60,8 +59,8 @@ export class LoginContainer extends Component {
     }
 
     _showHidePassword(){
-        const x = document.getElementById("password");
-        x.type = (x.type === "password") ? "text" : "password";
+        const passInput = document.getElementById("password");
+        passInput.type = (passInput.type === "password") ? "text" : "password";
     }
 
 
@@ -86,9 +85,7 @@ export class LoginContainer extends Component {
                 </div>
 
                 <div>
-                    <Link to='/'>
                         <button onClick={this._login} className={buttonStyle}>LOGIN</button>
-                    </Link>
                 </div>
                 
                 <div>
