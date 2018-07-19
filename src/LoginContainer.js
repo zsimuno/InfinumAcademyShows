@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import { css } from 'emotion';
 import { buttonStyle, customInput, inputLabel, showHidePassword } from './style';
 
-import eyeImage from './images/ic-akcije-show-password-red@3x.png';
-
-
 const container = css`
     display: grid;
     grid-template-rows: repeat(5, 1fr);
@@ -76,7 +73,7 @@ export class LoginContainer extends Component {
                 <div >
                     <label htmlFor="password" className={inputLabel}>and my password is </label> <br />
                     <input className={customInput} type="password" id="password" value={this.state.password} onChange={this._handlePasswordChange} />
-                    <img className={showHidePassword} src={eyeImage} alt="S/H" onClick={this._showHidePassword} />
+                    <img className={showHidePassword} src={'/images/ic-akcije-show-password-red@3x.png'} alt="S/H" onClick={this._showHidePassword} />
                 </div>
 
                 <div>

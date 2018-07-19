@@ -14,7 +14,6 @@ import { css } from 'emotion';
 
 const body = css`
     font-family: Sans-serif;
-    height:100%;
     width: 80%;
     margin-left: 10%;
     color: #505050;

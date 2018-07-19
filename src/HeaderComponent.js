@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { css } from 'emotion';
 import { image } from './style';
 
-import showLogo from './images/img-logo-horizontal@3x.png';
-
 const container = css`
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -26,7 +24,7 @@ export class HeaderComponent extends Component {
             <div className={container}>
                 <div>
                     <Link to='/'>
-                        <img className={image} src={showLogo} alt="shows" />
+                        <img className={image} src={`/images/img-logo-horizontal@3x.png`} alt="shows" />
                     </Link>
                 </div>
 

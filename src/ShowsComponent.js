@@ -31,7 +31,7 @@ export class ShowsComponent extends Component {
                         shows.map((show) => (
                             <div key={show._id} >
                                 <Link to={`/show/${show._id}`} className={link}>
-                                    <img className={image} src={require(`./images/shows/${show._id}.jpg`)} alt={show.title} />
+                                    <img className={image} src={`/images/shows/${show._id}.jpg`} alt={show.title} />
                                     <div>{show.title}</div>
                                 </Link>
 
