@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import { ShowDetailsComponent } from '../components/ShowDetailsComponent';
 
+import { observer } from 'mobx-react';
+
+@observer
 export class ShowDetailsContainer extends Component {
     constructor(args) {
         super(args);

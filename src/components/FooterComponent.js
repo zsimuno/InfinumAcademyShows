@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
+import { LineComponent } from './LineComponent';
 
 import { css } from 'emotion';
 import { image } from '../style';
@@ -32,45 +34,48 @@ const socialLinks = css`
     justify-self: end;
 `;
 
-
+@observer
 export class FooterComponent extends Component {
     render() {
         return (
-            <div className={container} >
-                <div>
-                    <img
-                        className={image}
-                        src={showsLogo}
-                        alt="shows"
-                    />
-                </div>
-
-                <div className={information}>
-                    <div>About <br /> us</div>
-                    <div>Privacy <br />  policy</div>
-                    <div>Terms of <br />  service</div>
-                </div>
-
-                <div className={footerBottom}>
+            <div>
+                <LineComponent widthToEnd={true} />
+                <div className={container} >
                     <div>
-                        &copy;2018 Shows. All right reserved Aditional terms and conditions may apply.
+                        <img
+                            className={image}
+                            src={showsLogo}
+                            alt="shows"
+                        />
                     </div>
-                    <div className={socialLinks}>
-                        <img
-                            className={image}
-                            src={facebookLogo}
-                            alt="Facebook"
-                        />
-                        <img
-                            className={image}
-                            src={twitterLogo}
-                            alt="Twitter"
-                        />
-                        <img
-                            className={image}
-                            src={linkedInLogo}
-                            alt="LinkedIn"
-                        />
+
+                    <div className={information}>
+                        <div>About <br /> us</div>
+                        <div>Privacy <br />  policy</div>
+                        <div>Terms of <br />  service</div>
+                    </div>
+
+                    <div className={footerBottom}>
+                        <div>
+                            &copy;2018 Shows. All right reserved Aditional terms and conditions may apply.
+                        </div>
+                        <div className={socialLinks}>
+                            <img
+                                className={image}
+                                src={facebookLogo}
+                                alt="Facebook"
+                            />
+                            <img
+                                className={image}
+                                src={twitterLogo}
+                                alt="Twitter"
+                            />
+                            <img
+                                className={image}
+                                src={linkedInLogo}
+                                alt="LinkedIn"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
+import { HeaderComponent } from '../components/HeaderComponent';
+import { FooterComponent } from '../components/FooterComponent';
 
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
@@ -20,11 +23,13 @@ const link = css`
     text-decoration: none;
 `;
 
+@observer
 export class ShowsComponent extends Component {
     render() {
         const { shows } = this.props;
         return (
             <div>
+                <HeaderComponent />
                 <h3>All shows:</h3>
                 <div className={container}>
                     {
@@ -45,6 +50,7 @@ export class ShowsComponent extends Component {
                         )
                     }
                 </div>
+                <FooterComponent />
             </div>
         )
     }

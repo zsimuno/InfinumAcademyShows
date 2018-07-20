@@ -26,3 +26,7 @@ export const showHidePassword = css`
     z-index: 2;
     height: 20px;
 `;
+
+export const pinkText = css`
+    color: #FF7CAA;
+`;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import { css } from 'emotion';
 import { ButtonComponent } from '../components/ButtonComponent';
 
@@ -14,6 +15,8 @@ const container = css`
     
 `;
 
+
+@observer
 export class RegisterContainer extends Component {
     constructor(args) {
         super(args);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ButtonComponent } from '../components/ButtonComponent';
+import { observer } from 'mobx-react';
 
 import { css } from 'emotion';
 import { customInput, inputLabel, showHidePassword } from '../style';
@@ -18,6 +19,7 @@ const link = css`
     text-decoration: none;
 `;
 
+@observer
 export class LoginContainer extends Component {
     constructor(args) {
         super(args);

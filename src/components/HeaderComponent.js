@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { LineComponent } from './LineComponent';
+
 
 import { css } from 'emotion';
 import { image } from '../style';
@@ -21,24 +24,28 @@ const login = css`
     `;
 
 
+@observer
 export class HeaderComponent extends Component {
     render() {
         return (
-            <div className={container}>
-                <div>
-                    <Link to='/'>
-                        <img
-                            className={image}
-                            src={showsLogo}
-                            alt="shows" />
-                    </Link>
-                </div>
-
-                <div className={login}>
-                    <Link to='/login' className={login}>
-                        Login
+            <div>
+                <div className={container}>
+                    <div>
+                        <Link to='/'>
+                            <img
+                                className={image}
+                                src={showsLogo}
+                                alt="shows" />
                         </Link>
+                    </div>
+
+                    <div className={login}>
+                        <Link to='/login' className={login}>
+                            Login
+                            </Link>
+                    </div>
                 </div>
+                <LineComponent widthToEnd={true} />
             </div>
 
         )
