@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { css } from 'emotion';
-import { image } from './style';
+import { image } from '../style';
+
+import showsLogo from '../images/img-logo-horizontal@3x.png';
+
 
 const container = css`
     display: grid;
@@ -24,14 +27,17 @@ export class HeaderComponent extends Component {
             <div className={container}>
                 <div>
                     <Link to='/'>
-                        <img className={image} src={`/images/img-logo-horizontal@3x.png`} alt="shows" />
+                        <img
+                            className={image}
+                            src={showsLogo}
+                            alt="shows" />
                     </Link>
                 </div>
 
                 <div className={login}>
-                        <Link to='/login' className={login}>
-                            Login
-                        </Link> 
+                    <Link to='/login' className={login}>
+                        Login
+                        </Link>
                 </div>
             </div>
 

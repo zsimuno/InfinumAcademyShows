@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import { ShowsContainer } from './ShowsContainer';
-import { ShowDetailsContainer } from './ShowDetailsContainer';
-import { HeaderComponent } from './HeaderComponent';
-import { FooterComponent } from './FooterComponent';
-import { LoginContainer } from './LoginContainer';
-import { RegisterContainer } from './RegisterContainer';
+import { ShowsContainer } from './containers/ShowsContainer';
+import { ShowDetailsContainer } from './containers/ShowDetailsContainer';
+import { HeaderComponent } from './components/HeaderComponent';
+import { FooterComponent } from './components/FooterComponent';
+import { LoginContainer } from './containers/LoginContainer';
+import { RegisterContainer } from './containers/RegisterContainer';
 
 import { css } from 'emotion';
 
@@ -23,12 +23,12 @@ const body = css`
 ReactDOM.render((
     <BrowserRouter>
         <div className={body}>
-            <Route path="/" component={HeaderComponent} />
+            <HeaderComponent />
             <Route exact path="/" component={ShowsContainer} />
             <Route exact path="/show/:showId" component={ShowDetailsContainer} />
             <Route exact path="/login" component={LoginContainer} />
             <Route exact path="/register" component={RegisterContainer} />
-            <Route path="/" component={FooterComponent} />
+            <FooterComponent />
         </div>
     </BrowserRouter>
 ), document.querySelector('.js-app'));

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { ShowDetailsComponent } from './ShowDetailsComponent';
+import { ShowDetailsComponent } from '../components/ShowDetailsComponent';
 
 export class ShowDetailsContainer extends Component {
     constructor(args) {

@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 
 import { css } from 'emotion';
-import { image } from './style';
+import { image } from '../style';
+
+import showsLogo from '../images/img-logo-horizontal@3x.png';
+import facebookLogo from '../images/ic-facebook@3x.png';
+import twitterLogo from '../images/ic-twitter@3x.png';
+import linkedInLogo from '../images/ic-linkedin@3x.png';
 
 const container = css`
     margin-top: 30px;
@@ -21,7 +26,7 @@ const information = css`
 const footerBottom = css`
     display: grid;
     grid-template-columns: 1fr 1fr;
-`; 
+`;
 
 const socialLinks = css`
     justify-self: end;
@@ -33,7 +38,11 @@ export class FooterComponent extends Component {
         return (
             <div className={container} >
                 <div>
-                    <img className={image} src={'/images/img-logo-horizontal@3x.png'} alt="shows" />
+                    <img
+                        className={image}
+                        src={showsLogo}
+                        alt="shows"
+                    />
                 </div>
 
                 <div className={information}>
@@ -47,9 +56,21 @@ export class FooterComponent extends Component {
                         &copy;2018 Shows. All right reserved Aditional terms and conditions may apply.
                     </div>
                     <div className={socialLinks}>
-                        <img className={image} src={'/images/ic-facebook@3x.png'} alt="Facebook" />
-                        <img className={image} src={'/images/ic-twitter@3x.png'} alt="Twitter" />
-                        <img className={image} src={'/images/ic-linkedin@3x.png'} alt="LinkedIn" />
+                        <img
+                            className={image}
+                            src={facebookLogo}
+                            alt="Facebook"
+                        />
+                        <img
+                            className={image}
+                            src={twitterLogo}
+                            alt="Twitter"
+                        />
+                        <img
+                            className={image}
+                            src={linkedInLogo}
+                            alt="LinkedIn"
+                        />
                     </div>
                 </div>
             </div>

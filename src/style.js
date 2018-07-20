@@ -5,17 +5,6 @@ export const image = css`
     max-height:100%;
 `;
 
-export const buttonStyle = css`
-    background-color: #FF7CAA;
-    color: white;
-    border: none;
-    align-self: start;
-    justify-self: start;
-    padding: 10px;
-    width: 150px; 
-    border-radius: 8px;
-`;
-
 export const customInput = css`
     border: none;
     outline: none;
