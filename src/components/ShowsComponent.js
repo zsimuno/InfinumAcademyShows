@@ -15,7 +15,7 @@ const container = css`
 
 const image = css`
     width: 150px;
-    height: 200px;
+    height: 225px;
 `;
 
 const link = css`

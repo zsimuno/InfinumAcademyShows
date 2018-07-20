@@ -6,6 +6,8 @@ import { ButtonComponent } from '../components/ButtonComponent';
 import { customInput, inputLabel, showHidePassword } from '../style';
 
 import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
+import { HeaderComponent } from '../components/HeaderComponent';
+import { register } from '../services/user';
 
 
 const container = css`
@@ -33,20 +35,8 @@ export class RegisterContainer extends Component {
     }
 
     _register() {
-        fetch('https://api.infinum.academy/api/users/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: this.state.username,
-                password: this.state.password
-            })
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-            })
+        register(this.state, this.state.username, this.state.password)
+            .then((data) => console.log(data))
             .catch((error) => console.log(error));
     }
 
@@ -65,7 +55,8 @@ export class RegisterContainer extends Component {
     render() {
         return (
             <div className={container}>
-
+                <HeaderComponent hideLine={true} hideLogin={true}/>
+                                
                 <div>
                     <label
                         htmlFor="username"

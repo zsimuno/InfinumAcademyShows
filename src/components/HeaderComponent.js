@@ -27,6 +27,7 @@ const login = css`
 @observer
 export class HeaderComponent extends Component {
     render() {
+        const { hideLogin, hideLine } = this.props;
         return (
             <div>
                 <div className={container}>
@@ -39,13 +40,19 @@ export class HeaderComponent extends Component {
                         </Link>
                     </div>
 
+                    {
+                    !hideLogin 
+                    &&
                     <div className={login}>
                         <Link to='/login' className={login}>
                             Login
                             </Link>
                     </div>
+                    }
                 </div>
-                <LineComponent widthToEnd={true} />
+                {
+                !hideLine && <LineComponent widthToEnd={true} />
+                }
             </div>
 
         )

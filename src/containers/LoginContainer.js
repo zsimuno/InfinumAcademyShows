@@ -7,6 +7,8 @@ import { css } from 'emotion';
 import { customInput, inputLabel, showHidePassword } from '../style';
 
 import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
+import { HeaderComponent } from '../components/HeaderComponent';
+import { login } from '../services/user';
 
 const container = css`
     display: grid;
@@ -36,20 +38,10 @@ export class LoginContainer extends Component {
     }
 
     _login() {
-        fetch('https://api.infinum.academy/api/users/sessions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: this.state.username,
-                password: this.state.password
-            })
-        })
-            .then((response) => response.json())
+            login(this.state, this.state.username, this.state.password)
             .then((data) => {
                 console.log(data);
-                localStorage.setItem('token', data.data.token);
+                localStorage.setItem('token', data.token);
             })
             .catch((error) => console.log(error));
     }
@@ -70,6 +62,7 @@ export class LoginContainer extends Component {
     render() {
         return (
             <div className={container}>
+                <HeaderComponent hideLine={true} hideLogin={true}/>
 
                 <div >
                     <label
@@ -97,6 +90,7 @@ export class LoginContainer extends Component {
                     <input
                         className={customInput}
                         type={this.state.isInputPassword ? "password" : "text"}
+                        id="password"
                         value={this.state.password}
                         onChange={this._handlePasswordChange}
                     />
