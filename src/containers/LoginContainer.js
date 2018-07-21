@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonComponent } from '../components/ButtonComponent';
 import { observer } from 'mobx-react';
+import { login } from '../services/user';
+import state from '../state';
+
+import { ButtonComponent } from '../components/ButtonComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
 
 import { css } from 'emotion';
 import { customInput, inputLabel, showHidePassword } from '../style';
 
 import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
-import { HeaderComponent } from '../components/HeaderComponent';
-import { login } from '../services/user';
+
 
 const container = css`
     display: grid;
@@ -23,46 +26,30 @@ const link = css`
 
 @observer
 export class LoginContainer extends Component {
-    constructor(args) {
-        super(args);
-        this.state = {
-            username: '',
-            password: '',
-            isInputPassword: true,
-        };
-
-        this._handleUsernameChange = this._handleUsernameChange.bind(this);
-        this._handlePasswordChange = this._handlePasswordChange.bind(this);
-        this._login = this._login.bind(this);
-        this._showHidePassword = this._showHidePassword.bind(this);
-    }
-
     _login() {
-            login(this.state, this.state.username, this.state.password)
-            .then((data) => {
-                console.log(data);
-                localStorage.setItem('token', data.token);
-            })
-            .catch((error) => console.log(error));
+        login(state, state.username, state.password)
+        console.log(state.loginData);
+        console.log(state);
+        localStorage.setItem('token', state.loginData.token);
     }
 
     _handleUsernameChange(event) {
-        this.setState({ username: event.target.value });
+        state.username = event.target.value;
     }
 
     _handlePasswordChange(event) {
-        this.setState({ password: event.target.value });
+        state.password = event.target.value;
     }
 
     _showHidePassword() {
-        this.setState({ isInputPassword: !this.state.isInputPassword });
+        state.isInputPassword = !state.isInputPassword;
     }
 
 
     render() {
         return (
             <div className={container}>
-                <HeaderComponent hideLine={true} hideLogin={true}/>
+                <HeaderComponent hideLine={true} hideLogin={true} />
 
                 <div >
                     <label
@@ -75,7 +62,7 @@ export class LoginContainer extends Component {
                         className={customInput}
                         type="text"
                         id="username"
-                        value={this.state.username}
+                        value={state.username}
                         onChange={this._handleUsernameChange}
                     />
                 </div>
@@ -89,9 +76,9 @@ export class LoginContainer extends Component {
                         </label> <br />
                     <input
                         className={customInput}
-                        type={this.state.isInputPassword ? "password" : "text"}
+                        type={state.isInputPassword ? "password" : "text"}
                         id="password"
-                        value={this.state.password}
+                        value={state.password}
                         onChange={this._handlePasswordChange}
                     />
                     <img

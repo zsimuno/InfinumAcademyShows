@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import { HeaderComponent } from '../components/HeaderComponent';
 import { FooterComponent } from '../components/FooterComponent';
 import { LineComponent } from '../components/LineComponent';
 
-import { observer } from 'mobx-react';
+
 import { css } from 'emotion';
 import { pinkText } from '../style.js';
 
@@ -26,6 +27,15 @@ const rightGrid = css`
     grid-template-rows: 1fr 2 fr 1fr;
 `;
 
+const image = css`
+    max-width:100%;
+`;
+
+const showTitle = css`
+    display: inline; 
+    padding-right: 20px;
+`;
+
 
 @observer
 export class ShowDetailsComponent extends Component {
@@ -40,8 +50,17 @@ export class ShowDetailsComponent extends Component {
                         :
                         <div className={container} >
                             <div className={leftGrid}>
-                                <div>
-                                    <h1>{showInfo.title}</h1>
+                                <div className={css`align-self: center;`}>
+                                    <h1
+                                        className={showTitle}
+                                    >
+                                        {showInfo.title}
+                                    </h1>
+                                    {
+                                        showInfo.likesCount !== undefined && 
+                                        <i>(Likes Count: {showInfo.likesCount})</i>
+                                    }
+                                    
                                 </div>
 
                                 <div>
@@ -84,7 +103,13 @@ export class ShowDetailsComponent extends Component {
                             <div className={rightGrid}>
                                 <div></div>
 
-                                <div></div>
+                                <div>
+                                    <img
+                                        className={image}
+                                        src={`/images/shows/${showInfo._id}.jpg`}
+                                        alt={showInfo.title}
+                                    />
+                                </div>
 
                                 <div className={pinkText} >
                                     <br />

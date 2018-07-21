@@ -9,11 +9,11 @@ export async function getAll(state) {
 
 export async function getInfo(state, showId) {
   const showInfo = await get(`shows/${showId}`);
-  state.showInfo.replace(showInfo);
+  state.showInfo = showInfo;
 }
 
 
 export async function getAllEpisodes(state, showId) {
-  const episodes = await get(`shows/${showId}/episodes`);
-  state.episodes.replace(episodes);
+  const allEpisodes = await get(`shows/${showId}/episodes`);
+  state.episodes.replace(allEpisodes);
 }

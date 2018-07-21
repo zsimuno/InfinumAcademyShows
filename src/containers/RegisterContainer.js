@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css } from 'emotion';
+import { register } from '../services/user';
+import state from '../state';
+
 import { ButtonComponent } from '../components/ButtonComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
 
 import { customInput, inputLabel, showHidePassword } from '../style';
 
 import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
-import { HeaderComponent } from '../components/HeaderComponent';
-import { register } from '../services/user';
+
 
 
 const container = css`
@@ -20,36 +23,21 @@ const container = css`
 
 @observer
 export class RegisterContainer extends Component {
-    constructor(args) {
-        super(args);
-        this.state = {
-            username: '',
-            password: '',
-            isInputPassword: true,
-        };
-
-        this._handleUsernameChange = this._handleUsernameChange.bind(this);
-        this._handlePasswordChange = this._handlePasswordChange.bind(this);
-        this._register = this._register.bind(this);
-        this._showHidePassword = this._showHidePassword.bind(this);
-    }
 
     _register() {
-        register(this.state, this.state.username, this.state.password)
-            .then((data) => console.log(data))
-            .catch((error) => console.log(error));
+        register(state, state.username, state.password)
     }
 
     _handleUsernameChange(event) {
-        this.setState({ username: event.target.value });
+        state.username = event.target.value;
     }
 
     _handlePasswordChange(event) {
-        this.setState({ password: event.target.value });
+        state.password = event.target.value;
     }
 
     _showHidePassword() {
-        this.setState({ isInputPassword: !this.state.isInputPassword });
+        state.isInputPassword = !state.isInputPassword;
     }
 
     render() {
@@ -68,7 +56,7 @@ export class RegisterContainer extends Component {
                         className={customInput}
                         type="text"
                         id="username"
-                        value={this.state.username}
+                        value={state.username}
                         onChange={this._handleUsernameChange} />
                 </div>
 
@@ -81,9 +69,9 @@ export class RegisterContainer extends Component {
                     </label> <br />
                     <input
                         className={customInput}
-                        type={this.state.isInputPassword ? "password" : "text"}
+                        type={state.isInputPassword ? "password" : "text"}
                         id="password"
-                        value={this.state.password}
+                        value={state.password}
                         onChange={this._handlePasswordChange}
                     />
                     <img

@@ -8,10 +8,6 @@ import { ShowDetailsContainer } from './containers/ShowDetailsContainer';
 import { LoginContainer } from './containers/LoginContainer';
 import { RegisterContainer } from './containers/RegisterContainer';
 
-import { HeaderComponent } from './components/HeaderComponent';
-import { FooterComponent } from './components/FooterComponent';
-import { LineComponent } from './components/LineComponent';
-
 import { css } from 'emotion';
 
 const body = css`
