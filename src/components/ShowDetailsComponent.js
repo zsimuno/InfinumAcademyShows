@@ -66,9 +66,7 @@ export class ShowDetailsComponent extends Component {
                         <div className={container} >
                             <div className={leftGrid}>
                                 <div className={css`align-self: center;`}>
-                                    <h1
-                                        className={showTitle}
-                                    >
+                                    <h1 className={showTitle}>
                                         {showInfo.title}
                                     </h1>
                                     {
@@ -94,7 +92,6 @@ export class ShowDetailsComponent extends Component {
 
                             <div className={rightGrid}>
                                 <div className={css`align-self: end;`}>
-
                                     <span className={emulateButton}>Add Episode</span>
                                     <span className={emulateButton}>Favorite</span>
                                 </div>

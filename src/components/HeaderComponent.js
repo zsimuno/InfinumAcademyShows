@@ -11,8 +11,8 @@ import showsLogo from '../images/img-logo-horizontal@3x.png';
 
 
 const container = css`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: space-between;
     height: 40px;
     margin-bottom: 50px;
 `;

@@ -27,18 +27,18 @@ const link = css`
 @observer
 export class LoginContainer extends Component {
     _login() {
-        login(state, state.username, state.password)
+        login(state, state.loginUsername, state.loginPassword)
         console.log(state.loginData);
         console.log(state);
         localStorage.setItem('token', state.loginData.token);
     }
 
     _handleUsernameChange(event) {
-        state.username = event.target.value;
+        state.loginUsername = event.target.value;
     }
 
     _handlePasswordChange(event) {
-        state.password = event.target.value;
+        state.loginPassword = event.target.value;
     }
 
     _showHidePassword() {
@@ -62,7 +62,7 @@ export class LoginContainer extends Component {
                         className={customInput}
                         type="text"
                         id="username"
-                        value={state.username}
+                        value={state.loginUsername}
                         onChange={this._handleUsernameChange}
                     />
                 </div>
@@ -78,7 +78,7 @@ export class LoginContainer extends Component {
                         className={customInput}
                         type={state.isInputPassword ? "password" : "text"}
                         id="password"
-                        value={state.password}
+                        value={state.loginPassword}
                         onChange={this._handlePasswordChange}
                     />
                     <img

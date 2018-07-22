@@ -25,15 +25,15 @@ const container = css`
 export class RegisterContainer extends Component {
 
     _register() {
-        register(state, state.username, state.password)
+        register(state, state.registerUsername, state.registerPassword)
     }
 
     _handleUsernameChange(event) {
-        state.username = event.target.value;
+        state.registerUsername = event.target.value;
     }
 
     _handlePasswordChange(event) {
-        state.password = event.target.value;
+        state.registerPassword = event.target.value;
     }
 
     _showHidePassword() {
@@ -56,7 +56,7 @@ export class RegisterContainer extends Component {
                         className={customInput}
                         type="text"
                         id="username"
-                        value={state.username}
+                        value={state.registerUsername}
                         onChange={this._handleUsernameChange} />
                 </div>
 
@@ -71,7 +71,7 @@ export class RegisterContainer extends Component {
                         className={customInput}
                         type={state.isInputPassword ? "password" : "text"}
                         id="password"
-                        value={state.password}
+                        value={state.registerPassword}
                         onChange={this._handlePasswordChange}
                     />
                     <img

@@ -26,10 +26,16 @@ class State {
   errorMessage = null;
 
   @observable
-  username = '';
+  loginUsername = '';
 
   @observable
-  password = '';
+  loginPassword = '';
+
+  @observable
+  registerUsername = '';
+
+  @observable
+  registerPassword = '';
 
   @observable
   isInputPassword = true;
