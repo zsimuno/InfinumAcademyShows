@@ -11,8 +11,6 @@ import { customInput, inputLabel, showHidePassword } from '../style';
 
 import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
 
-
-
 const container = css`
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
@@ -20,39 +18,39 @@ const container = css`
     
 `;
 
-const state = {
-    @observable
-    username: '',
-  
-    @observable
-    password: '',
-
-    @observable
-    isInputPassword: true,
-
-    @observable
-    registerData: {},
-};
-
-
-
 @observer
 export class RegisterContainer extends Component {
+    constructor(args) {
+        super(args);
+
+        this._handleUsernameChange = this._handleUsernameChange.bind(this);
+        this._handlePasswordChange = this._handlePasswordChange.bind(this);
+        this._register = this._register.bind(this);
+        this._showHidePassword = this._showHidePassword.bind(this);
+    }
+
+    @observable
+    componentState = {
+        username: '',
+        password: '',
+        isInputPassword: true,
+        registerData: {},
+    };
 
     _register() {
-        register(state, state.username, state.password)
+        register(this.componentState, this.componentState.username, this.componentState.password)
     }
 
     _handleUsernameChange(event) {
-        state.username = event.target.value;
+        this.componentState.username = event.target.value;
     }
 
     _handlePasswordChange(event) {
-        state.password = event.target.value;
+        this.componentState.password = event.target.value;
     }
 
     _showHidePassword() {
-        state.isInputPassword = !state.isInputPassword;
+        this.componentState.isInputPassword = !this.componentState.isInputPassword;
     }
 
     render() {
@@ -71,7 +69,7 @@ export class RegisterContainer extends Component {
                         className={customInput}
                         type="text"
                         id="username"
-                        value={state.username}
+                        value={this.componentState.username}
                         onChange={this._handleUsernameChange} />
                 </div>
 
@@ -84,9 +82,9 @@ export class RegisterContainer extends Component {
                     </label> <br />
                     <input
                         className={customInput}
-                        type={state.isInputPassword ? "password" : "text"}
+                        type={this.componentState.isInputPassword ? "password" : "text"}
                         id="password"
-                        value={state.password}
+                        value={this.componentState.password}
                         onChange={this._handlePasswordChange}
                     />
                     <img

@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
+import state from '../state';
 
 import { ShowDetailsComponent } from '../components/ShowDetailsComponent';
 
-import { getInfo as getShowInfo, getAllEpisodes } from '../services/show';
-
-
-const state = {
-    @observable
-    showInfo: {},
-
-    @observable
-    episodes: [],
-
-    @observable
-    errorMessage: null,
-};
+import { getInfo as getShowInfo, getAllEpisodes as getAllShowEpisodes} from '../services/show';
 
 @observer
 export class ShowDetailsContainer extends Component {
@@ -24,10 +12,7 @@ export class ShowDetailsContainer extends Component {
         const { showId } = this.props.match.params;
 
         getShowInfo(state, showId);
-        getAllEpisodes(state, showId);
-
-        console.log(state);
-
+        getAllShowEpisodes(state, showId);
     }
 
     render() {
