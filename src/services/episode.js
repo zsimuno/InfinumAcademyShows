@@ -1,8 +1,8 @@
 import { get } from './api';
 
-export async function getInfo(state, episodeId){
+export async function getInfo(episodeId){
     const episodeInfo = await get(`episodes/${episodeId}`)
-    state.episodeInfo.replace(episodeInfo);
+    return episodeInfo;
 }
 
 export async function getComments(state, episodeId){

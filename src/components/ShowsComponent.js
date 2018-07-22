@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { HeaderComponent } from '../components/HeaderComponent';
-import { FooterComponent } from '../components/FooterComponent';
+import { HeaderComponent } from './HeaderComponent';
+import { FooterComponent } from './FooterComponent';
 
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';

@@ -1,4 +1,5 @@
 import { get } from './api';
+import { getInfo as getEpisodeInfo } from './episode.js';
 
 export async function getAll(state) {
   state.loadingStates.shows = true;
@@ -15,5 +16,8 @@ export async function getInfo(state, showId) {
 
 export async function getAllEpisodes(state, showId) {
   const allEpisodes = await get(`shows/${showId}/episodes`);
-  state.episodes.replace(allEpisodes);
+  state.episodes.replace([]);
+  allEpisodes.forEach((episode) => {
+    getEpisodeInfo(episode._id).then((res) => state.episodes.push(res));
+  });
 }

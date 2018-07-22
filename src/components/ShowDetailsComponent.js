@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { HeaderComponent } from '../components/HeaderComponent';
-import { FooterComponent } from '../components/FooterComponent';
-import { LineComponent } from '../components/LineComponent';
+import { Link } from 'react-router-dom';
+import { HeaderComponent } from './HeaderComponent';
+import { FooterComponent } from './FooterComponent';
+import { LineComponent } from './LineComponent';
+import { AllEpisodesComponent } from './AllEpisodesComponent';
 
 
 import { css } from 'emotion';
-import { pinkText } from '../style.js';
+import { pinkText, emulateButton } from '../style.js';
+import { plusImage } from '../images/ic-add@3x.png';
 
 
 const container = css`
     display: grid;
     grid-template-columns: 4fr 1fr;
     grid-gap: 20px;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 `;
 
@@ -36,6 +39,17 @@ const showTitle = css`
     padding-right: 20px;
 `;
 
+const leftArrow = css`
+    border: solid #FF7CAA;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+`;
+
+
 
 @observer
 export class ShowDetailsComponent extends Component {
@@ -44,6 +58,10 @@ export class ShowDetailsComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
+                <Link to='/' className={emulateButton}>
+                    <span className={leftArrow}></span>
+                </Link>
+
                 {
                     errorMessage !== null ?
                         <h2>{errorMessage}</h2>
@@ -57,10 +75,10 @@ export class ShowDetailsComponent extends Component {
                                         {showInfo.title}
                                     </h1>
                                     {
-                                        showInfo.likesCount !== undefined && 
+                                        showInfo.likesCount !== undefined &&
                                         <i>(Likes Count: {showInfo.likesCount})</i>
                                     }
-                                    
+
                                 </div>
 
                                 <div>
@@ -73,35 +91,16 @@ export class ShowDetailsComponent extends Component {
                                 </div>
 
                                 <div>
-                                    {
-                                        episodes.length === 0 ?
-                                            <h2>No episodes available</h2>
-                                            :
-                                            <div>
-                                                <div className={pinkText}>SEASONS AND EPISODES:</div>
-                                                <LineComponent />
-                                                {
-                                                    episodes.map((episode) => (
-                                                        <div key={episode._id}>
-                                                            <h3>{episode.title}</h3>
-                                                            <div key={episode.title}>
-                                                                {
-                                                                    episode.description.length === 0 ?
-                                                                        <p>No description available</p>
-                                                                        :
-                                                                        <p>{episode.description}</p>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    ))
-                                                }
-                                            </div>
-                                    }
+                                    <AllEpisodesComponent episodes={episodes} />
                                 </div>
                             </div>
 
                             <div className={rightGrid}>
-                                <div></div>
+                                <div className={css`align-self: end;`}>
+                                
+                                    <span className={emulateButton}>Add Episode</span>
+                                    <span className={emulateButton}>Favorite</span>
+                                </div>
 
                                 <div>
                                     <img
