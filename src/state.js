@@ -5,15 +5,15 @@ class State {
   @observable
   shows = [];
 
-  @observable 
+  @observable
   showInfo = {};
 
-  @observable 
+  @observable
   loadingStates = {
     shows: false,
   };
 
-  @observable 
+  @observable
   episodes = [];
 
   @observable
@@ -22,22 +22,22 @@ class State {
   @observable
   episodeComments = [];
 
-  @observable 
+  @observable
   errorMessage = null;
 
-  @observable 
+  @observable
   username = '';
 
-  @observable 
+  @observable
   password = '';
 
-  @observable 
+  @observable
   isInputPassword = true;
 
-  @observable 
+  @observable
   loginData = {};
 
-  @observable 
+  @observable
   registerData = {};
 }
 

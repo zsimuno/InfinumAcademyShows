@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { css } from 'emotion';
 
 @observer
-export class LineComponent extends Component{
+export class LineComponent extends Component {
     render() {
         const { widthToEnd } = this.props;
         const line = css`

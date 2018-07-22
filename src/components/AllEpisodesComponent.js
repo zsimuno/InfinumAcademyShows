@@ -17,7 +17,7 @@ const episodeContainer = css`
 `;
 
 @observer
-export class AllEpisodesComponent extends Component{
+export class AllEpisodesComponent extends Component {
     render() {
         const { episodes } = this.props;
         return (
@@ -29,12 +29,12 @@ export class AllEpisodesComponent extends Component{
                     <LineComponent />
                     {
                         episodes.map((episode) => (
-                            <div key={episode._id}  className={episodeContainer}>
+                            <div key={episode._id} className={episodeContainer}>
                                 <div>
                                     <span className={pinkText}> S{episode.season} Ep{episode.episodeNumber} </span>
                                     <span className={episodeTitle}>{episode.title}</span>
                                 </div>
-                                
+
                                 <div key={episode.title}>
                                     {
                                         episode.description.length === 0 ?

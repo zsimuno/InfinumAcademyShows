@@ -41,17 +41,17 @@ export class HeaderComponent extends Component {
                     </div>
 
                     {
-                    !hideLogin 
-                    &&
-                    <div className={login}>
-                        <Link to='/login' className={login}>
-                            Login
+                        !hideLogin
+                        &&
+                        <div className={login}>
+                            <Link to='/login' className={login}>
+                                Login
                             </Link>
-                    </div>
+                        </div>
                     }
                 </div>
                 {
-                !hideLine && <LineComponent widthToEnd={true} />
+                    !hideLine && <LineComponent widthToEnd={true} />
                 }
             </div>
 

@@ -6,11 +6,8 @@ import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
 import { AllEpisodesComponent } from './AllEpisodesComponent';
 
-
 import { css } from 'emotion';
 import { pinkText, emulateButton } from '../style.js';
-import { plusImage } from '../images/ic-add@3x.png';
-
 
 const container = css`
     display: grid;
@@ -58,7 +55,7 @@ export class ShowDetailsComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                <Link to='/' className={emulateButton}>
+                <Link to='/' className={css`${emulateButton} border-radius: 50%;`}>
                     <span className={leftArrow}></span>
                 </Link>
 
@@ -97,7 +94,7 @@ export class ShowDetailsComponent extends Component {
 
                             <div className={rightGrid}>
                                 <div className={css`align-self: end;`}>
-                                
+
                                     <span className={emulateButton}>Add Episode</span>
                                     <span className={emulateButton}>Favorite</span>
                                 </div>
