@@ -105,7 +105,6 @@ export class ShowDetailsComponent extends Component {
                                 </div>
 
                                 <div className={pinkText} >
-                                    <br />
                                     <LineComponent /> <br />
                                     Official Website <br />
                                     Wikipedia <br />

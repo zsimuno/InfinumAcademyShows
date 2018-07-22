@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 import { login } from '../services/user';
-import state from '../state';
 
 import { ButtonComponent } from '../components/ButtonComponent';
 import { HeaderComponent } from '../components/HeaderComponent';
@@ -24,21 +24,35 @@ const link = css`
     text-decoration: none;
 `;
 
+const state = {
+    @observable
+    username: '',
+  
+    @observable
+    password: '',
+
+    @observable
+    isInputPassword: true,
+
+    @observable
+    loginData: {},
+};
+
 @observer
 export class LoginContainer extends Component {
     _login() {
-        login(state, state.loginUsername, state.loginPassword)
+        login(state, state.username, state.password)
         console.log(state.loginData);
         console.log(state);
         localStorage.setItem('token', state.loginData.token);
     }
 
     _handleUsernameChange(event) {
-        state.loginUsername = event.target.value;
+        state.username = event.target.value;
     }
 
     _handlePasswordChange(event) {
-        state.loginPassword = event.target.value;
+        state.password = event.target.value;
     }
 
     _showHidePassword() {
@@ -62,7 +76,7 @@ export class LoginContainer extends Component {
                         className={customInput}
                         type="text"
                         id="username"
-                        value={state.loginUsername}
+                        value={state.username}
                         onChange={this._handleUsernameChange}
                     />
                 </div>
@@ -78,7 +92,7 @@ export class LoginContainer extends Component {
                         className={customInput}
                         type={state.isInputPassword ? "password" : "text"}
                         id="password"
-                        value={state.loginPassword}
+                        value={state.password}
                         onChange={this._handlePasswordChange}
                     />
                     <img

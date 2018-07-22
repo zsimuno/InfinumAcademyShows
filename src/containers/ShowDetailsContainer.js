@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import state from '../state';
+import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 
 import { ShowDetailsComponent } from '../components/ShowDetailsComponent';
 
-import { observer } from 'mobx-react';
 import { getInfo as getShowInfo, getAllEpisodes } from '../services/show';
 
+
+const state = {
+    @observable
+    showInfo: {},
+
+    @observable
+    episodes: [],
+
+    @observable
+    errorMessage: null,
+};
 
 @observer
 export class ShowDetailsContainer extends Component {
@@ -14,6 +25,8 @@ export class ShowDetailsContainer extends Component {
 
         getShowInfo(state, showId);
         getAllEpisodes(state, showId);
+
+        console.log(state);
 
     }
 

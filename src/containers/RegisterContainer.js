@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 import { css } from 'emotion';
 import { register } from '../services/user';
-import state from '../state';
 
 import { ButtonComponent } from '../components/ButtonComponent';
 import { HeaderComponent } from '../components/HeaderComponent';
@@ -20,20 +20,35 @@ const container = css`
     
 `;
 
+const state = {
+    @observable
+    username: '',
+  
+    @observable
+    password: '',
+
+    @observable
+    isInputPassword: true,
+
+    @observable
+    registerData: {},
+};
+
+
 
 @observer
 export class RegisterContainer extends Component {
 
     _register() {
-        register(state, state.registerUsername, state.registerPassword)
+        register(state, state.username, state.password)
     }
 
     _handleUsernameChange(event) {
-        state.registerUsername = event.target.value;
+        state.username = event.target.value;
     }
 
     _handlePasswordChange(event) {
-        state.registerPassword = event.target.value;
+        state.password = event.target.value;
     }
 
     _showHidePassword() {
@@ -56,7 +71,7 @@ export class RegisterContainer extends Component {
                         className={customInput}
                         type="text"
                         id="username"
-                        value={state.registerUsername}
+                        value={state.username}
                         onChange={this._handleUsernameChange} />
                 </div>
 
@@ -71,7 +86,7 @@ export class RegisterContainer extends Component {
                         className={customInput}
                         type={state.isInputPassword ? "password" : "text"}
                         id="password"
-                        value={state.registerPassword}
+                        value={state.password}
                         onChange={this._handlePasswordChange}
                     />
                     <img

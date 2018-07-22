@@ -2,10 +2,8 @@ import { get } from './api';
 import { getInfo as getEpisodeInfo } from './episode.js';
 
 export async function getAll(state) {
-  state.loadingStates.shows = true;
   const shows = await get('shows');
   state.shows.replace(shows);
-  state.loadingStates.shows = false;
 }
 
 export async function getInfo(state, showId) {
