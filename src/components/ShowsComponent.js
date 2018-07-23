@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
+import { HeaderComponent } from './HeaderComponent';
+import { FooterComponent } from './FooterComponent';
 
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
@@ -11,8 +14,8 @@ const container = css`
 `;
 
 const image = css`
-    width: 150px;
-    height: 200px;
+    width: 200px;
+    height: 300px;
 `;
 
 const link = css`
@@ -20,11 +23,13 @@ const link = css`
     text-decoration: none;
 `;
 
+@observer
 export class ShowsComponent extends Component {
     render() {
         const { shows } = this.props;
         return (
             <div>
+                <HeaderComponent />
                 <h3>All shows:</h3>
                 <div className={container}>
                     {
@@ -45,6 +50,7 @@ export class ShowsComponent extends Component {
                         )
                     }
                 </div>
+                <FooterComponent />
             </div>
         )
     }

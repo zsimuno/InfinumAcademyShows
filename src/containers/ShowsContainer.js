@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
+import { getAll as getAllShows } from '../services/show';
 
 import { ShowsComponent } from '../components/ShowsComponent';
 
-export class ShowsContainer extends Component {
-  constructor(args) {
-    super(args);
+import state from '../state';
 
-    this.state = {
-      shows: [],
-    };
-  }
+@observer
+export class ShowsContainer extends Component {
 
   componentDidMount() {
-    fetch('https://api.infinum.academy/api/shows')
-      .then((data) => data.json())
-      .then((response) => this.setState({ shows: response.data }));
+    getAllShows(state);
   }
 
 
   render() {
-    return <ShowsComponent shows={this.state.shows} />
+    return <ShowsComponent shows={state.shows} />
   }
 }

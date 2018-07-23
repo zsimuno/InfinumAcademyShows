@@ -1,52 +1,125 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
+import { HeaderComponent } from './HeaderComponent';
+import { FooterComponent } from './FooterComponent';
+import { LineComponent } from './LineComponent';
+import { EpisodesListComponent } from './EpisodesListComponent';
+
+import { css } from 'emotion';
+import { pinkText, emulateButton } from '../style.js';
+
+const container = css`
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-gap: 20px;
+    width: 90%;
+    margin: 0 auto;
+`;
+
+const leftGrid = css`
+    display: grid;
+    grid-template-rows: 1fr 1fr 4fr;
+`;
+
+const rightGrid = css`
+    display: grid;
+    grid-template-rows: 1fr 2 fr 1fr;
+`;
+
+const image = css`
+    max-width:100%;
+`;
+
+const showTitle = css`
+    display: inline; 
+    padding-right: 20px;
+`;
+
+const leftArrow = css`
+    border: solid #FF7CAA;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+`;
+
+const leftArrowContainer = css`
+    ${emulateButton} 
+    border-radius: 50%;
+`;
 
 
+
+@observer
 export class ShowDetailsComponent extends Component {
     render() {
         const { episodes, errorMessage, showInfo } = this.props;
         return (
             <div>
+                <HeaderComponent />
+                <Link to='/' className={leftArrowContainer}>
+                    <span className={leftArrow}></span>
+                </Link>
+
                 {
                     errorMessage !== null ?
                         <h2>{errorMessage}</h2>
                         :
-                        <div>
-                            <h1>{showInfo.title}</h1>
-                            <h3>Description:</h3>
-                            {
-                                showInfo.description === "" ?
-                                    <p>No description available</p>
-                                    :
-                                    <p>{showInfo.description}</p>
-                            }
-                            {
-                                episodes.length === 0 ?
-                                    <h2>No episodes available</h2>
-                                    :
-                                    <ul>
-                                        <h2>Episodes: </h2>
-                                        {
-                                            episodes.map((episode) => (
-                                                <li key={episode._id}>
-                                                    <h3>{episode.title}</h3>
+                        <div className={container} >
+                            <div className={leftGrid}>
+                                <div className={css`align-self: center;`}>
+                                    <h1 className={showTitle}>
+                                        {showInfo.title}
+                                    </h1>
+                                    {
+                                        showInfo.likesCount !== undefined &&
+                                        <i className={emulateButton}>Likes Count: {showInfo.likesCount}</i>
+                                    }
 
-                                                    <ul>
-                                                        <li key={episode.title}>
-                                                            {
-                                                                episode.description.length === 0 ?
-                                                                    <p>No description available</p>
-                                                                    :
-                                                                    <p>{episode.description}</p>
-                                                            }
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            ))
-                                        }
-                                    </ul>
-                            }
+                                </div>
+
+                                <div>
+                                    {
+                                        showInfo.description === "" ?
+                                            <p>No description available</p>
+                                            :
+                                            <p>{showInfo.description}</p>
+                                    }
+                                </div>
+
+                                <div>
+                                    <EpisodesListComponent episodes={episodes} showId={showInfo._id} />
+                                </div>
+                            </div>
+
+                            <div className={rightGrid}>
+                                <div className={css`align-self: end;`}>
+                                    <span className={emulateButton}>Add Episode</span>
+                                    <span className={emulateButton}>Favorite</span>
+                                </div>
+
+                                <div>
+                                    <img
+                                        className={image}
+                                        src={`/images/shows/${showInfo._id}.jpg`}
+                                        alt={showInfo.title}
+                                    />
+                                </div>
+
+                                <div className={pinkText} >
+                                    <LineComponent /> <br />
+                                    Official Website <br />
+                                    Wikipedia <br />
+                                    IMBD <br />
+                                </div>
+                            </div>
+
                         </div>
                 }
+                <FooterComponent />
             </div>
 
 

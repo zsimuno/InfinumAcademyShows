@@ -5,6 +5,7 @@ export const image = css`
     max-height:100%;
 `;
 
+
 export const customInput = css`
     border: none;
     outline: none;
@@ -25,4 +26,22 @@ export const showHidePassword = css`
     position: relative;
     z-index: 2;
     height: 20px;
+`;
+
+export const pinkText = css`
+    color: #FF7CAA;
+`;
+
+export const emulateButton = css`
+    display: inline-block;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    &:hover {
+        background: #F8F8F8;
+        ${pinkText}
+    }
+    margin: 5px;
+    padding: 5px;
+    user-select: none;          
 `;

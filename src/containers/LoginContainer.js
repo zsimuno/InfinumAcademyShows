@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { observable } from 'mobx';
+import { login } from '../services/user';
+
 import { ButtonComponent } from '../components/ButtonComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
 
 import { css } from 'emotion';
 import { customInput, inputLabel, showHidePassword } from '../style';
 
 import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
+
 
 const container = css`
     display: grid;
@@ -18,14 +24,10 @@ const link = css`
     text-decoration: none;
 `;
 
+@observer
 export class LoginContainer extends Component {
     constructor(args) {
         super(args);
-        this.state = {
-            username: '',
-            password: '',
-            isInputPassword: true,
-        };
 
         this._handleUsernameChange = this._handleUsernameChange.bind(this);
         this._handlePasswordChange = this._handlePasswordChange.bind(this);
@@ -33,41 +35,38 @@ export class LoginContainer extends Component {
         this._showHidePassword = this._showHidePassword.bind(this);
     }
 
+    @observable
+    componentState = {
+        username: '',
+        password: '',
+        isInputPassword: true,
+        loginData: {},
+    };
+
     _login() {
-        fetch('https://api.infinum.academy/api/users/sessions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: this.state.username,
-                password: this.state.password
-            })
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                localStorage.setItem('token', data.data.token);
-            })
-            .catch((error) => console.log(error));
+        login(this.componentState, this.componentState.username, this.componentState.password)
+            .then(() => localStorage.setItem('token', this.componentState.loginData.token))
+            .then(() => console.log('token:', this.componentState.loginData.token))
+            .catch((err) => console.log(err));
     }
 
     _handleUsernameChange(event) {
-        this.setState({ username: event.target.value });
+        this.componentState.username = event.target.value;
     }
 
     _handlePasswordChange(event) {
-        this.setState({ password: event.target.value });
+        this.componentState.password = event.target.value;
     }
 
     _showHidePassword() {
-        this.setState({ isInputPassword: !this.state.isInputPassword });
+        this.componentState.isInputPassword = !this.componentState.isInputPassword;
     }
 
 
     render() {
         return (
             <div className={container}>
+                <HeaderComponent hideLine={true} hideLogin={true} />
 
                 <div >
                     <label
@@ -80,7 +79,7 @@ export class LoginContainer extends Component {
                         className={customInput}
                         type="text"
                         id="username"
-                        value={this.state.username}
+                        value={this.componentState.username}
                         onChange={this._handleUsernameChange}
                     />
                 </div>
@@ -94,8 +93,9 @@ export class LoginContainer extends Component {
                         </label> <br />
                     <input
                         className={customInput}
-                        type={this.state.isInputPassword ? "password" : "text"}
-                        value={this.state.password}
+                        type={this.componentState.isInputPassword ? "password" : "text"}
+                        id="password"
+                        value={this.componentState.password}
                         onChange={this._handlePasswordChange}
                     />
                     <img

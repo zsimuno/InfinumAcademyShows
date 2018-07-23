@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
 
 export const buttonStyle = css`
     background-color: #FF7CAA;
@@ -13,25 +14,23 @@ export const buttonStyle = css`
     border-radius: 8px;
 `;
 
+@observer
 export class ButtonComponent extends Component {
     render() {
         const { text, onClick, linkTo } = this.props;
+        const button =
+            <button
+                onClick={onClick}
+                className={buttonStyle}
+            >
+                {text}
+            </button>
         return (
             linkTo === undefined ?
-                <button
-                    onClick={onClick}
-                    className={buttonStyle}
-                >
-                    {text}
-                </button>
+                button
                 :
                 <Link to={linkTo}>
-                    <button
-                        onClick={onClick}
-                        className={buttonStyle}
-                    >
-                        {text}
-                    </button>
+                    {button}
                 </Link>
         );
     }
