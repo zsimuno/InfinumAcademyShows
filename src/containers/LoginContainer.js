@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import { login } from '../services/user';
 
 import { ButtonComponent } from '../components/ButtonComponent';
@@ -26,14 +26,6 @@ const link = css`
 
 @observer
 export class LoginContainer extends Component {
-    constructor(args) {
-        super(args);
-
-        this._handleUsernameChange = this._handleUsernameChange.bind(this);
-        this._handlePasswordChange = this._handlePasswordChange.bind(this);
-        this._login = this._login.bind(this);
-        this._showHidePassword = this._showHidePassword.bind(this);
-    }
 
     @observable
     componentState = {
@@ -43,6 +35,7 @@ export class LoginContainer extends Component {
         loginData: {},
     };
 
+    @action.bound
     _login() {
         login(this.componentState, this.componentState.username, this.componentState.password)
             .then(() => localStorage.setItem('token', this.componentState.loginData.token))
@@ -50,14 +43,17 @@ export class LoginContainer extends Component {
             .catch((err) => console.log(err));
     }
 
+    @action.bound
     _handleUsernameChange(event) {
         this.componentState.username = event.target.value;
     }
 
+    @action.bound
     _handlePasswordChange(event) {
         this.componentState.password = event.target.value;
     }
 
+    @action.bound
     _showHidePassword() {
         this.componentState.isInputPassword = !this.componentState.isInputPassword;
     }

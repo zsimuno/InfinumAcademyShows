@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { css } from 'emotion';
 import { pinkText } from '../style.js';
 import { LineComponent } from './LineComponent';
+import { Link } from 'react-router-dom';
 
 const episodeTitle = css``;
 
@@ -29,12 +30,12 @@ export class EpisodesListComponent extends Component {
             episodes.length === 0 ?
                 <h2>No episodes available</h2>
                 :
-                <div>
+                <div >
                     <div className={pinkText}>SEASONS AND EPISODES:</div>
                     <LineComponent />
                     {
                         episodes.map((episode) => (
-                            <div key={episode._id} className={episodeContainer}>
+                            <Link to={`/episode/${episode._id}`} key={episode._id} className={episodeContainer}>
                                 <div>
                                     {/* <img
                                             className={image}
@@ -58,7 +59,7 @@ export class EpisodesListComponent extends Component {
                                         }
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     }
                 </div>

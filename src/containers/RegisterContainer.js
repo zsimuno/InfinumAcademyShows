@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import { css } from 'emotion';
 import { register } from '../services/user';
 
@@ -20,14 +20,6 @@ const container = css`
 
 @observer
 export class RegisterContainer extends Component {
-    constructor(args) {
-        super(args);
-
-        this._handleUsernameChange = this._handleUsernameChange.bind(this);
-        this._handlePasswordChange = this._handlePasswordChange.bind(this);
-        this._register = this._register.bind(this);
-        this._showHidePassword = this._showHidePassword.bind(this);
-    }
 
     @observable
     componentState = {
@@ -37,19 +29,23 @@ export class RegisterContainer extends Component {
         registerData: {},
     };
 
+    @action.bound
     _register() {
         register(this.componentState, this.componentState.username, this.componentState.password)
             .catch((err) => console.log(err));
     }
 
+    @action.bound
     _handleUsernameChange(event) {
         this.componentState.username = event.target.value;
     }
 
+    @action.bound
     _handlePasswordChange(event) {
         this.componentState.password = event.target.value;
     }
 
+    @action.bound
     _showHidePassword() {
         this.componentState.isInputPassword = !this.componentState.isInputPassword;
     }

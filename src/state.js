@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
 
 class State {
 
@@ -13,6 +13,17 @@ class State {
 
   @observable
   errorMessage = null;
+
+  @computed
+  get userToken(){
+    return localStorage.token;
+  }
+
+  @observable
+  episodeInformation = {};
+
+  @observable
+  episodeComments = [];
 }
 
 export default new State();

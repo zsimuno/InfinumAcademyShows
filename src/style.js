@@ -45,3 +45,7 @@ export const emulateButton = css`
     padding: 5px;
     user-select: none;          
 `;
+
+export const greyText = css`
+    color: #A5A5A5;
+`;
