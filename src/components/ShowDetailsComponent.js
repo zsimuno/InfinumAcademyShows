@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { HeaderComponent } from './HeaderComponent';
 import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
-import { AllEpisodesComponent } from './AllEpisodesComponent';
+import { EpisodesListComponent } from './EpisodesListComponent';
 
 import { css } from 'emotion';
 import { pinkText, emulateButton } from '../style.js';
@@ -46,6 +46,11 @@ const leftArrow = css`
     -webkit-transform: rotate(135deg);
 `;
 
+const leftArrowContainer = css`
+    ${emulateButton} 
+    border-radius: 50%;
+`;
+
 
 
 @observer
@@ -55,7 +60,7 @@ export class ShowDetailsComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                <Link to='/' className={css`${emulateButton} border-radius: 50%;`}>
+                <Link to='/' className={leftArrowContainer}>
                     <span className={leftArrow}></span>
                 </Link>
 
@@ -71,7 +76,7 @@ export class ShowDetailsComponent extends Component {
                                     </h1>
                                     {
                                         showInfo.likesCount !== undefined &&
-                                        <i>(Likes Count: {showInfo.likesCount})</i>
+                                        <i className={emulateButton}>Likes Count: {showInfo.likesCount}</i>
                                     }
 
                                 </div>
@@ -86,7 +91,7 @@ export class ShowDetailsComponent extends Component {
                                 </div>
 
                                 <div>
-                                    <AllEpisodesComponent episodes={episodes} />
+                                    <EpisodesListComponent episodes={episodes} showId={showInfo._id} />
                                 </div>
                             </div>
 

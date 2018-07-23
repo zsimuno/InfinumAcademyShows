@@ -18,22 +18,19 @@ export const buttonStyle = css`
 export class ButtonComponent extends Component {
     render() {
         const { text, onClick, linkTo } = this.props;
+        const button =
+            <button
+                onClick={onClick}
+                className={buttonStyle}
+            >
+                {text}
+            </button>
         return (
             linkTo === undefined ?
-                <button
-                    onClick={onClick}
-                    className={buttonStyle}
-                >
-                    {text}
-                </button>
+                button
                 :
                 <Link to={linkTo}>
-                    <button
-                        onClick={onClick}
-                        className={buttonStyle}
-                    >
-                        {text}
-                    </button>
+                    {button}
                 </Link>
         );
     }

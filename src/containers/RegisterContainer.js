@@ -39,6 +39,7 @@ export class RegisterContainer extends Component {
 
     _register() {
         register(this.componentState, this.componentState.username, this.componentState.password)
+            .catch((err) => console.log(err));
     }
 
     _handleUsernameChange(event) {
