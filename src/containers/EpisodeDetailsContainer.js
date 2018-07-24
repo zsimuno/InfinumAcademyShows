@@ -13,8 +13,8 @@ export class EpisodeDetailsContainer extends Component {
         const { episodeId } = this.props.match.params;
 
         getEpisodeInfo(episodeId)
-        .then((episodeInfo) => runInAction(() => this.props.state.episodeInformation = episodeInfo));
-        
+            .then((episodeInfo) => runInAction(() => this.props.state.episodeInformation = episodeInfo));
+
         getEpisodeComments(this.props.state, episodeId);
 
     }

@@ -28,7 +28,7 @@ const textBubble = css`
 
 const littleArrow = css`
     opacity: 0.5;
-    height: 10%;
+    height: 5%;
     align-self: center;
     border: solid 5px transparent;
     border-right-color: #090201;
@@ -38,7 +38,6 @@ const leftArrowContainer = css`
     display: inline-block;
     border-radius: 8px;
     border: 1px solid #EAEAEA;
-    margin: 5px;
     padding: 5px;
     border-radius: 50%;
     background-color: white;   
@@ -69,8 +68,12 @@ export class LeftArrowComponent extends Component {
                 <Link to={linkTo} className={leftArrowContainer}>
                     <span className={leftArrow}></span>
                 </Link>
-                <div className={littleArrow}></div>
-                {sideTextBox && <div className={textBubble}>{sideTextBox}</div>}
+
+                {sideTextBox &&
+                    <div className={css`display: flex;`}>
+                        <div className={littleArrow}></div>
+                        <div className={textBubble}>{sideTextBox}</div>
+                    </div>}
             </div>
 
 

@@ -13,8 +13,8 @@ export class ButtonComponent extends Component {
             background-color: #FF7CAA;
             color: white;
             border: none;
-            align-self: ${align || 'start' };
-            justify-self: ${justify || 'start' };
+            align-self: ${align || 'start'};
+            justify-self: ${justify || 'start'};
             padding: 10px;
             width: 150px; 
             border-radius: 8px;

@@ -53,8 +53,8 @@ export class RegisterContainer extends Component {
     render() {
         return (
             <div className={container}>
-                <HeaderComponent hideLine={true} hideLogin={true}/>
-                                
+                <HeaderComponent hideLine={true} hideLogin={true} />
+
                 <div>
                     <label
                         htmlFor="username"
