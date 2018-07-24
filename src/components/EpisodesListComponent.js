@@ -5,11 +5,15 @@ import { pinkText } from '../style.js';
 import { LineComponent } from './LineComponent';
 import { Link } from 'react-router-dom';
 
-const episodeTitle = css``;
+const episodeTitle = css`
+    margin-left: 5px;    
+`;
 
 const episodeContainer = css`
     display: flex;
     text-decoration: none;
+    margin-top: 20px;
+    padding: 10px;
     color: #505050;
     &:hover{
         background: #F8F8F8;
@@ -20,7 +24,9 @@ const episodeContainer = css`
 `;
 
 const image = css`
-    max-height: 100%;
+    width: 170px;
+    height: 120px;
+    margin-right: 20px;
 `;
 
 
@@ -37,21 +43,28 @@ export class EpisodesListComponent extends Component {
                     <LineComponent />
                     {
                         episodes.map((episode) => (
-                            <Link to={`/show/${showId}/episode/${episode._id}`}  key={episode._id} className={episodeContainer}>
-                                <div>
-                                    {/* <img
-                                            className={image}
-                                            src={`/images/shows/${showId}/${episode._id}.jpg`}
-                                            alt={episode.title}
-                                        /> */}
-                                </div>
+                            <Link
+                                to={`/show/${showId}/episode/${episode._id}`}
+                                key={episode._id}
+                                className={episodeContainer}
+                            >
+                                <img
+                                    className={image}
+                                    src={`/images/placeholder.png`}
+                                    alt={episode.title}
+                                />
 
                                 <div>
-                                    
+
                                     <div>
-                                        <span className={pinkText}> S{episode.season} Ep{episode.episodeNumber} </span>
-                                        <span className={episodeTitle}>{episode.title}</span>
+                                        <span className={pinkText}>
+                                            S{episode.season} Ep{episode.episodeNumber}
+                                        </span>
+                                        <span className={episodeTitle}>
+                                            {episode.title}
+                                        </span>
                                     </div>
+
                                     <div key={episode.title}>
                                         {
                                             episode.description.length === 0 ?

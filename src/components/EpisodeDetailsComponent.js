@@ -17,7 +17,7 @@ import placeholderImage from '../images/img-placeholder-user3.png';
 const container = css`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
 `;
 
 const comments = css`
@@ -36,7 +36,7 @@ const commentInput = css`
     width: 100%;
     height: 100px;
     resize: none;
-    margin: 20px;
+    margin: 20px 0px 20px 0px;
 `;
 
 const commentTextContainer = css`
@@ -44,6 +44,17 @@ const commentTextContainer = css`
     flex-direction: column;
 `;
 
+const usernameAndComment = css`
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 5px;
+`;
+
+const underImage = css`
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    `;
 
 @observer
 export class EpisodeDetailsComponent extends Component {
@@ -54,12 +65,12 @@ export class EpisodeDetailsComponent extends Component {
     }
 
     @action.bound
-    _sendComment(){
-        
+    _sendComment() {
+
     }
 
     @action.bound
-    _handleCommentChange(event){
+    _handleCommentChange(event) {
         this.componentState = event.target.value;
     }
 
@@ -67,52 +78,72 @@ export class EpisodeDetailsComponent extends Component {
         const { episodeInformation, episodeComments } = this.props;
         return (
             <div>
-            <HeaderComponent />
-            <LeftArrowComponent linkTo='../' bottomAndRightMargin='-20px' />
-            <div className={container}>
+                <HeaderComponent />
+                <LeftArrowComponent
+                    linkTo='../'
+                    bottomAndRightMargin='-200px'
+                    sideTextBox='Back To TV Show'
+                />
+                <div className={container}>
 
-                {/* <img /> */}
-                
-                <div>
-                    <h2>{episodeInformation.title}</h2>
-                    <p>{episodeInformation.description}</p>
-                </div>
-
-                <div> 
-                    <span className={pinkText}>COMMENTS</span>
-                    <span className={greyText}>({episodeComments.length})</span> 
-                </div>
-
-                <div className={commentTextContainer}>
-                    <textarea 
-                    className={commentInput} 
-                    placeholder="Post a comment..."  
-                    value={this.componentState.commentText} 
-                    onChange={this._handleCommentChange}
+                    <img
+                        className={image}
+                        src={`/images/placeholder.png`}
+                        alt={episodeInformation.title}
                     />
-                    <ButtonComponent text="COMMENT" onClick={this._sendComment} align="flex-end" />
-                </div>
 
-                <div>
-                    {
-                        episodeComments.length === 0 ?
-                        <div>No comments yet</div>
-                        :
-                        episodeComments.map((comment, index) => 
-                        <div key={comment._id}>
-                            <div className={comments} >
-                                <img src={placeholderImage} className={userImage} alt="User"/>
-                                {comment.text}
-                                
-                            </div>
-                            {index !== episodeComments.length - 1 && <LineComponent /> }
+                    <div className={underImage}>
+                        <h2>{episodeInformation.title}</h2>
+                        <p>{episodeInformation.description}</p>
+
+                        <span className={pinkText}>COMMENTS</span>
+                        <span className={greyText}>({episodeComments.length})</span>
+
+                        <div className={commentTextContainer}>
+                            <textarea
+                                className={commentInput}
+                                placeholder="Post a comment..."
+                                value={this.componentState.commentText}
+                                onChange={this._handleCommentChange}
+                            />
+                            <ButtonComponent
+                                text="COMMENT"
+                                onClick={this._sendComment}
+                                align="flex-end"
+                            />
                         </div>
-                        )
-                    }
+
+                        {
+                            episodeComments.length === 0 ?
+                                <div>No comments yet</div>
+                                :
+                                episodeComments.map((comment, index) =>
+                                    <div key={comment._id}>
+                                        <div className={comments} >
+                                            <img
+                                                src={placeholderImage}
+                                                className={userImage}
+                                                alt="User"
+                                            />
+                                            <div className={usernameAndComment}>
+                                                <div className={pinkText}>
+                                                    {comment.userEmail ? 
+                                                     comment.userEmail.split('@')[0]
+                                                     :
+                                                     'anonymous'}
+                                                </div>
+                                                <div>{comment.text}</div>
+                                            </div>
+
+
+                                        </div>
+                                        {index !== episodeComments.length - 1 && <LineComponent />}
+                                    </div>
+                                )
+                        }
+                    </div>
                 </div>
-                
-            </div>
-            <FooterComponent />
+                <FooterComponent />
             </div>
         );
     }
