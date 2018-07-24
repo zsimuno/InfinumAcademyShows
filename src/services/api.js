@@ -18,3 +18,15 @@ export function post(model, data) {
     .catch((err) => console.log(err));
 
 }
+
+export function userPost(model, data) {
+  return fetch(`https://api.infinum.academy/api/${model}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    },
+    body: data,
+  }).then((res) => res.json())
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+}

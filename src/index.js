@@ -32,7 +32,7 @@ ReactDOM.render((
             <Route exact path="/show/:showId" component={ShowDetailsContainer} />
             <Route exact path="/login" component={LoginContainer} />
             <Route exact path="/register" component={RegisterContainer} />
-            <Route exact path="/episode/:episodeId" component={EpisodeDetailsContainer} />
+            <Route exact path="/show/:showId/episode/:episodeId" component={EpisodeDetailsContainer} />
         </div>
     </BrowserRouter>
     </Provider>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 import { HeaderComponent } from './HeaderComponent';
 import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
@@ -8,6 +7,7 @@ import { EpisodesListComponent } from './EpisodesListComponent';
 
 import { css } from 'emotion';
 import { pinkText, emulateButton } from '../style.js';
+import { LeftArrowComponent } from './LeftArrowComponent';
 
 const container = css`
     display: grid;
@@ -17,15 +17,6 @@ const container = css`
     margin: 0 auto;
 `;
 
-const leftGrid = css`
-    display: grid;
-    grid-template-rows: 1fr 1fr 4fr;
-`;
-
-const rightGrid = css`
-    display: grid;
-    grid-template-rows: 1fr 2 fr 1fr;
-`;
 
 const image = css`
     max-width:100%;
@@ -36,23 +27,6 @@ const showTitle = css`
     padding-right: 20px;
 `;
 
-const leftArrow = css`
-    border: solid #FF7CAA;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 5px;
-    margin: 5px;
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
-`;
-
-const leftArrowContainer = css`
-    ${emulateButton} 
-    border-radius: 50%;
-`;
-
-
-
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
@@ -60,16 +34,13 @@ export class ShowDetailsComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                <Link to='/' className={leftArrowContainer}>
-                    <span className={leftArrow}></span>
-                </Link>
-
+                <LeftArrowComponent linkTo='/' />
                 {
                     errorMessage !== null ?
                         <h2>{errorMessage}</h2>
                         :
                         <div className={container} >
-                            <div className={leftGrid}>
+                            <div>
                                 <div className={css`align-self: center;`}>
                                     <h1 className={showTitle}>
                                         {showInfo.title}
@@ -95,7 +66,7 @@ export class ShowDetailsComponent extends Component {
                                 </div>
                             </div>
 
-                            <div className={rightGrid}>
+                            <div>
                                 <div className={css`align-self: end;`}>
                                     <span className={emulateButton}>Add Episode</span>
                                     <span className={emulateButton}>Favorite</span>

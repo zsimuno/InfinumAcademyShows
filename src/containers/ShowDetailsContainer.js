@@ -22,7 +22,7 @@ export class ShowDetailsContainer extends Component {
         return <ShowDetailsComponent
             episodes={this.props.state.episodes}
             errorMessage={this.props.state.errorMessage}
-            showInfo={this.props.statestate.showInfo}
+            showInfo={this.props.state.showInfo}
         />
 
     }

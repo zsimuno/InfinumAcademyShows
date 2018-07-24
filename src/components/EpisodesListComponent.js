@@ -9,6 +9,8 @@ const episodeTitle = css``;
 
 const episodeContainer = css`
     display: flex;
+    text-decoration: none;
+    color: #505050;
     &:hover{
         background: #F8F8F8;
         & .${episodeTitle}{
@@ -35,7 +37,7 @@ export class EpisodesListComponent extends Component {
                     <LineComponent />
                     {
                         episodes.map((episode) => (
-                            <Link to={`/episode/${episode._id}`} key={episode._id} className={episodeContainer}>
+                            <Link to={`/show/${showId}/episode/${episode._id}`}  key={episode._id} className={episodeContainer}>
                                 <div>
                                     {/* <img
                                             className={image}

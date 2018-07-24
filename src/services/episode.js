@@ -1,4 +1,5 @@
 import { get } from './api';
+import { runInAction } from 'mobx';
 
 export async function getInfo(episodeId) {
     const episodeInfo = await get(`episodes/${episodeId}`)
@@ -7,5 +8,5 @@ export async function getInfo(episodeId) {
 
 export async function getComments(state, episodeId) {
     const episodeComments = await get(`episodes/${episodeId}/comments`)
-    state.episodeComments.replace(episodeComments);
+    runInAction(() => state.episodeComments.replace(episodeComments));
 }
