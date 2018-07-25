@@ -62,10 +62,11 @@ export class LoginContainer extends Component {
             localStorage.setItem('user', this.componentState.username.split('@')[0]);
         }
         else {
-            this.props.state.token = this.componentState.loginData.token;
+            sessionStorage.setItem('token', this.componentState.loginData.token);
+            sessionStorage.setItem('user', this.componentState.username.split('@')[0]);
         }
-
         this.props.state.username = this.componentState.username.split('@')[0];
+        this.props.state.token = this.componentState.loginData.token;
     }
 
     @action.bound

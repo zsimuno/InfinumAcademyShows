@@ -25,12 +25,12 @@ class State {
 
   @computed
   get userToken(){
-    return this.token || localStorage.getItem('token');
+    return this.token || sessionStorage.getItem('token') || localStorage.getItem('token');
   }
 
   @computed
   get getUsername(){
-    return this.username || localStorage.getItem('user');
+    return this.username || sessionStorage.getItem('user') || localStorage.getItem('user');
   }
 
   @observable

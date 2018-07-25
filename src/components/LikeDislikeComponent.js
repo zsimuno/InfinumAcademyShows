@@ -33,7 +33,7 @@ export class LikeDislikeComponent extends Component {
                 >
                     LIKE
                 </div>}
-                <div className={linkesCount}> {object.likesCount}</div>
+                <div className={linkesCount}>Rating: {object.likesCount}</div>
                 {
                 isUserLoggedIn &&
                 <div
