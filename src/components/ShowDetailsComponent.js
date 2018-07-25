@@ -10,7 +10,7 @@ import { LeftArrowComponent } from './LeftArrowComponent';
 import { LikeDislikeComponent } from './LikeDislikeComponent'
 
 import { css } from 'emotion';
-import { pinkText, emulateButton } from '../style.js';
+import { pinkText, emulateButton, fadeInAnimation } from '../style.js';
 ;
 
 const container = css`
@@ -24,6 +24,7 @@ const container = css`
 
 const image = css`
     display: block;
+    ${fadeInAnimation}
     width: 100%;
     height: auto;
     align-self: center;
@@ -43,7 +44,10 @@ export class ShowDetailsComponent extends Component {
         return (
             <div>
                 <HeaderContainer />
-                <LeftArrowComponent linkTo='/'  />
+                <LeftArrowComponent
+                    linkTo='/'
+                    sideTextBox='Back To home'
+                />
                 {
                     errorMessage !== null ?
                         <h2>{errorMessage}</h2>
@@ -78,7 +82,7 @@ export class ShowDetailsComponent extends Component {
 
                             <div className={css`display: flex; flex-direction: column;`}>
                                 <div>
-                                    <Link to={`/show/${showInfo._id}/addEpisode`}> 
+                                    <Link to={`/show/${showInfo._id}/addEpisode`}>
                                         <span className={emulateButton}><b>+</b> Add Episode</span>
                                     </Link>
                                     <span className={emulateButton}>&hearts; Favorite</span>

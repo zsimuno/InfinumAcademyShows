@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css } from 'emotion';
-import { pinkText, greyText, image, customTextArea } from '../style';
+import { pinkText, greyText, image, customTextArea, fadeInAnimation } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 import { LineComponent } from './LineComponent';
@@ -71,7 +71,7 @@ export class EpisodeDetailsComponent extends Component {
                 <div className={container}>
 
                     <img
-                        className={image}
+                        className={`${image} ${fadeInAnimation}`}
                         src={`/images/placeholder.png`}
                         alt={episodeInformation.title}
                     />

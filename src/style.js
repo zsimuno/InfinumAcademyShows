@@ -1,4 +1,17 @@
-import { css } from 'emotion';
+import { css, keyframes } from 'emotion';
+
+export const fadeInImage = keyframes`
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+`;
+
+export const fadeInAnimation = css`
+    animation: ${fadeInImage} .6s;
+`;
 
 export const image = css`
     max-width:100%;
@@ -37,6 +50,7 @@ export const emulateButton = css`
     text-align: center;
     border-radius: 8px;
     border: 1px solid #EAEAEA;
+    transition: background-color 0.1s ease;
     &:hover {
         background: #FF7CAA;
         color: white;
@@ -58,3 +72,5 @@ export const customTextArea = css`
     border-radius: 8px;
     padding: 10px;
 `;
+
+

@@ -5,6 +5,7 @@ import { FooterComponent } from './FooterComponent';
 
 import { css } from 'emotion';
 import { Link } from 'react-router-dom';
+import { fadeInImage } from '../style';
 
 const container = css`
     display: grid;
@@ -13,14 +14,23 @@ const container = css`
     grid-gap: 40px 20px;
 `;
 
+
+
 const image = css`
     width: 200px;
     height: 300px;
 `;
 
 const link = css`
-    color: grey;
     text-decoration: none;
+`;
+const imageLink = css`
+    animation: ${fadeInImage} 1s ease;
+    color: grey;
+    transition: transform .2s ease;
+    &:hover {
+        transform: scale(1.1);
+    }
 `;
 
 @observer
@@ -36,12 +46,14 @@ export class ShowsComponent extends Component {
                         shows.map((show) => (
                             <div key={show._id} >
                                 <Link to={`/show/${show._id}/`} className={link}>
+                                <div className={imageLink}>
                                     <img
                                         className={image}
                                         src={`/images/shows/${show._id}.jpg`}
                                         alt={show.title}
                                     />
                                     <div>{show.title}</div>
+                                </div>
                                 </Link>
 
                             </div>

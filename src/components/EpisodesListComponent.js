@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css } from 'emotion';
-import { pinkText } from '../style.js';
+import { pinkText, fadeInAnimation } from '../style.js';
 import { LineComponent } from './LineComponent';
 import { Link } from 'react-router-dom';
 
@@ -15,15 +15,18 @@ const episodeContainer = css`
     margin-top: 20px;
     padding: 10px;
     color: #505050;
+    transition: background 0.2s linear;
     &:hover{
         background: #F8F8F8;
         & .${episodeTitle}{
+            transition: color 0.1s linear;
             ${pinkText}
         }
     }
 `;
 
 const image = css`
+    ${fadeInAnimation}
     width: 170px;
     height: 120px;
     margin-right: 20px;

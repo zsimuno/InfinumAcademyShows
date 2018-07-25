@@ -35,17 +35,25 @@ const littleArrow = css`
 `;
 
 const leftArrowContainer = css`
-    display: inline-block;
+    display: block;
     border-radius: 8px;
     border: 1px solid #EAEAEA;
     padding: 5px;
     border-radius: 50%;
     background-color: white;   
+    pointer-events: auto;
+    transition: background 0.2s ease;
     &:hover {
         background: #F8F8F8;
     }
 `;
 
+const sideBox = css`
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+`;
 
 
 @observer
@@ -54,6 +62,7 @@ export class LeftArrowComponent extends Component {
         const { linkTo, bottomAndRightMargin, sideTextBox } = this.props;
         const container = css`
             display: flex;
+            pointer-events: none;
             ${bottomAndRightMargin &&
             `
                 position: relative;
@@ -61,6 +70,12 @@ export class LeftArrowComponent extends Component {
                 margin-right: ${bottomAndRightMargin};
                 margin-bottom: ${bottomAndRightMargin};
                 `
+            }
+            &:hover {
+                & .${sideBox} {
+                    visibility: visible;
+                    opacity: 0.7;
+                }
             }
         `;
         return (
@@ -70,7 +85,7 @@ export class LeftArrowComponent extends Component {
                 </Link>
 
                 {sideTextBox &&
-                    <div className={css`display: flex;`}>
+                    <div className={sideBox}>
                         <div className={littleArrow}></div>
                         <div className={textBubble}>{sideTextBox}</div>
                     </div>}
