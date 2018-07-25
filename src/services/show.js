@@ -24,11 +24,11 @@ export async function getAllEpisodes(state, showId) {
 }
 
 export async function like(state, showId) {
-  const newShowInfo = await userPost(`shows/${showId}/like`, undefined, state.userToken);
+  const newShowInfo = await userPost(`shows/${showId}/like`, state.userToken);
   runInAction(() => state.showInfo.likesCount = newShowInfo.likesCount);
 }
 
 export async function dislike(state, showId) {
-  const newShowInfo = await userPost(`shows/${showId}/dislike`, undefined, state.userToken);
+  const newShowInfo = await userPost(`shows/${showId}/dislike`, state.userToken);
   runInAction(() => state.showInfo.likesCount = newShowInfo.likesCount);
 }

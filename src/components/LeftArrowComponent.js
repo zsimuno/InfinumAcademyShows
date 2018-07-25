@@ -21,6 +21,7 @@ const textBubble = css`
     background-color: #090201;
     opacity: 0.5;
     padding: 5px;
+    border-radius: 5px;
     height 50%;
     color: white;
     font-size: 12px;

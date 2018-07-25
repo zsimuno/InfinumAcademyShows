@@ -13,11 +13,11 @@ export async function getComments(state, episodeId) {
 
 
 export async function add(state, episodeData) {
-    const episodeInfo = await userPost('episodes', episodeData, state.userToken);
+    const episodeInfo = await userPost('episodes', state.userToken, episodeData);
     episodeInfo.data && runInAction(() => state.episodes.push(episodeInfo.data));
 }
 
 export async function addComment(state, text, episodeId) {
-    const commentInfo = await userPost('comments', {text: text, episodeId: episodeId}, state.userToken);
+    const commentInfo = await userPost('comments',  state.userToken, {text: text, episodeId: episodeId});
     commentInfo.data && runInAction(() => state.episodeComments.push(commentInfo.data));
 }

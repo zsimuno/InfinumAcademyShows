@@ -27,15 +27,16 @@ export class HeaderContainer extends Component {
     render() {
         const { hideLogin, hideLine } = this.props;
         return (
-            this.componentState.succesfulLogout ?
-                <Redirect to='/' />
-                :
+            <div>
+                {this.componentState.succesfulLogout &&
+                    <Redirect to='/' />}
                 <HeaderComponent
                     hideLogin={hideLogin}
                     hideLine={hideLine}
                     username={this.props.state.getUsername}
                     logout={this._logout}
                 />
+            </div>
 
         )
     }

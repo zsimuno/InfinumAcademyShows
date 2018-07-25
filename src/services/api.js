@@ -19,7 +19,7 @@ export function post(model, data) {
 
 }
 
-export function userPost(model, data, token) {
+export function userPost(model, token ,data) {
   return fetch(`https://api.infinum.academy/api/${model}`, {
     method: 'POST',
     headers: {
