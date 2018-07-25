@@ -25,19 +25,24 @@ export class LikeDislikeComponent extends Component {
         return (
             object.likesCount !== undefined &&
             <div className={container}>
+                {
+                localStorage.getItem('token') &&
                 <div
                     className={emulateButton}
                     onClick={onLikeClick}
                 >
                     LIKE
-                </div>
+                </div>}
                 <div className={linkesCount}> {object.likesCount}</div>
+                {
+                localStorage.getItem('token') &&
                 <div
                     className={emulateButton}
                     onClick={onDislikeClick}
                 >
                     DISLIKE
                 </div>
+                }
             </div>
         );
     }

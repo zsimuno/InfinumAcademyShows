@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
+
 import { HeaderComponent } from './HeaderComponent';
 import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
 import { EpisodesListComponent } from './EpisodesListComponent';
+import { LeftArrowComponent } from './LeftArrowComponent';
+import { LikeDislikeComponent } from './LikeDislikeComponent'
 
 import { css } from 'emotion';
 import { pinkText, emulateButton } from '../style.js';
-import { LeftArrowComponent } from './LeftArrowComponent';
-import { LikeDislikeComponent } from './LikeDislikeComponent';
+;
 
 const container = css`
     display: grid;
@@ -20,7 +23,10 @@ const container = css`
 
 
 const image = css`
-    max-width:100%;
+    display: block;
+    width: 100%;
+    height: auto;
+    align-self: center;
 `;
 
 const showTitle = css`
@@ -69,19 +75,19 @@ export class ShowDetailsComponent extends Component {
                                 </div>
                             </div>
 
-                            <div>
-                                <div className={css`align-self: end;`}>
-                                    <span className={emulateButton}>Add Episode</span>
-                                    <span className={emulateButton}>Favorite</span>
+                            <div className={css`display: flex; flex-direction: column;`}>
+                                <div>
+                                    <Link to={`/show/${showInfo._id}/addEpisode`}> 
+                                        <span className={emulateButton}><b>+</b> Add Episode</span>
+                                    </Link>
+                                    <span className={emulateButton}>&hearts; Favorite</span>
                                 </div>
 
-                                <div>
-                                    <img
-                                        className={image}
-                                        src={`/images/shows/${showInfo._id}.jpg`}
-                                        alt={showInfo.title}
-                                    />
-                                </div>
+                                <img
+                                    className={image}
+                                    src={`/images/shows/${showInfo._id}.jpg`}
+                                    alt={showInfo.title}
+                                />
 
                                 <div className={pinkText} >
                                     <LineComponent /> <br />

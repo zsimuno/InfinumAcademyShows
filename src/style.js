@@ -41,6 +41,7 @@ export const emulateButton = css`
         background: #FF7CAA;
         color: white;
     }
+    color: #505050;
     margin: 5px;
     padding: 5px;
     user-select: none;          

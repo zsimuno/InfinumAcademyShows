@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { LineComponent } from './LineComponent';
 
 
 import { css } from 'emotion';
-import { image } from '../style';
+import { image, emulateButton } from '../style';
 
 import showsLogo from '../images/img-logo-horizontal@3x.png';
-import { ButtonComponent } from './ButtonComponent';
-import { action } from 'mobx';
 
 
 const container = css`
@@ -27,7 +25,7 @@ const login = css`
 @observer
 export class HeaderComponent extends Component {
 
-    _logout(){
+    _logout() {
         localStorage.clear();
     }
 
@@ -48,21 +46,30 @@ export class HeaderComponent extends Component {
                     {
                         !hideLogin
                         &&
-                        localStorage.getItem('user') ?
-                        <div className={login}>
-                            Hi, {localStorage.getItem('user')} 
-                            <Link to='/'>
-                                <ButtonComponent text='LOGOUT' onClick={this._logout} />
-                            </Link>
-                        </div> 
-                        :
-                        <div className={login}>
-                            <Link to='/login' className={login}>
-                                Login
-                            </Link>
+                        <div>
+                            {localStorage.getItem('user') ?
+                                <div className={login}>
+                                    Hi, {localStorage.getItem('user')}
+                                    <div
+                                        onClick={this._logout}
+                                        className={emulateButton}
+                                    >
+                                        Log out
+                                    </div>
+                                </div>
+                                :
+                                <div className={login}>
+                                    <Link to='/login' className={login}>
+                                        <div
+                                            className={emulateButton}
+                                        >
+                                            Login
+                                    </div>
+                                    </Link>
+                                </div>}
                         </div>
-                    
-                        
+
+
                     }
                 </div>
                 {

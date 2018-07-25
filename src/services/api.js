@@ -24,6 +24,7 @@ export function userPost(model, data) {
     method: 'POST',
     headers: {
       'Authorization': localStorage.getItem('token'),
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   })

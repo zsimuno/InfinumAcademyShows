@@ -10,6 +10,7 @@ import { ShowDetailsContainer } from './containers/ShowDetailsContainer';
 import { LoginContainer } from './containers/LoginContainer';
 import { RegisterContainer } from './containers/RegisterContainer';
 import { EpisodeDetailsContainer } from './containers/EpisodeDetailsContainer';
+import { AddEpisodeContainer } from './containers/AddEpisodeContainer';
 
 import { css } from 'emotion';
 
@@ -33,6 +34,7 @@ ReactDOM.render((
             <Route exact path="/login" component={LoginContainer} />
             <Route exact path="/register" component={RegisterContainer} />
             <Route exact path="/show/:showId/episode/:episodeId" component={EpisodeDetailsContainer} />
+            <Route exact path="/show/:showId/addEpisode" component={AddEpisodeContainer} />
         </div>
     </BrowserRouter>
     </Provider>

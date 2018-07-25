@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
 import { css } from 'emotion';
 import { pinkText, greyText, image, customTextArea } from '../style';
 
@@ -60,24 +59,8 @@ const underImage = css`
 
 @observer
 export class EpisodeDetailsComponent extends Component {
-
-    @observable
-    componentState = {
-        commentText: '',
-    }
-
-    @action.bound
-    _sendComment() {
-
-    }
-
-    @action.bound
-    _handleCommentChange(event) {
-        this.componentState = event.target.value;
-    }
-
     render() {
-        const { episodeInformation, episodeComments } = this.props;
+        const { episodeInformation, episodeComments, commentText, sendComment, onTextAreaChange } = this.props;
         return (
             <div>
                 <HeaderComponent />
@@ -112,13 +95,13 @@ export class EpisodeDetailsComponent extends Component {
                             <textarea
                                 className={commentInput}
                                 placeholder="Post a comment..."
-                                value={this.componentState.commentText}
-                                onChange={this._handleCommentChange}
+                                value={commentText}
+                                onChange={onTextAreaChange}
                                 disabled={!localStorage.getItem('user')}
                             />
                             <ButtonComponent
                                 text="COMMENT"
-                                onClick={this._sendComment}
+                                onClick={sendComment}
                                 align="flex-end"
                                 disabled={!localStorage.getItem('user')}
                             />
