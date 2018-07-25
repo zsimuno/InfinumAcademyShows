@@ -16,7 +16,6 @@ export class EpisodeDetailsContainer extends Component {
     @action.bound
     _sendComment() {
         const { episodeId } = this.props.match.params;
-        console.log(episodeId);
         addCommentToEpisode(this.props.state, this.componentState.commentText, episodeId)
             .then(() => runInAction(() => this.componentState.commentText = ''));
     }
@@ -44,6 +43,7 @@ export class EpisodeDetailsContainer extends Component {
             commentText={this.componentState.commentText}
             sendComment={this._sendComment}
             onTextAreaChange={this._handleCommentChange}
+            userLoggedIn={this.props.state.getUsername}
         />
     }
 }

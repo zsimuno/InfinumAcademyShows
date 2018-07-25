@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
-import { HeaderComponent } from './HeaderComponent';
+import { HeaderContainer } from '../containers/HeaderContainer';
 import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
 import { EpisodesListComponent } from './EpisodesListComponent';
@@ -39,11 +39,11 @@ const showTitle = css`
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
-        const { episodes, errorMessage, showInfo, onLikeClick, onDislikeClick } = this.props;
+        const { episodes, errorMessage, showInfo, onLikeClick, onDislikeClick, isUserLoggedIn } = this.props;
         return (
             <div>
-                <HeaderComponent />
-                <LeftArrowComponent linkTo='/' />
+                <HeaderContainer />
+                <LeftArrowComponent linkTo='/'  />
                 {
                     errorMessage !== null ?
                         <h2>{errorMessage}</h2>
@@ -58,6 +58,7 @@ export class ShowDetailsComponent extends Component {
                                         object={showInfo}
                                         onLikeClick={onLikeClick}
                                         onDislikeClick={onDislikeClick}
+                                        isUserLoggedIn={isUserLoggedIn}
                                     />
                                 </div>
 

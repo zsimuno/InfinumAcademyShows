@@ -5,10 +5,9 @@ import { pinkText, greyText, image, customTextArea } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 import { LineComponent } from './LineComponent';
-import { HeaderComponent } from './HeaderComponent';
+import { HeaderContainer } from '../containers/HeaderContainer';
 import { FooterComponent } from './FooterComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
-import { LikeDislikeComponent } from './LikeDislikeComponent';
 
 import placeholderImage from '../images/img-placeholder-user3.png';
 
@@ -60,10 +59,10 @@ const underImage = css`
 @observer
 export class EpisodeDetailsComponent extends Component {
     render() {
-        const { episodeInformation, episodeComments, commentText, sendComment, onTextAreaChange } = this.props;
+        const { episodeInformation, episodeComments, commentText, sendComment, onTextAreaChange, userLoggedIn } = this.props;
         return (
             <div>
-                <HeaderComponent />
+                <HeaderContainer />
                 <LeftArrowComponent
                     linkTo='../'
                     bottomAndRightMargin='-200px'
@@ -76,8 +75,6 @@ export class EpisodeDetailsComponent extends Component {
                         src={`/images/placeholder.png`}
                         alt={episodeInformation.title}
                     />
-
-                    <LikeDislikeComponent object={episodeInformation} marginTop='-50px' />
 
                     <div className={underImage}>
                         <h2>{episodeInformation.title}</h2>
@@ -97,13 +94,13 @@ export class EpisodeDetailsComponent extends Component {
                                 placeholder="Post a comment..."
                                 value={commentText}
                                 onChange={onTextAreaChange}
-                                disabled={!localStorage.getItem('user')}
+                                disabled={!(userLoggedIn)}
                             />
                             <ButtonComponent
                                 text="COMMENT"
                                 onClick={sendComment}
                                 align="flex-end"
-                                disabled={!localStorage.getItem('user')}
+                                disabled={!(userLoggedIn)}
                             />
                         </div>
 

@@ -38,14 +38,6 @@ export class AddEpisodeContainer extends Component {
     }
 
 
-    // "showId": "string",
-    // "mediaId": "string",
-    // "title": "string",
-    // "description": "string",
-    // "episodeNumber": "string",
-    // "season": "string"
-
-
     @action.bound
     _addEpisode() {
         const { showId } = this.props.match.params;
@@ -96,7 +88,7 @@ export class AddEpisodeContainer extends Component {
 
     render() {
         return (
-            !localStorage.getItem('user') ?
+            !(this.props.state.getUsername) ?
                 <LoginRequiredComponent />
                 :
                 <div>

@@ -24,13 +24,8 @@ const login = css`
     `;
 @observer
 export class HeaderComponent extends Component {
-
-    _logout() {
-        localStorage.clear();
-    }
-
     render() {
-        const { hideLogin, hideLine } = this.props;
+        const { hideLogin, hideLine, username, logout } = this.props;
         return (
             <div>
                 <div className={container}>
@@ -47,11 +42,11 @@ export class HeaderComponent extends Component {
                         !hideLogin
                         &&
                         <div>
-                            {localStorage.getItem('user') ?
+                            {username ?
                                 <div className={login}>
-                                    Hi, {localStorage.getItem('user')}
+                                    Hi, {username}
                                     <div
-                                        onClick={this._logout}
+                                        onClick={logout}
                                         className={emulateButton}
                                     >
                                         Log out

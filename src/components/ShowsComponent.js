@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { HeaderComponent } from './HeaderComponent';
+import { HeaderContainer } from '../containers/HeaderContainer';
 import { FooterComponent } from './FooterComponent';
 
 import { css } from 'emotion';
@@ -29,7 +29,7 @@ export class ShowsComponent extends Component {
         const { shows } = this.props;
         return (
             <div>
-                <HeaderComponent />
+                <HeaderContainer />
                 <h3>All shows:</h3>
                 <div className={container}>
                     {

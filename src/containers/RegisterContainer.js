@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import { css } from 'emotion';
 import { register } from '../services/user';
 
@@ -27,12 +28,23 @@ export class RegisterContainer extends Component {
         password: '',
         isInputPassword: true,
         registerData: {},
+        redirectAfterRegister: false,
+        registerFailed: false,
     };
 
     @action.bound
     _register() {
         register(this.componentState, this.componentState.username, this.componentState.password)
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .then(() => runInAction(() => this.componentState.redirectAfterRegister = true))
+            .catch((err) => runInAction(() => {
+                console.log(err);
+                this.componentState.registerFailed = true;
+            }))
+            .then(() => runInAction(() => {
+                this.componentState.username = '';
+                this.componentState.password = '';
+            }));
     }
 
     @action.bound
@@ -54,8 +66,9 @@ export class RegisterContainer extends Component {
         return (
             <div className={container}>
                 <HeaderComponent hideLine={true} hideLogin={true} />
-
-                <div>
+                {this.componentState.redirectAfterRegister && <Redirect to='/' />}
+                <div >
+                    {this.componentState.registerFailed && <h4>Register Failed!</h4>}
                     <label
                         htmlFor="username"
                         className={inputLabel}

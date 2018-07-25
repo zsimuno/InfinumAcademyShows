@@ -16,7 +16,8 @@ const linkesCount = css`
 @observer
 export class LikeDislikeComponent extends Component {
     render() {
-        const { onLikeClick, onDislikeClick, marginTop, object } = this.props;
+        const { onLikeClick, onDislikeClick, marginTop, object, isUserLoggedIn } = this.props;
+        console.log(isUserLoggedIn);
         const container = css`
             display: flex;
             align-self: center;
@@ -26,7 +27,7 @@ export class LikeDislikeComponent extends Component {
             object.likesCount !== undefined &&
             <div className={container}>
                 {
-                localStorage.getItem('token') &&
+                isUserLoggedIn &&
                 <div
                     className={emulateButton}
                     onClick={onLikeClick}
@@ -35,7 +36,7 @@ export class LikeDislikeComponent extends Component {
                 </div>}
                 <div className={linkesCount}> {object.likesCount}</div>
                 {
-                localStorage.getItem('token') &&
+                isUserLoggedIn &&
                 <div
                     className={emulateButton}
                     onClick={onDislikeClick}

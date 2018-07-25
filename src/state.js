@@ -25,7 +25,12 @@ class State {
 
   @computed
   get userToken(){
-    return localStorage.token;
+    return this.token || localStorage.getItem('token');
+  }
+
+  @computed
+  get getUsername(){
+    return this.username || localStorage.getItem('user');
   }
 
   @observable

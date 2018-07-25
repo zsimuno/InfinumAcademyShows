@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable, action, runInAction } from 'mobx';
 import { login } from '../services/user';
@@ -35,6 +35,8 @@ export class LoginContainer extends Component {
         isInputPassword: true,
         loginData: {},
         rememberMeChecked: false,
+        redirectAfterLogin: false,
+        loginFailed: false,
     };
 
     @action.bound
@@ -42,21 +44,27 @@ export class LoginContainer extends Component {
         login(this.componentState, this.componentState.username, this.componentState.password)
             .then(() => this._succesfulLogin())
             .then(() => console.log('token:', this.componentState.loginData.token))
+            .then(() => runInAction(() => this.componentState.redirectAfterLogin = true))
+            .catch((err) => runInAction(() => {
+                console.log(err);
+                this.componentState.loginFailed = true;
+            }))
             .then(() => runInAction(() => {
                 this.componentState.username = '';
                 this.componentState.password = '';
-            }))
-            .catch((err) => console.log(err));
+            }));
     }
 
     @action.bound
-    _succesfulLogin()
-    {
+    _succesfulLogin() {
         if (this.componentState.rememberMeChecked) {
             localStorage.setItem('token', this.componentState.loginData.token);
             localStorage.setItem('user', this.componentState.username.split('@')[0]);
         }
-        this.props.state.token = this.componentState.loginData.token;
+        else {
+            this.props.state.token = this.componentState.loginData.token;
+        }
+
         this.props.state.username = this.componentState.username.split('@')[0];
     }
 
@@ -85,8 +93,9 @@ export class LoginContainer extends Component {
         return (
             <div className={container}>
                 <HeaderComponent hideLine={true} hideLogin={true} />
-
+                {this.componentState.redirectAfterLogin && <Redirect to='/' />}
                 <div >
+                    {this.componentState.loginFailed && <h4>Login Failed!</h4>}
                     <label
                         htmlFor="username"
                         className={inputLabel}

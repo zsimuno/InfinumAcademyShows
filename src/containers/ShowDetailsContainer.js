@@ -41,6 +41,7 @@ export class ShowDetailsContainer extends Component {
             showInfo={this.props.state.showInfo}
             onLikeClick={this._like}
             onDislikeClick={this._dislike}
+            isUserLoggedIn={this.props.state.getUsername}
         />
 
     }
