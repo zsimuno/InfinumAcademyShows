@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observer, inject } from 'mobx-react';
+import { observable, action, runInAction } from 'mobx';
 import { login } from '../services/user';
 
 import { ButtonComponent } from '../components/ButtonComponent';
@@ -24,6 +24,7 @@ const link = css`
     text-decoration: none;
 `;
 
+@inject("state")
 @observer
 export class LoginContainer extends Component {
 
@@ -33,14 +34,30 @@ export class LoginContainer extends Component {
         password: '',
         isInputPassword: true,
         loginData: {},
+        rememberMeChecked: false,
     };
 
     @action.bound
     _login() {
         login(this.componentState, this.componentState.username, this.componentState.password)
-            .then(() => localStorage.setItem('token', this.componentState.loginData.token))
+            .then(() => this._succesfulLogin())
             .then(() => console.log('token:', this.componentState.loginData.token))
+            .then(() => runInAction(() => {
+                this.componentState.username = '';
+                this.componentState.password = '';
+            }))
             .catch((err) => console.log(err));
+    }
+
+    @action.bound
+    _succesfulLogin()
+    {
+        if (this.componentState.rememberMeChecked) {
+            localStorage.setItem('token', this.componentState.loginData.token);
+            localStorage.setItem('user', this.componentState.username.split('@')[0]);
+        }
+        this.props.state.token = this.componentState.loginData.token;
+        this.props.state.username = this.componentState.username.split('@')[0];
     }
 
     @action.bound
@@ -56,6 +73,11 @@ export class LoginContainer extends Component {
     @action.bound
     _showHidePassword() {
         this.componentState.isInputPassword = !this.componentState.isInputPassword;
+    }
+
+    @action.bound
+    _togleRememberMe() {
+        this.componentState.rememberMeChecked = !this.componentState.rememberMeChecked;
     }
 
 
@@ -107,6 +129,8 @@ export class LoginContainer extends Component {
                         type="checkbox"
                         name="rememberMe"
                         value="Remember me"
+                        checked={this.componentState.rememberMeChecked}
+                        onChange={this._togleRememberMe}
                     />
                     Remember me
                 </div>

@@ -38,8 +38,8 @@ export const emulateButton = css`
     border-radius: 8px;
     border: 1px solid #EAEAEA;
     &:hover {
-        background: #F8F8F8;
-        ${pinkText}
+        background: #FF7CAA;
+        color: white;
     }
     margin: 5px;
     padding: 5px;
@@ -48,4 +48,12 @@ export const emulateButton = css`
 
 export const greyText = css`
     color: #A5A5A5;
+`;
+
+export const customTextArea = css`
+    font-family: Sans-serif;
+    color: #505050;
+    border-color: #EAEAEA;
+    border-radius: 8px;
+    padding: 10px;
 `;

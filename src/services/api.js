@@ -25,8 +25,9 @@ export function userPost(model, data) {
     headers: {
       'Authorization': localStorage.getItem('token'),
     },
-    body: data,
-  }).then((res) => res.json())
-    .then((res) => res.data)
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((response) => response)
     .catch((err) => console.log(err));
 }

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { css } from 'emotion';
-import { pinkText, greyText, image } from '../style';
+import { pinkText, greyText, image, customTextArea } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 import { LineComponent } from './LineComponent';
 import { HeaderComponent } from './HeaderComponent';
 import { FooterComponent } from './FooterComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
+import { LikeDislikeComponent } from './LikeDislikeComponent';
 
 import placeholderImage from '../images/img-placeholder-user3.png';
 
@@ -33,6 +34,7 @@ const userImage = css`
 `;
 
 const commentInput = css`
+    ${customTextArea}
     width: 100%;
     height: 100px;
     resize: none;
@@ -53,7 +55,7 @@ const usernameAndComment = css`
 const underImage = css`
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 70%;
     `;
 
 @observer
@@ -92,12 +94,19 @@ export class EpisodeDetailsComponent extends Component {
                         alt={episodeInformation.title}
                     />
 
+                    <LikeDislikeComponent object={episodeInformation} marginTop='-50px' />
+
                     <div className={underImage}>
                         <h2>{episodeInformation.title}</h2>
                         <p>{episodeInformation.description}</p>
 
-                        <span className={pinkText}>COMMENTS</span>
-                        <span className={greyText}>({episodeComments.length})</span>
+                        <p className={pinkText}>
+                            COMMENTS &nbsp;
+                            <span className={greyText}>
+                                ({episodeComments.length})
+                            </span>
+                        </p>
+
 
                         <div className={commentTextContainer}>
                             <textarea
@@ -105,11 +114,13 @@ export class EpisodeDetailsComponent extends Component {
                                 placeholder="Post a comment..."
                                 value={this.componentState.commentText}
                                 onChange={this._handleCommentChange}
+                                disabled={!localStorage.getItem('user')}
                             />
                             <ButtonComponent
                                 text="COMMENT"
                                 onClick={this._sendComment}
                                 align="flex-end"
+                                disabled={!localStorage.getItem('user')}
                             />
                         </div>
 
@@ -127,10 +138,10 @@ export class EpisodeDetailsComponent extends Component {
                                             />
                                             <div className={usernameAndComment}>
                                                 <div className={pinkText}>
-                                                    {comment.userEmail ? 
-                                                     comment.userEmail.split('@')[0]
-                                                     :
-                                                     'anonymous'}
+                                                    {comment.userEmail ?
+                                                        comment.userEmail.split('@')[0]
+                                                        :
+                                                        'anonymous'}
                                                 </div>
                                                 <div>{comment.text}</div>
                                             </div>

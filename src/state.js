@@ -12,7 +12,16 @@ class State {
   episodes = [];
 
   @observable
+  likesCount = 0;
+
+  @observable
   errorMessage = null;
+
+  @observable
+  username = '';
+
+  @observable
+  token = '';
 
   @computed
   get userToken(){

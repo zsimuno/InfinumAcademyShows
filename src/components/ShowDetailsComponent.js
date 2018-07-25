@@ -8,6 +8,7 @@ import { EpisodesListComponent } from './EpisodesListComponent';
 import { css } from 'emotion';
 import { pinkText, emulateButton } from '../style.js';
 import { LeftArrowComponent } from './LeftArrowComponent';
+import { LikeDislikeComponent } from './LikeDislikeComponent';
 
 const container = css`
     display: grid;
@@ -27,10 +28,12 @@ const showTitle = css`
     padding-right: 20px;
 `;
 
+
+
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
-        const { episodes, errorMessage, showInfo } = this.props;
+        const { episodes, errorMessage, showInfo, onLikeClick, onDislikeClick } = this.props;
         return (
             <div>
                 <HeaderComponent />
@@ -41,15 +44,15 @@ export class ShowDetailsComponent extends Component {
                         :
                         <div className={container} >
                             <div>
-                                <div className={css`align-self: center;`}>
+                                <div className={css`display: flex; align-self: center;`}>
                                     <h1 className={showTitle}>
                                         {showInfo.title}
                                     </h1>
-                                    {
-                                        showInfo.likesCount !== undefined &&
-                                        <i className={emulateButton}>Likes Count: {showInfo.likesCount}</i>
-                                    }
-
+                                    <LikeDislikeComponent
+                                        object={showInfo}
+                                        onLikeClick={onLikeClick}
+                                        onDislikeClick={onDislikeClick}
+                                    />
                                 </div>
 
                                 <div>
