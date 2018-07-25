@@ -17,7 +17,6 @@ const linkesCount = css`
 export class LikeDislikeComponent extends Component {
     render() {
         const { onLikeClick, onDislikeClick, marginTop, object, isUserLoggedIn } = this.props;
-        console.log(isUserLoggedIn);
         const container = css`
             display: flex;
             align-self: center;

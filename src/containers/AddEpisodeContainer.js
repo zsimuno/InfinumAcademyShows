@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import { Redirect } from 'react-router-dom';
 import { action, observable, runInAction } from 'mobx';
 import { HeaderComponent } from '../components/HeaderComponent';
 import { FooterComponent } from '../components/FooterComponent';
@@ -35,6 +36,7 @@ export class AddEpisodeContainer extends Component {
         description: '',
         episodeNumber: '',
         season: '',
+        episodeAdded: false,
     }
 
 
@@ -59,6 +61,7 @@ export class AddEpisodeContainer extends Component {
                     description: '',
                     episodeNumber: '',
                     season: '',
+                    episodeAdded: true,
                 })));
 
 
@@ -90,6 +93,9 @@ export class AddEpisodeContainer extends Component {
         return (
             !(this.props.state.getUsername) ?
                 <LoginRequiredComponent />
+                :
+                this.componentState.episodeAdded ?
+                <Redirect to='./' />
                 :
                 <div>
                     <HeaderComponent />

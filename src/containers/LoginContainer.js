@@ -91,69 +91,79 @@ export class LoginContainer extends Component {
 
     render() {
         return (
-            <div className={container}>
+            <div>
                 <HeaderComponent hideLine={true} hideLogin={true} />
                 {this.componentState.redirectAfterLogin && <Redirect to='/' />}
-                <div >
-                    {this.componentState.loginFailed && <h4>Login Failed!</h4>}
-                    <label
-                        htmlFor="username"
-                        className={inputLabel}
-                    >
-                        My username is
-                    </label> <br />
-                    <input
-                        className={customInput}
-                        type="text"
-                        id="username"
-                        value={this.componentState.username}
-                        onChange={this._handleUsernameChange}
-                    />
-                </div>
-
-                <div >
-                    <label
-                        htmlFor="password"
-                        className={inputLabel}
-                    >
-                        and my password is
+                {
+                this.props.state.getUsername ?
+                <h1>
+                    You are already logged in!
+                </h1>
+                :
+                <div className={container}>
+                    <div>
+                        {this.componentState.loginFailed && <h4>Login Failed!</h4>}
+                        <label
+                            htmlFor="username"
+                            className={inputLabel}
+                        >
+                            My username is
                         </label> <br />
-                    <input
-                        className={customInput}
-                        type={this.componentState.isInputPassword ? "password" : "text"}
-                        id="password"
-                        value={this.componentState.password}
-                        onChange={this._handlePasswordChange}
-                    />
-                    <img
-                        className={showHidePassword}
-                        src={eyeImage}
-                        alt="S/H"
-                        onClick={this._showHidePassword}
-                    />
-                </div>
+                        <input
+                            className={customInput}
+                            type="text"
+                            id="username"
+                            value={this.componentState.username}
+                            onChange={this._handleUsernameChange}
+                        />
+                    </div>
 
-                <div>
-                    <input
-                        type="checkbox"
-                        name="rememberMe"
-                        value="Remember me"
-                        checked={this.componentState.rememberMeChecked}
-                        onChange={this._togleRememberMe}
-                    />
-                    Remember me
-                </div>
+                    <div >
+                        <label
+                            htmlFor="password"
+                            className={inputLabel}
+                        >
+                            and my password is
+                            </label> <br />
+                        <input
+                            className={customInput}
+                            type={this.componentState.isInputPassword ? "password" : "text"}
+                            id="password"
+                            value={this.componentState.password}
+                            onChange={this._handlePasswordChange}
+                        />
+                        <img
+                            className={showHidePassword}
+                            src={eyeImage}
+                            alt="S/H"
+                            onClick={this._showHidePassword}
+                        />
+                    </div>
 
-                <div>
-                    <ButtonComponent
-                        onClick={this._login}
-                        text='LOGIN'
-                    />
-                </div>
+                    <div>
+                        <input
+                            id="rememberme"
+                            type="checkbox"
+                            name="rememberMe"
+                            value="Remember me"
+                            checked={this.componentState.rememberMeChecked}
+                            onChange={this._togleRememberMe}
+                        />
+                        <label htmlFor="rememberme"> Remember me</label>
+                    </div>
 
-                <div>
-                    Still don't have an account? <Link to='/register' className={link}>Register</Link>
+                    <div>
+                        <ButtonComponent
+                            onClick={this._login}
+                            text='LOGIN'
+                        />
+                    </div>
+
+                    <div>
+                        Still don't have an account? <Link to='/register' className={link}>Register</Link>
+                    </div>
                 </div>
+                }
             </div>
         )
     }
