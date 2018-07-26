@@ -5,7 +5,7 @@ import { LineComponent } from './LineComponent';
 
 
 import { css } from 'emotion';
-import { image } from '../style';
+import { image, emulateButton } from '../style';
 
 import showsLogo from '../images/img-logo-horizontal@3x.png';
 
@@ -22,12 +22,10 @@ const login = css`
     color: #FF7CAA;
     text-decoration: none;
     `;
-
-
 @observer
 export class HeaderComponent extends Component {
     render() {
-        const { hideLogin, hideLine } = this.props;
+        const { hideLogin, hideLine, username, logout } = this.props;
         return (
             <div>
                 <div className={container}>
@@ -43,11 +41,30 @@ export class HeaderComponent extends Component {
                     {
                         !hideLogin
                         &&
-                        <div className={login}>
-                            <Link to='/login' className={login}>
-                                Login
-                            </Link>
+                        <div>
+                            {username ?
+                                <div className={login}>
+                                    Hi, {username}
+                                    <div
+                                        onClick={logout}
+                                        className={emulateButton}
+                                    >
+                                        Log out
+                                    </div>
+                                </div>
+                                :
+                                <div className={login}>
+                                    <Link to='/login' className={login}>
+                                        <div
+                                            className={emulateButton}
+                                        >
+                                            Login
+                                    </div>
+                                    </Link>
+                                </div>}
                         </div>
+
+
                     }
                 </div>
                 {

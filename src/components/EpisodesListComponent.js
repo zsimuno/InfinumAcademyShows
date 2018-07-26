@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { css } from 'emotion';
-import { pinkText } from '../style.js';
+import { css, cx } from 'emotion';
+import { pinkText, fadeInAnimation } from '../style.js';
 import { LineComponent } from './LineComponent';
+import { Link } from 'react-router-dom';
 
-const episodeTitle = css``;
+const episodeTitle = css`
+    margin-left: 5px;    
+`;
 
 const episodeContainer = css`
     display: flex;
+    text-decoration: none;
+    margin-top: 20px;
+    padding: 10px;
+    color: #505050;
+    transition: background 0.2s linear;
     &:hover{
         background: #F8F8F8;
         & .${episodeTitle}{
-            ${pinkText}
+            transition: color 0.1s linear;
+            color: #FF7CAA;
         }
     }
 `;
 
 const image = css`
-    max-height: 100%;
+    width: 170px;
+    height: 120px;
+    margin-right: 20px;
 `;
 
 
@@ -29,26 +40,33 @@ export class EpisodesListComponent extends Component {
             episodes.length === 0 ?
                 <h2>No episodes available</h2>
                 :
-                <div>
+                <div >
                     <div className={pinkText}>SEASONS AND EPISODES:</div>
                     <LineComponent />
                     {
                         episodes.map((episode) => (
-                            <div key={episode._id} className={episodeContainer}>
-                                <div>
-                                    {/* <img
-                                            className={image}
-                                            src={`/images/shows/${showId}/${episode._id}.jpg`}
-                                            alt={episode.title}
-                                        /> */}
-                                </div>
+                            <Link
+                                to={`/show/${showId}/episode/${episode._id}`}
+                                key={episode._id}
+                                className={episodeContainer}
+                            >
+                                <img
+                                    className={cx(image, fadeInAnimation(0.6))}
+                                    src={`/images/placeholder.png`}
+                                    alt={episode.title}
+                                />
 
                                 <div>
-                                    
+
                                     <div>
-                                        <span className={pinkText}> S{episode.season} Ep{episode.episodeNumber} </span>
-                                        <span className={episodeTitle}>{episode.title}</span>
+                                        <span className={pinkText}>
+                                            S{episode.season} Ep{episode.episodeNumber}
+                                        </span>
+                                        <span className={episodeTitle}>
+                                            {episode.title}
+                                        </span>
                                     </div>
+
                                     <div key={episode.title}>
                                         {
                                             episode.description.length === 0 ?
@@ -58,7 +76,7 @@ export class EpisodesListComponent extends Component {
                                         }
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     }
                 </div>

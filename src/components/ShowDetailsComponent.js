@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
-import { HeaderComponent } from './HeaderComponent';
+
+import { HeaderContainer } from '../containers/HeaderContainer';
 import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
 import { EpisodesListComponent } from './EpisodesListComponent';
+import { LeftArrowComponent } from './LeftArrowComponent';
+import { LikeDislikeComponent } from './LikeDislikeComponent'
 
-import { css } from 'emotion';
-import { pinkText, emulateButton } from '../style.js';
+import { css, cx } from 'emotion';
+import { pinkText, emulateButton, fadeInAnimation } from '../style.js';
+;
 
 const container = css`
     display: grid;
@@ -17,18 +21,12 @@ const container = css`
     margin: 0 auto;
 `;
 
-const leftGrid = css`
-    display: grid;
-    grid-template-rows: 1fr 1fr 4fr;
-`;
-
-const rightGrid = css`
-    display: grid;
-    grid-template-rows: 1fr 2 fr 1fr;
-`;
 
 const image = css`
-    max-width:100%;
+    display: block;
+    width: 100%;
+    height: auto;
+    align-self: center;
 `;
 
 const showTitle = css`
@@ -36,19 +34,14 @@ const showTitle = css`
     padding-right: 20px;
 `;
 
-const leftArrow = css`
-    border: solid #FF7CAA;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 5px;
-    margin: 5px;
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
+const titleAndLikesCount = css`
+    display: flex; 
+    align-self: center;
 `;
 
-const leftArrowContainer = css`
-    ${emulateButton} 
-    border-radius: 50%;
+const rightColumn = css`
+    display: flex; 
+    flex-direction: column;
 `;
 
 
@@ -56,29 +49,30 @@ const leftArrowContainer = css`
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
-        const { episodes, errorMessage, showInfo } = this.props;
+        const { episodes, errorMessage, showInfo, onLikeClick, onDislikeClick, isUserLoggedIn } = this.props;
         return (
             <div>
-                <HeaderComponent />
-                <Link to='/' className={leftArrowContainer}>
-                    <span className={leftArrow}></span>
-                </Link>
-
+                <HeaderContainer />
+                <LeftArrowComponent
+                    linkTo='/'
+                    sideTextBox='Back To home'
+                />
                 {
                     errorMessage !== null ?
                         <h2>{errorMessage}</h2>
                         :
                         <div className={container} >
-                            <div className={leftGrid}>
-                                <div className={css`align-self: center;`}>
+                            <div>
+                                <div className={titleAndLikesCount}>
                                     <h1 className={showTitle}>
                                         {showInfo.title}
                                     </h1>
-                                    {
-                                        showInfo.likesCount !== undefined &&
-                                        <i className={emulateButton}>Likes Count: {showInfo.likesCount}</i>
-                                    }
-
+                                    <LikeDislikeComponent
+                                        object={showInfo}
+                                        onLikeClick={onLikeClick}
+                                        onDislikeClick={onDislikeClick}
+                                        isUserLoggedIn={isUserLoggedIn}
+                                    />
                                 </div>
 
                                 <div>
@@ -95,19 +89,19 @@ export class ShowDetailsComponent extends Component {
                                 </div>
                             </div>
 
-                            <div className={rightGrid}>
-                                <div className={css`align-self: end;`}>
-                                    <span className={emulateButton}>Add Episode</span>
-                                    <span className={emulateButton}>Favorite</span>
+                            <div className={rightColumn}>
+                                <div>
+                                    <Link to={`/show/${showInfo._id}/addEpisode`}>
+                                        <span className={emulateButton}><b>+</b> Add Episode</span>
+                                    </Link>
+                                    <span className={emulateButton}>&hearts; Favorite</span>
                                 </div>
 
-                                <div>
-                                    <img
-                                        className={image}
-                                        src={`/images/shows/${showInfo._id}.jpg`}
-                                        alt={showInfo.title}
-                                    />
-                                </div>
+                                <img
+                                    className={cx(fadeInAnimation(0.6), image)}
+                                    src={`/images/shows/${showInfo._id}.jpg`}
+                                    alt={showInfo.title}
+                                />
 
                                 <div className={pinkText} >
                                     <LineComponent /> <br />

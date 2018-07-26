@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { action } from 'mobx';
 import { getAll as getAllShows } from '../services/show';
 
 import { ShowsComponent } from '../components/ShowsComponent';
 
-import state from '../state';
-
+@inject("state")
 @observer
 export class ShowsContainer extends Component {
 
+  @action
   componentDidMount() {
-    getAllShows(state);
+    getAllShows(this.props.state);
   }
 
 
   render() {
-    return <ShowsComponent shows={state.shows} />
+    return <ShowsComponent shows={this.props.state.shows} />
   }
 }

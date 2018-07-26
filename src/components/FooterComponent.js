@@ -34,11 +34,15 @@ const socialLinks = css`
     justify-self: end;
 `;
 
+const wholeContainer = css`
+    margin-top: 30px;
+`;
+
 @observer
 export class FooterComponent extends Component {
     render() {
         return (
-            <div>
+            <div className={wholeContainer}>
                 <LineComponent widthToEnd={true} />
                 <div className={container} >
                     <div>

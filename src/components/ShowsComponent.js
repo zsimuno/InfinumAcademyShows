@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { HeaderComponent } from './HeaderComponent';
+import { HeaderContainer } from '../containers/HeaderContainer';
 import { FooterComponent } from './FooterComponent';
 
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { Link } from 'react-router-dom';
+import { fadeInAnimation } from '../style';
 
 const container = css`
     display: grid;
@@ -19,8 +20,14 @@ const image = css`
 `;
 
 const link = css`
-    color: grey;
     text-decoration: none;
+`;
+const imageLink = css`
+    color: grey;
+    transition: transform .2s ease;
+    &:hover {
+        transform: scale(1.1);
+    }
 `;
 
 @observer
@@ -29,19 +36,21 @@ export class ShowsComponent extends Component {
         const { shows } = this.props;
         return (
             <div>
-                <HeaderComponent />
+                <HeaderContainer />
                 <h3>All shows:</h3>
                 <div className={container}>
                     {
                         shows.map((show) => (
                             <div key={show._id} >
-                                <Link to={`/show/${show._id}`} className={link}>
-                                    <img
-                                        className={image}
-                                        src={`/images/shows/${show._id}.jpg`}
-                                        alt={show.title}
-                                    />
-                                    <div>{show.title}</div>
+                                <Link to={`/show/${show._id}/`} className={link}>
+                                    <div className={cx(imageLink, fadeInAnimation(1))}>
+                                        <img
+                                            className={image}
+                                            src={`/images/shows/${show._id}.jpg`}
+                                            alt={show.title}
+                                        />
+                                        <div>{show.title}</div>
+                                    </div>
                                 </Link>
 
                             </div>

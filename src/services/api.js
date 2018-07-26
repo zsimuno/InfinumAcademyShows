@@ -18,3 +18,17 @@ export function post(model, data) {
     .catch((err) => console.log(err));
 
 }
+
+export function userPost(model, token ,data) {
+  return fetch(`https://api.infinum.academy/api/${model}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((response) => response) // Nije .data zato sto kod like/dislike nema .data pri povratku podataka
+    .catch((err) => console.log(err));
+}

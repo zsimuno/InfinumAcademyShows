@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import { css } from 'emotion';
 import { register } from '../services/user';
 
@@ -20,14 +21,6 @@ const container = css`
 
 @observer
 export class RegisterContainer extends Component {
-    constructor(args) {
-        super(args);
-
-        this._handleUsernameChange = this._handleUsernameChange.bind(this);
-        this._handlePasswordChange = this._handlePasswordChange.bind(this);
-        this._register = this._register.bind(this);
-        this._showHidePassword = this._showHidePassword.bind(this);
-    }
 
     @observable
     componentState = {
@@ -35,21 +28,36 @@ export class RegisterContainer extends Component {
         password: '',
         isInputPassword: true,
         registerData: {},
+        redirectAfterRegister: false,
+        registerFailed: false,
     };
 
+    @action.bound
     _register() {
         register(this.componentState, this.componentState.username, this.componentState.password)
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .then(() => runInAction(() => this.componentState.redirectAfterRegister = true))
+            .catch((err) => runInAction(() => {
+                console.log(err);
+                this.componentState.registerFailed = true;
+            }))
+            .then(() => runInAction(() => {
+                this.componentState.username = '';
+                this.componentState.password = '';
+            }));
     }
 
+    @action.bound
     _handleUsernameChange(event) {
         this.componentState.username = event.target.value;
     }
 
+    @action.bound
     _handlePasswordChange(event) {
         this.componentState.password = event.target.value;
     }
 
+    @action.bound
     _showHidePassword() {
         this.componentState.isInputPassword = !this.componentState.isInputPassword;
     }
@@ -57,9 +65,10 @@ export class RegisterContainer extends Component {
     render() {
         return (
             <div className={container}>
-                <HeaderComponent hideLine={true} hideLogin={true}/>
-                                
-                <div>
+                <HeaderComponent hideLine={true} hideLogin={true} />
+                {this.componentState.redirectAfterRegister && <Redirect to='/' />}
+                <div >
+                    {this.componentState.registerFailed && <h4>Register Failed!</h4>}
                     <label
                         htmlFor="username"
                         className={inputLabel}
