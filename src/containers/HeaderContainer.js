@@ -14,8 +14,6 @@ export class HeaderContainer extends Component {
         sessionStorage.clear();
         this.props.state.username = null;
         this.props.state.token = null;
-        this.props.history.push('/');
-
     }
 
     render() {

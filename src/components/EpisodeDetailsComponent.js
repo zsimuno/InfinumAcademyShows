@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { pinkText, greyText, image, customTextArea, fadeInAnimation } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
