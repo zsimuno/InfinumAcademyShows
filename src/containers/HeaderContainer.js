@@ -18,8 +18,8 @@ export class HeaderContainer extends Component {
     _logout() {
         localStorage.clear();
         sessionStorage.clear();
-        this.props.state.username = '';
-        this.props.state.token = '';
+        this.props.state.username = null;
+        this.props.state.token = null;
         this.componentState.succesfulLogout = true;
 
     }

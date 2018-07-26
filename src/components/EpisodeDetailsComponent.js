@@ -59,7 +59,15 @@ const underImage = css`
 @observer
 export class EpisodeDetailsComponent extends Component {
     render() {
-        const { episodeInformation, episodeComments, commentText, sendComment, onTextAreaChange, userLoggedIn } = this.props;
+        const {
+            episodeInformation,
+            episodeComments,
+            commentText,
+            sendComment,
+            onTextAreaChange,
+            userLoggedIn
+        } = this.props;
+
         return (
             <div>
                 <HeaderContainer />

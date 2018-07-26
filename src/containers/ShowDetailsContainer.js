@@ -4,12 +4,7 @@ import { action } from 'mobx';
 
 import { ShowDetailsComponent } from '../components/ShowDetailsComponent';
 
-import { 
-    getInfo as getShowInfo, 
-    getAllEpisodes as getAllShowEpisodes, 
-    like as likeShow,
-    dislike as dislikeShow
-    } from '../services/show';
+import { getInfo as getShowInfo, getAllEpisodes as getAllShowEpisodes, like as likeShow, dislike as dislikeShow } from '../services/show';
 
 @inject("state")
 @observer
@@ -25,12 +20,12 @@ export class ShowDetailsContainer extends Component {
     }
 
     @action.bound
-    _like(){
+    _like() {
         likeShow(this.props.state, this.props.state.showInfo._id);
     }
 
     @action.bound
-    _dislike(){
+    _dislike() {
         dislikeShow(this.props.state, this.props.state.showInfo._id);
     }
 

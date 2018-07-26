@@ -37,6 +37,7 @@ export class AddEpisodeContainer extends Component {
         episodeNumber: '',
         season: '',
         episodeAdded: false,
+        addingFailed: false,
     }
 
 
@@ -55,13 +56,14 @@ export class AddEpisodeContainer extends Component {
         }
 
         addEpisode(this.props.state, episodeData)
+            .then(() => runInAction(() => this.componentState.episodeAdded = true ))
+            .catch((err) => runInAction(() => this.componentState.addingFailed = true))
             .then(() => runInAction(() => Object.assign(this.componentState,
                 {
                     title: '',
                     description: '',
                     episodeNumber: '',
                     season: '',
-                    episodeAdded: true,
                 })));
 
 
@@ -101,6 +103,7 @@ export class AddEpisodeContainer extends Component {
                     <HeaderComponent />
                     <LeftArrowComponent linkTo='./' />
                     <div className={container}>
+                    {this.componentState.addingFailed && <h2>Adding episode failed!</h2>}
                         <h1>Add episode:</h1>
                         <label
                             htmlFor="title"

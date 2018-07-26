@@ -46,14 +46,14 @@ export class ShowsComponent extends Component {
                         shows.map((show) => (
                             <div key={show._id} >
                                 <Link to={`/show/${show._id}/`} className={link}>
-                                <div className={imageLink}>
-                                    <img
-                                        className={image}
-                                        src={`/images/shows/${show._id}.jpg`}
-                                        alt={show.title}
-                                    />
-                                    <div>{show.title}</div>
-                                </div>
+                                    <div className={imageLink}>
+                                        <img
+                                            className={image}
+                                            src={`/images/shows/${show._id}.jpg`}
+                                            alt={show.title}
+                                        />
+                                        <div>{show.title}</div>
+                                    </div>
                                 </Link>
 
                             </div>

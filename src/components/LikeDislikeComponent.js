@@ -26,21 +26,21 @@ export class LikeDislikeComponent extends Component {
             object.likesCount !== undefined &&
             <div className={container}>
                 {
-                isUserLoggedIn &&
-                <div
-                    className={emulateButton}
-                    onClick={onLikeClick}
-                >
-                    LIKE
+                    isUserLoggedIn &&
+                    <div
+                        className={emulateButton}
+                        onClick={onLikeClick}
+                    >
+                        LIKE
                 </div>}
                 <div className={linkesCount}>Rating: {object.likesCount}</div>
                 {
-                isUserLoggedIn &&
-                <div
-                    className={emulateButton}
-                    onClick={onDislikeClick}
-                >
-                    DISLIKE
+                    isUserLoggedIn &&
+                    <div
+                        className={emulateButton}
+                        onClick={onDislikeClick}
+                    >
+                        DISLIKE
                 </div>
                 }
             </div>
