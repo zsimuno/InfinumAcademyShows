@@ -9,7 +9,7 @@ import { EpisodesListComponent } from './EpisodesListComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
 import { LikeDislikeComponent } from './LikeDislikeComponent'
 
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { pinkText, emulateButton, fadeInAnimation } from '../style.js';
 ;
 
@@ -24,7 +24,6 @@ const container = css`
 
 const image = css`
     display: block;
-    ${fadeInAnimation}
     width: 100%;
     height: auto;
     align-self: center;
@@ -33,6 +32,16 @@ const image = css`
 const showTitle = css`
     display: inline; 
     padding-right: 20px;
+`;
+
+const titleAndLikesCount = css`
+    display: flex; 
+    align-self: center;
+`;
+
+const rightColumn = css`
+    display: flex; 
+    flex-direction: column;
 `;
 
 
@@ -54,7 +63,7 @@ export class ShowDetailsComponent extends Component {
                         :
                         <div className={container} >
                             <div>
-                                <div className={css`display: flex; align-self: center;`}>
+                                <div className={titleAndLikesCount}>
                                     <h1 className={showTitle}>
                                         {showInfo.title}
                                     </h1>
@@ -80,7 +89,7 @@ export class ShowDetailsComponent extends Component {
                                 </div>
                             </div>
 
-                            <div className={css`display: flex; flex-direction: column;`}>
+                            <div className={rightColumn}>
                                 <div>
                                     <Link to={`/show/${showInfo._id}/addEpisode`}>
                                         <span className={emulateButton}><b>+</b> Add Episode</span>
@@ -89,7 +98,7 @@ export class ShowDetailsComponent extends Component {
                                 </div>
 
                                 <img
-                                    className={image}
+                                    className={cx(fadeInAnimation(0.6), image)}
                                     src={`/images/shows/${showInfo._id}.jpg`}
                                     alt={showInfo.title}
                                 />

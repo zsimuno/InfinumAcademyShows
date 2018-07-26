@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable, action, runInAction } from 'mobx';
 import { login } from '../services/user';
@@ -35,7 +35,6 @@ export class LoginContainer extends Component {
         isInputPassword: true,
         loginData: {},
         rememberMeChecked: false,
-        redirectAfterLogin: false,
         loginFailed: false,
     };
 
@@ -44,7 +43,7 @@ export class LoginContainer extends Component {
         login(this.componentState, this.componentState.username, this.componentState.password)
             .then(() => this._succesfulLogin())
             .then(() => console.log('token:', this.componentState.loginData.token))
-            .then(() => runInAction(() => this.componentState.redirectAfterLogin = true))
+            .then(() => this.props.history.push('/'))
             .catch((err) => runInAction(() => {
                 console.log(err);
                 this.componentState.loginFailed = true;
@@ -94,7 +93,6 @@ export class LoginContainer extends Component {
         return (
             <div>
                 <HeaderComponent hideLine={true} hideLogin={true} />
-                {this.componentState.redirectAfterLogin && <Redirect to='/' />}
                 {
                 this.props.state.getUsername ?
                 <h1>

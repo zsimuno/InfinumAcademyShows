@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { action, runInAction, observable } from 'mobx';
-import { getInfo as getEpisodeInfo, getComments as getEpisodeComments, addComment as addCommentToEpisode } from '../services/episode';
+import { getInfo as getEpisodeInfo, 
+         getComments as getEpisodeComments, 
+         addComment as addCommentToEpisode, 
+            } from '../services/episode';
 import { EpisodeDetailsComponent } from '../components/EpisodeDetailsComponent';
 
 @inject("state")

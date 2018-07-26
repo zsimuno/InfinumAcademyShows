@@ -26,13 +26,11 @@ const comments = css`
     margin-bottom: 20px;
 `;
 
-const userImage = css`
-    ${image}
+const userImageMargin = css`
     margin-right: 10px;
 `;
 
 const commentInput = css`
-    ${customTextArea}
     width: 100%;
     height: 100px;
     resize: none;
@@ -79,7 +77,7 @@ export class EpisodeDetailsComponent extends Component {
                 <div className={container}>
 
                     <img
-                        className={`${image} ${fadeInAnimation}`}
+                        className={cx(image, fadeInAnimation(0.6))}
                         src={`/images/placeholder.png`}
                         alt={episodeInformation.title}
                     />
@@ -98,7 +96,7 @@ export class EpisodeDetailsComponent extends Component {
 
                         <div className={commentTextContainer}>
                             <textarea
-                                className={commentInput}
+                                className={cx(commentInput, customTextArea) }
                                 placeholder="Post a comment..."
                                 value={commentText}
                                 onChange={onTextAreaChange}
@@ -121,7 +119,7 @@ export class EpisodeDetailsComponent extends Component {
                                         <div className={comments} >
                                             <img
                                                 src={placeholderImage}
-                                                className={userImage}
+                                                className={cx(userImageMargin, image)}
                                                 alt="User"
                                             />
                                             <div className={usernameAndComment}>

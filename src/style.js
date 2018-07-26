@@ -9,8 +9,8 @@ export const fadeInImage = keyframes`
         }
 `;
 
-export const fadeInAnimation = css`
-    animation: ${fadeInImage} .6s;
+export const fadeInAnimation = (duration) => css`
+    animation: ${fadeInImage} ${duration}s ease;
 `;
 
 export const image = css`

@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
 import { HeaderComponent } from '../components/HeaderComponent';
-import { observable, action } from 'mobx';
+import { action } from 'mobx';
 
 @inject("state")
 @observer
 export class HeaderContainer extends Component {
-
-    @observable
-    componentState = {
-        succesfulLogout: false,
-    }
 
     @action.bound
     _logout() {
@@ -20,7 +14,7 @@ export class HeaderContainer extends Component {
         sessionStorage.clear();
         this.props.state.username = null;
         this.props.state.token = null;
-        this.componentState.succesfulLogout = true;
+        this.props.history.push('/');
 
     }
 
@@ -28,8 +22,6 @@ export class HeaderContainer extends Component {
         const { hideLogin, hideLine } = this.props;
         return (
             <div>
-                {this.componentState.succesfulLogout &&
-                    <Redirect to='/' />}
                 <HeaderComponent
                     hideLogin={hideLogin}
                     hideLine={hideLine}

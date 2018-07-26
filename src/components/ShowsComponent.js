@@ -3,9 +3,9 @@ import { observer } from 'mobx-react';
 import { HeaderContainer } from '../containers/HeaderContainer';
 import { FooterComponent } from './FooterComponent';
 
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { Link } from 'react-router-dom';
-import { fadeInImage } from '../style';
+import { fadeInAnimation } from '../style';
 
 const container = css`
     display: grid;
@@ -13,8 +13,6 @@ const container = css`
     justify-items: center;
     grid-gap: 40px 20px;
 `;
-
-
 
 const image = css`
     width: 200px;
@@ -25,7 +23,6 @@ const link = css`
     text-decoration: none;
 `;
 const imageLink = css`
-    animation: ${fadeInImage} 1s ease;
     color: grey;
     transition: transform .2s ease;
     &:hover {
@@ -46,7 +43,7 @@ export class ShowsComponent extends Component {
                         shows.map((show) => (
                             <div key={show._id} >
                                 <Link to={`/show/${show._id}/`} className={link}>
-                                    <div className={imageLink}>
+                                    <div className={cx(imageLink, fadeInAnimation(1))}>
                                         <img
                                             className={image}
                                             src={`/images/shows/${show._id}.jpg`}

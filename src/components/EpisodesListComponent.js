@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { pinkText, fadeInAnimation } from '../style.js';
 import { LineComponent } from './LineComponent';
 import { Link } from 'react-router-dom';
@@ -20,13 +20,12 @@ const episodeContainer = css`
         background: #F8F8F8;
         & .${episodeTitle}{
             transition: color 0.1s linear;
-            ${pinkText}
+            color: #FF7CAA;
         }
     }
 `;
 
 const image = css`
-    ${fadeInAnimation}
     width: 170px;
     height: 120px;
     margin-right: 20px;
@@ -52,7 +51,7 @@ export class EpisodesListComponent extends Component {
                                 className={episodeContainer}
                             >
                                 <img
-                                    className={image}
+                                    className={cx(image, fadeInAnimation(0.6))}
                                     src={`/images/placeholder.png`}
                                     alt={episode.title}
                                 />

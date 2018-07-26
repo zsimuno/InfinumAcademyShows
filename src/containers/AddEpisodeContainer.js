@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Redirect } from 'react-router-dom';
 import { action, observable, runInAction } from 'mobx';
-import { HeaderComponent } from '../components/HeaderComponent';
-import { FooterComponent } from '../components/FooterComponent';
+import { Redirect } from 'react-router-dom';
+
+import { css, cx } from 'emotion';
 import { customInput, customTextArea, inputLabel } from '../style';
-import { css } from 'emotion';
+
 import { ButtonComponent } from '../components/ButtonComponent';
 import { LeftArrowComponent } from '../components/LeftArrowComponent';
 import { LoginRequiredComponent } from '../components/LoginRequiredComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
+import { FooterComponent } from '../components/FooterComponent';
+
 import { add as addEpisode } from '../services/episode';
 
 const container = css`
@@ -18,13 +21,14 @@ const container = css`
     justify-content: flex-start;
 `;
 
-const textAreaStyle = css`
-    ${customTextArea}
+const _textAreaStyle = css`
     font-size: 20px;
     width: 50%;
     height: 100px;
     resize: none;
 `;
+
+const textAreaStyle = cx(_textAreaStyle, customTextArea);
 
 @inject("state")
 @observer

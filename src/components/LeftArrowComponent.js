@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { Link } from 'react-router-dom';
 
 const leftArrow = css`
@@ -56,31 +56,36 @@ const sideBox = css`
     transition: visibility 0s, opacity 0.5s linear;
 `;
 
+const container = css`
+    display: flex;
+    pointer-events: none;
+    &:hover {
+        & .${sideBox} {
+            visibility: visible;
+            opacity: 0.7;
+        }
+    }
+`;
+
+const bottomRightMargin = (bottomAndRightMargin) => css`
+    ${bottomAndRightMargin &&
+        `
+            position: relative;
+            float: left;
+            margin-right: ${bottomAndRightMargin};
+            margin-bottom: ${bottomAndRightMargin};
+            `
+        }
+`;
+
 
 @observer
 export class LeftArrowComponent extends Component {
     render() {
         const { linkTo, bottomAndRightMargin, sideTextBox } = this.props;
-        const container = css`
-            display: flex;
-            pointer-events: none;
-            ${bottomAndRightMargin &&
-            `
-                position: relative;
-                float: left;
-                margin-right: ${bottomAndRightMargin};
-                margin-bottom: ${bottomAndRightMargin};
-                `
-            }
-            &:hover {
-                & .${sideBox} {
-                    visibility: visible;
-                    opacity: 0.7;
-                }
-            }
-        `;
+        
         return (
-            <div className={container}>
+            <div className={cx(container, bottomRightMargin(bottomAndRightMargin))}>
                 <Link to={linkTo} className={leftArrowContainer}>
                     <span className={leftArrow}></span>
                 </Link>
