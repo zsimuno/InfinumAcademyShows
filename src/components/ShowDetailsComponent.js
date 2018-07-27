@@ -10,7 +10,7 @@ import { LeftArrowComponent } from './LeftArrowComponent';
 import { LikeDislikeComponent } from './LikeDislikeComponent'
 
 import { css, cx } from 'emotion';
-import { pinkText, emulateButton, fadeInAnimation, loadingAnimation } from '../style.js';
+import { pinkText, fadeInAnimation, loadingAnimation, emulateButtonIfLogged } from '../style.js';
 
 import placeholderImage from '../images/placeholder.png';
 
@@ -55,15 +55,15 @@ const rightColumn = css`
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
-        const { episodes, 
-            errorMessage, 
-            showInfo, 
-            onLikeClick, 
-            onDislikeClick, 
-            isUserLoggedIn, 
+        const { episodes,
+            errorMessage,
+            showInfo,
+            onLikeClick,
+            onDislikeClick,
+            isUserLoggedIn,
             loadingDone,
             headerProps,
-         } = this.props;
+        } = this.props;
         return (
             <div className={bodyContainer}>
                 <HeaderComponent {...headerProps} />
@@ -100,19 +100,20 @@ export class ShowDetailsComponent extends Component {
 
                                 <div>
                                     {!loadingDone ?
-                                    <div className={loadingAnimation}></div>
-                                    :
-                                    <EpisodesListComponent episodes={episodes} showId={showInfo._id} />}
+                                        <div className={loadingAnimation}></div>
+                                        :
+                                        <EpisodesListComponent episodes={episodes} showId={showInfo._id} />}
                                 </div>
                             </div>
 
                             <div className={rightColumn}>
                                 <div>
-                                    <Link to={`/show/${showInfo._id}/addEpisode`}>
-                                        <span className={emulateButton}><b>+</b> Add Episode</span>
+                                    <Link to={`/show/${showInfo._id}/addEpisode`} className={emulateButtonIfLogged(isUserLoggedIn)}>
+                                        <b>+</b> Add Episode
                                     </Link>
-                                    <span className={emulateButton}>&hearts; Favorite</span>
+                                    <span className={emulateButtonIfLogged(isUserLoggedIn)}>&hearts; Favorite</span>
                                 </div>
+
 
                                 <img
                                     className={cx(fadeInAnimation(0.6), image)}

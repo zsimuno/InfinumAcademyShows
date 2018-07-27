@@ -58,7 +58,8 @@ export const emulateButton = css`
     color: #505050;
     margin: 5px;
     padding: 5px;
-    user-select: none;          
+    user-select: none;         
+    text-decoration: none; 
 `;
 
 export const greyText = css`
@@ -87,3 +88,33 @@ export const loadingAnimation = css`
     animation: ${spin} 2s linear infinite;
 `;
 
+export const displayFlexColumn = css`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const emulateButtonIfLogged = (isUserLoggedIn) => css`
+    display: inline-block;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    color: #505050;
+    margin: 5px;
+    padding: 5px;
+    user-select: none;  
+    text-decoration: none; 
+
+    ${ !isUserLoggedIn &&
+    `pointer-events: none;
+    background: #EAEAEA;
+    opacity: 0.5;`
+    }
+
+    ${ isUserLoggedIn &&
+    `transition: background-color 0.1s ease;
+    &:hover {
+        background: #FF7CAA;
+        color: white;
+    }`
+    }
+`;

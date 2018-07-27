@@ -64,6 +64,7 @@ export class UserFormComponent extends Component {
                                 id="username"
                                 value={username}
                                 onChange={onChangeFunction('username')}
+                                autoFocus="true"
                             />
                         </div>
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css, cx } from 'emotion';
-import { pinkText, greyText, image, customTextArea, fadeInAnimation, loadingAnimation } from '../style';
+import { pinkText, greyText, image, customTextArea, fadeInAnimation, loadingAnimation, displayFlexColumn } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 import { LineComponent } from './LineComponent';
@@ -14,8 +14,6 @@ import placeholderImage from '../images/placeholder.png';
 
 
 const container = css`
-    display: flex;
-    flex-direction: column;
     align-items: center;
 `;
 
@@ -37,11 +35,6 @@ const commentInput = css`
     margin: 20px 0px 20px 0px;
 `;
 
-const commentTextContainer = css`
-    display: flex;
-    flex-direction: column;
-`;
-
 const usernameAndComment = css`
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -49,8 +42,6 @@ const usernameAndComment = css`
 `;
 
 const underImage = css`
-    display: flex;
-    flex-direction: column;
     width: 70%;
     `;
 
@@ -76,7 +67,7 @@ export class EpisodeDetailsComponent extends Component {
                     bottomAndRightMargin='-200px'
                     sideTextBox='Back To TV Show'
                 />
-                <div className={container}>
+                <div className={cx(container, displayFlexColumn)}>
 
                     <img
                         className={cx(image, fadeInAnimation(0.6))}
@@ -84,7 +75,7 @@ export class EpisodeDetailsComponent extends Component {
                         alt={episodeInformation.title}
                     />
 
-                    <div className={underImage}>
+                    <div className={cx(underImage, displayFlexColumn)}>
                         <h2>{episodeInformation.title}</h2>
                         <p>{episodeInformation.description}</p>
 
@@ -96,7 +87,7 @@ export class EpisodeDetailsComponent extends Component {
                         </p>
 
 
-                        <div className={commentTextContainer}>
+                        <div className={displayFlexColumn}>
                             <textarea
                                 className={cx(commentInput, customTextArea)}
                                 placeholder="Post a comment..."

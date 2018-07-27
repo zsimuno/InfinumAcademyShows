@@ -18,8 +18,8 @@ export class AddEpisodeContainer extends Component {
         episodeNumber: '',
         season: '',
         addingFailed: false,
-        episodeOptions: [1,2,3,4],
-        seasonOptions: [1,2,3,4,5,6],
+        episodeOptions: Array.from(new Array(40), (x,i) => i),
+        seasonOptions: Array.from(new Array(40), (x,i) => i),
         image: undefined,
     }
 

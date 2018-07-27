@@ -6,7 +6,6 @@ import { css, cx } from 'emotion';
 import { customTextArea, fadeInAnimation } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
-import { LoginRequiredComponent } from '../components/LoginRequiredComponent';
 
 const container = css`
     display: grid;
@@ -161,7 +160,7 @@ export class AddEpisodeComponent extends Component {
                         multiple={false}                        
                     >
                         {image ? 
-                        <img className={imageStyle} src={image.preview} />
+                        <img className={imageStyle} src={image.preview} alt={image.name} />
                         :
                         <b className={textInDropzone}>Drag your image here</b>}
                     </Dropzone>
@@ -172,6 +171,7 @@ export class AddEpisodeComponent extends Component {
                         value={title}
                         onChange={onChangeFunction('title')}
                         placeholder="Episode title"
+                        autoFocus="true"
                     />
                     <div className={displayFlex}>
                         <label
