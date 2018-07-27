@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { css, cx } from 'emotion';
+import { css } from 'emotion';
 import { pinkText, fadeInAnimation } from '../style.js';
 import { LineComponent } from './LineComponent';
 import { Link } from 'react-router-dom';
@@ -46,7 +46,7 @@ export class EpisodesListComponent extends Component {
                     :
                     episodes.map((episode) => (
                         <Link
-                            to={`/show/${showId}/episode/${episode._id}`}
+                            to={`/${showId}/episode/${episode._id}`}
                             key={episode._id}
                             className={episodeContainer}
                         >

@@ -55,9 +55,9 @@ export class RegisterContainer extends Component {
                 onChangeFunction={this._onInputChange}
                 username={this.componentState.username}
                 password={this.componentState.password}
+                isInputPassword={this.componentState.isInputPassword}
                 userLoggedIn={this.props.state.getUsername}
                 showHidePasswordFunction={this._showHidePassword}
-                isInputPassword={this.componentState.isInputPassword}
                 errors={this.componentState.errors}
                 buttonText='REGISTER'
             />

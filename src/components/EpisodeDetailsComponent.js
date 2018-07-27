@@ -13,8 +13,6 @@ import placeholderUserImage from '../images/img-placeholder-user3.png';
 import placeholderImage from '../images/placeholder.png';
 
 
-
-
 const container = css`
     display: flex;
     flex-direction: column;
@@ -67,12 +65,12 @@ export class EpisodeDetailsComponent extends Component {
             onTextAreaChange,
             userLoggedIn,
             loadingDone,
-            ...other,
+            headerProps,
         } = this.props;
 
         return (
             <div>
-                <HeaderComponent {...other} />
+                <HeaderComponent {...headerProps} />
                 <LeftArrowComponent
                     linkTo={`/show/${episodeInformation.showId}`}
                     bottomAndRightMargin='-200px'
@@ -104,13 +102,13 @@ export class EpisodeDetailsComponent extends Component {
                                 placeholder="Post a comment..."
                                 value={commentText}
                                 onChange={onTextAreaChange}
-                                disabled={!(userLoggedIn)}
+                                disabled={!userLoggedIn}
                             />
                             <ButtonComponent
                                 text="COMMENT"
                                 onClick={sendComment}
                                 alignSelf="flex-end"
-                                disabled={!(userLoggedIn)}
+                                disabled={!userLoggedIn || !commentText}
                             />
                         </div>
                         {!loadingDone ?

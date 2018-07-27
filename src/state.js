@@ -46,6 +46,9 @@ class State {
 
   @observable
   episodeComments = [];
+
+  @observable
+  mediaData = [];
 }
 
 export default new State();

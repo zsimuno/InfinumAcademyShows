@@ -16,10 +16,15 @@ import placeholderImage from '../images/placeholder.png';
 
 const container = css`
     display: grid;
+    position: relative;
     grid-template-columns: 4fr 1fr;
     grid-gap: 20px;
     width: 90%;
     margin: 0 auto;
+`;
+
+const bodyContainer = css`
+    position: relative;
 `;
 
 
@@ -57,11 +62,11 @@ export class ShowDetailsComponent extends Component {
             onDislikeClick, 
             isUserLoggedIn, 
             loadingDone,
-            ...other,
+            headerProps,
          } = this.props;
         return (
-            <div>
-                <HeaderComponent {...other} />
+            <div className={bodyContainer}>
+                <HeaderComponent {...headerProps} />
                 <LeftArrowComponent
                     linkTo='/'
                     sideTextBox='Back To home'

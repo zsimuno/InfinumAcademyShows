@@ -19,8 +19,9 @@ export class ShowsContainer extends Component {
     return <ShowsComponent
       shows={this.props.state.shows}
 
-      username={this.props.state.getUsername}
-      logout={this.props.state._logout}
+      headerProps={{username: this.props.state.getUsername, logout: this.props.state._logout}}
+      // username={this.props.state.getUsername}
+      // logout={this.props.state._logout}
     />
   }
 }

@@ -1,34 +1,11 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { action, observable, runInAction } from 'mobx';
-import { Redirect } from 'react-router-dom';
-
-import { css, cx } from 'emotion';
-import { customInput, customTextArea, inputLabel } from '../style';
-
-import { ButtonComponent } from '../components/ButtonComponent';
-import { LeftArrowComponent } from '../components/LeftArrowComponent';
-import { LoginRequiredComponent } from '../components/LoginRequiredComponent';
-import { HeaderComponent } from '../components/HeaderComponent';
-import { FooterComponent } from '../components/FooterComponent';
 
 import { add as addEpisode } from '../services/episode';
+import { uploadFile as uploadEpisodeImage } from '../services/media';
+import { AddEpisodeComponent } from '../components/AddEpisodeComponent';
 
-const container = css`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: flex-start;
-`;
-
-const _textAreaStyle = css`
-    font-size: 20px;
-    width: 50%;
-    height: 100px;
-    resize: none;
-`;
-
-const textAreaStyle = cx(_textAreaStyle, customTextArea);
 
 @inject("state")
 @observer
@@ -40,13 +17,16 @@ export class AddEpisodeContainer extends Component {
         description: '',
         episodeNumber: '',
         season: '',
-        episodeAdded: false,
         addingFailed: false,
+        episodeOptions: [1,2,3,4],
+        seasonOptions: [1,2,3,4,5,6],
+        image: undefined,
     }
 
 
     @action.bound
-    _addEpisode() {
+    _addEpisode(event) {
+        event.preventDefault();
         const { showId } = this.props.match.params;
         console.log(showId);
         const episodeData = {
@@ -60,7 +40,7 @@ export class AddEpisodeContainer extends Component {
         }
 
         addEpisode(this.props.state, episodeData)
-            .then(() => runInAction(() => this.componentState.episodeAdded = true ))
+            .then(() => runInAction(() => this.props.history.push('./')))
             .catch((err) => runInAction(() => this.componentState.addingFailed = true))
             .then(() => runInAction(() => Object.assign(this.componentState,
                 {
@@ -74,106 +54,38 @@ export class AddEpisodeContainer extends Component {
     }
 
     @action.bound
-    _handleTitleChange(event) {
-        this.componentState.title = event.target.value;
+    _onInputChange(fieldName, fieldValue = 'value') {
+        return action((event) => {
+            const value = event.target[fieldValue];
+            this.componentState[fieldName] = value;
+        });
     }
 
     @action.bound
-    _handleDescriptionChange(event) {
-        this.componentState.description = event.target.value;
-    }
+    _onDrop(files) {
+        console.log(files);
+        this.componentState.image = files[0];
+        console.log(this.componentState.image);
+
+        // const data = new FormData();
+        // data.append('file', files[0]);
+
+      }
 
     @action.bound
-    _handleEpisodeNumberChange(event) {
-        this.componentState.episodeNumber = event.target.value;
+    _onClose() {
+        this.props.history.push('./');
     }
-    @action.bound
-    _handleSeasonChange(event) {
-        this.componentState.season = event.target.value;
-    }
-
-
-
 
     render() {
         return (
-            !(this.props.state.getUsername) ?
-                <LoginRequiredComponent />
-                :
-                this.componentState.episodeAdded ?
-                <Redirect to='./' />
-                :
-                <div>
-                    <HeaderComponent />
-                    <LeftArrowComponent linkTo='./' />
-                    <div className={container}>
-                    {this.componentState.addingFailed && <h2>Adding episode failed!</h2>}
-                        <h1>Add episode:</h1>
-                        <label
-                            htmlFor="title"
-                            className={inputLabel}
-                        >
-                            Title:
-                        </label>
-                        <input
-                            id="title"
-                            type="text"
-                            className={customInput}
-                            value={this.componentState.title}
-                            onChange={this._handleTitleChange}
-                        />
-                        <br />
-                        <label
-                            htmlFor="dascription"
-                            className={inputLabel}
-                        >
-                            Description:
-                        </label>
-
-                        <textarea
-                            id="dascription"
-                            type="text"
-                            className={textAreaStyle}
-                            value={this.componentState.description}
-                            onChange={this._handleDescriptionChange}
-                            placeholder="Enter description here..."
-                        />
-                        <br />
-                        <label
-                            htmlFor="episodeNumber"
-                            className={inputLabel}
-                        >
-                            Episode number:
-                        </label>
-                        <input
-                            id="episodeNumber"
-                            type="text"
-                            className={customInput}
-                            value={this.componentState.episodeNumber}
-                            onChange={this._handleEpisodeNumberChange}
-                        />
-                        <br />
-                        <label
-                            htmlFor="season"
-                            className={inputLabel}
-                        >
-                            Season:
-                        </label>
-                        <input
-                            id="season"
-                            type="text"
-                            className={customInput}
-                            value={this.componentState.season}
-                            onChange={this._handleSeasonChange}
-                        />
-                    </div>
-                    <br />
-                    <ButtonComponent
-                        text="ADD EPISODE"
-                        onClick={this._addEpisode}
-                    />
-                    <FooterComponent />
-                </div>
+            <AddEpisodeComponent 
+                {...this.componentState}
+                onDrop={this._onDrop}
+                onChangeFunction={this._onInputChange} 
+                onSubmit={this._addEpisode}
+                onClose={this._onClose}
+                />
         )
     }
 }

@@ -35,10 +35,10 @@ const imageLink = css`
 @observer
 export class ShowsComponent extends Component {
     render() {
-        const { shows, ...other } = this.props;
+        const { shows, headerProps } = this.props;
         return (
             <div>
-                <HeaderComponent {...other} />
+                <HeaderComponent {...headerProps} />
                 <h3>All shows:</h3>
                 <div className={container}>
                     {

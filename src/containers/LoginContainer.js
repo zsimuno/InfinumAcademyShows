@@ -72,9 +72,10 @@ export class LoginContainer extends Component {
                 username={this.componentState.username}
                 password={this.componentState.password}
                 rememberMe={this.componentState.rememberMe}
+                isInputPassword={this.componentState.isInputPassword}
                 userLoggedIn={this.props.state.getUsername}
                 showHidePasswordFunction={this._showHidePassword}
-                isInputPassword={this.componentState.isInputPassword}
+                
                 errors={this.componentState.errors}
                 buttonText='LOGIN'
             />

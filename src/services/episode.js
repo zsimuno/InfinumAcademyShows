@@ -1,4 +1,4 @@
-import { get, userPost } from './api';
+import { get, post } from './api';
 import { runInAction } from 'mobx';
 
 export async function getInfo(episodeId) {
@@ -13,11 +13,11 @@ export async function getComments(state, episodeId) {
 
 
 export async function add(state, episodeData) {
-    const episodeInfo = await userPost('episodes', state.userToken, episodeData);
-    episodeInfo.data && runInAction(() => state.episodes.push(episodeInfo.data));
+    const episodeInfo = await post('episodes', state.userToken, episodeData);
+    episodeInfo && runInAction(() => state.episodes.push(episodeInfo));
 }
 
 export async function addComment(state, text, episodeId) {
-    const commentInfo = await userPost('comments',  state.userToken, {text: text, episodeId: episodeId});
-    commentInfo.data && runInAction(() => state.episodeComments.push(commentInfo.data));
+    const commentInfo = await post('comments',  state.userToken, {text: text, episodeId: episodeId});
+    commentInfo && runInAction(() => state.episodeComments.push(commentInfo));
 }

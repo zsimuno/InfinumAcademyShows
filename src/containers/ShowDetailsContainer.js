@@ -45,8 +45,7 @@ export class ShowDetailsContainer extends Component {
             isUserLoggedIn={this.props.state.getUsername}
             loadingDone={this.componentState.loadingDone}
 
-            username={this.props.state.getUsername}
-            logout={this.props.state._logout}
+            headerProps={{username: this.props.state.getUsername, logout: this.props.state._logout}}
         />
 
     }

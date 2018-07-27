@@ -30,10 +30,10 @@ ReactDOM.render((
     <BrowserRouter>
         <div className={body}>
             <Route exact path="/" component={ShowsContainer} />
-            <Route exact path="/show/:showId" component={ShowDetailsContainer} />
+            <Route path="/show/:showId" component={ShowDetailsContainer} />
             <Route exact path="/login" component={LoginContainer} />
             <Route exact path="/register" component={RegisterContainer} />
-            <Route exact path="/show/:showId/episode/:episodeId" component={EpisodeDetailsContainer} />
+            <Route exact path="/:showId/episode/:episodeId" component={EpisodeDetailsContainer} />
             <Route exact path="/show/:showId/addEpisode" component={AddEpisodeContainer} />
         </div>
     </BrowserRouter>

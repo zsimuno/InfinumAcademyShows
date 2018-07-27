@@ -10,7 +10,7 @@ export class LoginRequiredComponent extends Component {
     render() {
         return (
             <div>
-             <HeaderComponent hideLogin={true} hideLine={true} />
+             <HeaderComponent hideLogin hideLine />
              <h2>
                  You must be logged in to do this!
              </h2>  

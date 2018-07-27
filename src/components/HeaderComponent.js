@@ -68,7 +68,7 @@ export class HeaderComponent extends Component {
                     }
                 </div>
                 {
-                    !hideLine && <LineComponent widthToEnd={true} />
+                    !hideLine && <LineComponent widthToEnd />
                 }
             </div>
 

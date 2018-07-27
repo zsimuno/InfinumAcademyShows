@@ -38,7 +38,7 @@ export class UserFormComponent extends Component {
         const isLoginScreen = (rememberMe !== undefined);
         return (
             <div>
-                <HeaderComponent hideLine={true} hideLogin={true} />
+                <HeaderComponent hideLine hideLogin />
                 {
                 userLoggedIn ?
                     <h1>
@@ -60,7 +60,7 @@ export class UserFormComponent extends Component {
                     </label> <br />
                             <input
                                 className={customInput}
-                                type="text"
+                                type="email"
                                 id="username"
                                 value={username}
                                 onChange={onChangeFunction('username')}
@@ -106,6 +106,7 @@ export class UserFormComponent extends Component {
                             <ButtonComponent
                                 type='submit'
                                 text={buttonText}
+                                disabled={!username || !password}
                             />
                         </div>
                         {isLoginScreen && 

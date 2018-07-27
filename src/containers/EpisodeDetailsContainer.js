@@ -52,8 +52,7 @@ export class EpisodeDetailsContainer extends Component {
             userLoggedIn={this.props.state.getUsername}
             loadingDone={this.componentState.loadingDone}
 
-            username={this.props.state.getUsername}
-            logout={this.props.state._logout}
+            headerProps={{username: this.props.state.getUsername, logout: this.props.state._logout}}
                 
         />
     }

@@ -5,30 +5,16 @@ export function get(model) {
     .catch((err) => err);
 }
 
-export function post(model, data) {
+export function post(model, token, data) {
   return fetch(`https://api.infinum.academy/api/${model}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Authorization': token || undefined,
+      'Content-Type': (model === 'media') ? undefined : 'application/json',
     },
-    body: JSON.stringify(data),
+    body: (model === 'media') ? data : JSON.stringify(data),
   })
     .then((response) => response.json())
     .then((response) => response.data || response)
-    .catch((err) => err);
-
-}
-
-export function userPost(model, token ,data) {
-  return fetch(`https://api.infinum.academy/api/${model}`, {
-    method: 'POST',
-    headers: {
-      'Authorization': token,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((response) => response)
     .catch((err) => err);
 }
