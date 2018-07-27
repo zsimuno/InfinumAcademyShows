@@ -11,7 +11,8 @@ import { LikeDislikeComponent } from './LikeDislikeComponent'
 
 import { css, cx } from 'emotion';
 import { pinkText, emulateButton, fadeInAnimation } from '../style.js';
-;
+
+import placeholderImage from '../images/placeholder.png';
 
 const container = css`
     display: grid;
@@ -99,7 +100,7 @@ export class ShowDetailsComponent extends Component {
 
                                 <img
                                     className={cx(fadeInAnimation(0.6), image)}
-                                    src={`/images/shows/${showInfo._id}.jpg`}
+                                    src={showInfo.imageUrl || placeholderImage}
                                     alt={showInfo.title}
                                 />
 

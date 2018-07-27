@@ -4,6 +4,7 @@ import { css, cx } from 'emotion';
 import { pinkText, fadeInAnimation } from '../style.js';
 import { LineComponent } from './LineComponent';
 import { Link } from 'react-router-dom';
+import placeholderImage from '../images/placeholder.png';
 
 const episodeTitle = css`
     margin-left: 5px;    
@@ -52,7 +53,7 @@ export class EpisodesListComponent extends Component {
                             >
                                 <img
                                     className={cx(image, fadeInAnimation(0.6))}
-                                    src={`/images/placeholder.png`}
+                                    src={episode.imageUrl || placeholderImage}
                                     alt={episode.title}
                                 />
 

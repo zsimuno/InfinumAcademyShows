@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { observable, action, runInAction } from 'mobx';
-import { css } from 'emotion';
 import { register } from '../services/user';
 
-import { ButtonComponent } from '../components/ButtonComponent';
-import { HeaderComponent } from '../components/HeaderComponent';
+import { UserFormComponent } from '../components/UserFormComponent';
 
-import { customInput, inputLabel, showHidePassword } from '../style';
-
-import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
-
-const container = css`
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 30px;
-    
-`;
-
+@inject("state")
 @observer
 export class RegisterContainer extends Component {
 
@@ -28,18 +15,19 @@ export class RegisterContainer extends Component {
         password: '',
         isInputPassword: true,
         registerData: {},
-        redirectAfterRegister: false,
-        registerFailed: false,
+        errors: [],
     };
 
     @action.bound
-    _register() {
+    _submitForm(event) {
+        event.preventDefault();
         register(this.componentState, this.componentState.username, this.componentState.password)
-            .catch((err) => console.log(err))
-            .then(() => runInAction(() => this.componentState.redirectAfterRegister = true))
-            .catch((err) => runInAction(() => {
-                console.log(err);
-                this.componentState.registerFailed = true;
+            .then(() => this.componentState.registerData.errors &&
+                Promise.reject(this.componentState.registerData.errors))
+            .then(() => this.props.history.push('/'))
+            .then(() => console.log('Register data:', this.componentState.registerData))
+            .catch((errors) => runInAction(() => {
+                this.componentState.errors = errors;
             }))
             .then(() => runInAction(() => {
                 this.componentState.username = '';
@@ -48,13 +36,11 @@ export class RegisterContainer extends Component {
     }
 
     @action.bound
-    _handleUsernameChange(event) {
-        this.componentState.username = event.target.value;
-    }
-
-    @action.bound
-    _handlePasswordChange(event) {
-        this.componentState.password = event.target.value;
+    _onInputChange(fieldName, fieldValue = 'value') {
+        return action((event) => {
+            const value = event.target[fieldValue];
+            this.componentState[fieldName] = value;
+        });
     }
 
     @action.bound
@@ -64,54 +50,17 @@ export class RegisterContainer extends Component {
 
     render() {
         return (
-            <div className={container}>
-                <HeaderComponent hideLine={true} hideLogin={true} />
-                {this.componentState.redirectAfterRegister && <Redirect to='/' />}
-                <div >
-                    {this.componentState.registerFailed && <h4>Register Failed!</h4>}
-                    <label
-                        htmlFor="username"
-                        className={inputLabel}
-                    >
-                        My username is
-                    </label> <br />
-                    <input
-                        className={customInput}
-                        type="text"
-                        id="username"
-                        value={this.componentState.username}
-                        onChange={this._handleUsernameChange} />
-                </div>
-
-                <div>
-                    <label
-                        htmlFor="password"
-                        className={inputLabel}
-                    >
-                        and my password is
-                    </label> <br />
-                    <input
-                        className={customInput}
-                        type={this.componentState.isInputPassword ? "password" : "text"}
-                        id="password"
-                        value={this.componentState.password}
-                        onChange={this._handlePasswordChange}
-                    />
-                    <img
-                        className={showHidePassword}
-                        src={eyeImage}
-                        alt="S/H"
-                        onClick={this._showHidePassword} />
-                </div>
-
-                <div>
-                    <ButtonComponent
-                        onClick={this._register}
-                        text='REGISTER'
-                    />
-                </div>
-
-            </div>
+            <UserFormComponent
+                onSubmit={this._submitForm}
+                onChangeFunction={this._onInputChange}
+                username={this.componentState.username}
+                password={this.componentState.password}
+                userLoggedIn={this.props.state.getUsername}
+                showHidePasswordFunction={this._showHidePassword}
+                isInputPassword={this.componentState.isInputPassword}
+                errors={this.componentState.errors}
+                buttonText='REGISTER'
+            />
         )
     }
 }

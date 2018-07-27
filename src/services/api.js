@@ -1,8 +1,8 @@
 export function get(model) {
   return fetch(`https://api.infinum.academy/api/${model}`)
     .then((response) => response.json())
-    .then((response) => response.data)
-    .catch((err) => console.log(err));
+    .then((response) => response.data || response)
+    .catch((err) => err);
 }
 
 export function post(model, data) {
@@ -14,8 +14,8 @@ export function post(model, data) {
     body: JSON.stringify(data),
   })
     .then((response) => response.json())
-    .then((response) => response.data)
-    .catch((err) => console.log(err));
+    .then((response) => response.data || response)
+    .catch((err) => err);
 
 }
 
@@ -29,6 +29,6 @@ export function userPost(model, token ,data) {
     body: JSON.stringify(data),
   })
     .then((response) => response.json())
-    .then((response) => response) // Nije .data zato sto kod like/dislike nema .data pri povratku podataka
-    .catch((err) => console.log(err));
+    .then((response) => response)
+    .catch((err) => err);
 }

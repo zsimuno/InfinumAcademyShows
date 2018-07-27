@@ -1,4 +1,4 @@
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 
 class State {
 
@@ -32,6 +32,14 @@ class State {
   get getUsername(){
     return this.username || sessionStorage.getItem('user') || localStorage.getItem('user');
   }
+
+  @action.bound
+  _logout() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.username = null;
+    this.token = null;
+}
 
   @observable
   episodeInformation = {};

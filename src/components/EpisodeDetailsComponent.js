@@ -9,7 +9,9 @@ import { HeaderContainer } from '../containers/HeaderContainer';
 import { FooterComponent } from './FooterComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
 
-import placeholderImage from '../images/img-placeholder-user3.png';
+import placeholderUserImage from '../images/img-placeholder-user3.png';
+import placeholderImage from '../images/placeholder.png';
+
 
 
 
@@ -63,14 +65,14 @@ export class EpisodeDetailsComponent extends Component {
             commentText,
             sendComment,
             onTextAreaChange,
-            userLoggedIn
+            userLoggedIn,
         } = this.props;
 
         return (
             <div>
                 <HeaderContainer />
                 <LeftArrowComponent
-                    linkTo='../'
+                    linkTo={`/show/${episodeInformation.showId}`}
                     bottomAndRightMargin='-200px'
                     sideTextBox='Back To TV Show'
                 />
@@ -78,7 +80,7 @@ export class EpisodeDetailsComponent extends Component {
 
                     <img
                         className={cx(image, fadeInAnimation(0.6))}
-                        src={`/images/placeholder.png`}
+                        src={episodeInformation.imageUrl || placeholderImage}
                         alt={episodeInformation.title}
                     />
 
@@ -105,7 +107,7 @@ export class EpisodeDetailsComponent extends Component {
                             <ButtonComponent
                                 text="COMMENT"
                                 onClick={sendComment}
-                                align="flex-end"
+                                alignSelf="flex-end"
                                 disabled={!(userLoggedIn)}
                             />
                         </div>
@@ -118,7 +120,7 @@ export class EpisodeDetailsComponent extends Component {
                                     <div key={comment._id}>
                                         <div className={comments} >
                                             <img
-                                                src={placeholderImage}
+                                                src={placeholderUserImage}
                                                 className={cx(userImageMargin, image)}
                                                 alt="User"
                                             />

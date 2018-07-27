@@ -7,6 +7,8 @@ import { css, cx } from 'emotion';
 import { Link } from 'react-router-dom';
 import { fadeInAnimation } from '../style';
 
+import placeholderImage from '../images/placeholder.png';
+
 const container = css`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -46,7 +48,7 @@ export class ShowsComponent extends Component {
                                     <div className={cx(imageLink, fadeInAnimation(1))}>
                                         <img
                                             className={image}
-                                            src={`/images/shows/${show._id}.jpg`}
+                                            src={show.imageUrl || placeholderImage}
                                             alt={show.title}
                                         />
                                         <div>{show.title}</div>
@@ -54,9 +56,7 @@ export class ShowsComponent extends Component {
                                 </Link>
 
                             </div>
-                        )
-
-                        )
+                        ))
                     }
                 </div>
                 <FooterComponent />

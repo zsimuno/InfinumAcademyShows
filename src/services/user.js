@@ -3,6 +3,7 @@ import { runInAction } from 'mobx';
 
 export async function login(state, username, pass) {
     const loginData = await post('users/sessions', { email: username, password: pass });
+    console.log(loginData);
     runInAction(() => state.loginData = loginData);
 }
 
