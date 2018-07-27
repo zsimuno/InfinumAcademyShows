@@ -73,4 +73,17 @@ export const customTextArea = css`
     padding: 10px;
 `;
 
+export const spin = keyframes`
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+`;
+
+export const loadingAnimation = css` 
+    border: 13px solid #EAEAEA; 
+    border-top: 13px solid #FF7CAA;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: ${spin} 2s linear infinite;
+`;
 

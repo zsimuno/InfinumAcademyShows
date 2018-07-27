@@ -38,49 +38,48 @@ export class EpisodesListComponent extends Component {
     render() {
         const { episodes, showId } = this.props;
         return (
-            episodes.length === 0 ?
-                <h2>No episodes available</h2>
-                :
-                <div >
-                    <div className={pinkText}>SEASONS AND EPISODES:</div>
-                    <LineComponent />
-                    {
-                        episodes.map((episode) => (
-                            <Link
-                                to={`/show/${showId}/episode/${episode._id}`}
-                                key={episode._id}
-                                className={episodeContainer}
-                            >
-                                <img
-                                    className={cx(image, fadeInAnimation(0.6))}
-                                    src={episode.imageUrl || placeholderImage}
-                                    alt={episode.title}
-                                />
+            <div className={fadeInAnimation(0.6)}>
+                <div className={pinkText}>SEASONS AND EPISODES:</div>
+                <LineComponent />
+                {episodes.length === 0 ?
+                    <h2>No episodes available</h2>
+                    :
+                    episodes.map((episode) => (
+                        <Link
+                            to={`/show/${showId}/episode/${episode._id}`}
+                            key={episode._id}
+                            className={episodeContainer}
+                        >
+                            <img
+                                className={image}
+                                src={episode.imageUrl || placeholderImage}
+                                alt={episode.title}
+                            />
+
+                            <div>
 
                                 <div>
-
-                                    <div>
-                                        <span className={pinkText}>
-                                            S{episode.season} Ep{episode.episodeNumber}
-                                        </span>
-                                        <span className={episodeTitle}>
-                                            {episode.title}
-                                        </span>
-                                    </div>
-
-                                    <div key={episode.title}>
-                                        {
-                                            episode.description.length === 0 ?
-                                                <p>No description available</p>
-                                                :
-                                                <p>{episode.description}</p>
-                                        }
-                                    </div>
+                                    <span className={pinkText}>
+                                        S{episode.season} Ep{episode.episodeNumber}
+                                    </span>
+                                    <span className={episodeTitle}>
+                                        {episode.title}
+                                    </span>
                                 </div>
-                            </Link>
-                        ))
-                    }
-                </div>
+
+                                <div key={episode.title}>
+                                    {
+                                        episode.description.length === 0 ?
+                                            <p>No description available</p>
+                                            :
+                                            <p>{episode.description}</p>
+                                    }
+                                </div>
+                            </div>
+                        </Link>
+                    ))
+                }
+            </div>
         );
     }
 }

@@ -4,19 +4,41 @@ import { css, cx } from 'emotion';
 import { Link } from 'react-router-dom';
 
 const leftArrow = css`
-    border: solid #FF7CAA;
-    border-width: 0 3px 3px 0;
     display: inline-block;
-    padding: 5px;
-    margin: 5px;
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
+    width: 2em;
+    height: 2em;
+    border: 0.25em solid #FF7CAA;
+    border-radius: 50%;
+    background: white;
+
+    &:after {
+        content: '';
+        display: inline-block;
+        margin-top: 0.525em;
+        margin-left: 0.3em;
+        width: 0.7em;
+        height: 0.7em;
+        border-top: 0.25em solid #FF7CAA;
+        border-right: 0.25em solid #FF7CAA;
+        -moz-transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        transform: rotate(-135deg);
+    }
+
+    transition: background-color 0.1s ease;
+    &:hover {
+        background-color: #FF7CAA;
+        &:after {
+            border-color: white;
+        }
+    }
+
+    pointer-events: auto;
 `;
 
 const textBubble = css`
     display: flex;
     align-items: center;
-    justify-content: center;        
     align-self: center;
     background-color: #090201;
     opacity: 0.5;
@@ -35,19 +57,6 @@ const littleArrow = css`
     border-right-color: #090201;
 `;
 
-const leftArrowContainer = css`
-    display: block;
-    border-radius: 8px;
-    border: 1px solid #EAEAEA;
-    padding: 5px;
-    border-radius: 50%;
-    background-color: white;   
-    pointer-events: auto;
-    transition: background 0.2s ease;
-    &:hover {
-        background: #F8F8F8;
-    }
-`;
 
 const sideBox = css`
     display: flex;
@@ -65,6 +74,8 @@ const container = css`
             opacity: 0.7;
         }
     }
+
+    
 `;
 
 const bottomRightMargin = (bottomAndRightMargin) => css`
@@ -86,9 +97,7 @@ export class LeftArrowComponent extends Component {
         
         return (
             <div className={cx(container, bottomRightMargin(bottomAndRightMargin))}>
-                <Link to={linkTo} className={leftArrowContainer}>
-                    <span className={leftArrow}></span>
-                </Link>
+                <Link to={linkTo} className={leftArrow}></Link>
 
                 {sideTextBox &&
                     <div className={sideBox}>

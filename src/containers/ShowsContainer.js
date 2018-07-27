@@ -16,6 +16,11 @@ export class ShowsContainer extends Component {
 
 
   render() {
-    return <ShowsComponent shows={this.props.state.shows} />
+    return <ShowsComponent
+      shows={this.props.state.shows}
+
+      username={this.props.state.getUsername}
+      logout={this.props.state._logout}
+    />
   }
 }

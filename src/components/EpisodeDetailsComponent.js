@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css, cx } from 'emotion';
-import { pinkText, greyText, image, customTextArea, fadeInAnimation } from '../style';
+import { pinkText, greyText, image, customTextArea, fadeInAnimation, loadingAnimation } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 import { LineComponent } from './LineComponent';
-import { HeaderContainer } from '../containers/HeaderContainer';
+import { HeaderComponent } from './HeaderComponent';
 import { FooterComponent } from './FooterComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
 
@@ -66,11 +66,13 @@ export class EpisodeDetailsComponent extends Component {
             sendComment,
             onTextAreaChange,
             userLoggedIn,
+            loadingDone,
+            ...other,
         } = this.props;
 
         return (
             <div>
-                <HeaderContainer />
+                <HeaderComponent {...other} />
                 <LeftArrowComponent
                     linkTo={`/show/${episodeInformation.showId}`}
                     bottomAndRightMargin='-200px'
@@ -98,7 +100,7 @@ export class EpisodeDetailsComponent extends Component {
 
                         <div className={commentTextContainer}>
                             <textarea
-                                className={cx(commentInput, customTextArea) }
+                                className={cx(commentInput, customTextArea)}
                                 placeholder="Post a comment..."
                                 value={commentText}
                                 onChange={onTextAreaChange}
@@ -111,8 +113,9 @@ export class EpisodeDetailsComponent extends Component {
                                 disabled={!(userLoggedIn)}
                             />
                         </div>
-
-                        {
+                        {!loadingDone ?
+                            <div className={loadingAnimation}></div>
+                            :
                             episodeComments.length === 0 ?
                                 <div>No comments yet</div>
                                 :

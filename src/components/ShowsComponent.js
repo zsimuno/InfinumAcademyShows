@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { HeaderContainer } from '../containers/HeaderContainer';
+import { HeaderComponent } from './HeaderComponent';
 import { FooterComponent } from './FooterComponent';
 
 import { css, cx } from 'emotion';
@@ -35,10 +35,10 @@ const imageLink = css`
 @observer
 export class ShowsComponent extends Component {
     render() {
-        const { shows } = this.props;
+        const { shows, ...other } = this.props;
         return (
             <div>
-                <HeaderContainer />
+                <HeaderComponent {...other} />
                 <h3>All shows:</h3>
                 <div className={container}>
                     {

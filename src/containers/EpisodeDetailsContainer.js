@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { action, runInAction, observable } from 'mobx';
-import { getInfo as getEpisodeInfo, 
-         getComments as getEpisodeComments, 
-         addComment as addCommentToEpisode, 
-            } from '../services/episode';
+import {
+    getInfo as getEpisodeInfo,
+    getComments as getEpisodeComments,
+    addComment as addCommentToEpisode,
+} from '../services/episode';
 import { EpisodeDetailsComponent } from '../components/EpisodeDetailsComponent';
 
 @inject("state")
@@ -14,6 +15,7 @@ export class EpisodeDetailsContainer extends Component {
     @observable
     componentState = {
         commentText: '',
+        loadingDone: false,
     }
 
     @action.bound
@@ -35,7 +37,8 @@ export class EpisodeDetailsContainer extends Component {
         getEpisodeInfo(episodeId)
             .then((episodeInfo) => runInAction(() => this.props.state.episodeInformation = episodeInfo));
 
-        getEpisodeComments(this.props.state, episodeId);
+        getEpisodeComments(this.props.state, episodeId)
+            .then(() => runInAction(() => this.componentState.loadingDone = true));
 
     }
 
@@ -47,6 +50,11 @@ export class EpisodeDetailsContainer extends Component {
             sendComment={this._sendComment}
             onTextAreaChange={this._handleCommentChange}
             userLoggedIn={this.props.state.getUsername}
+            loadingDone={this.componentState.loadingDone}
+
+            username={this.props.state.getUsername}
+            logout={this.props.state._logout}
+                
         />
     }
 }

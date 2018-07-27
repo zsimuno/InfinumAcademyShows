@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
-import { HeaderContainer } from '../containers/HeaderContainer';
+import { HeaderComponent } from './HeaderComponent';
 import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
 import { EpisodesListComponent } from './EpisodesListComponent';
@@ -10,7 +10,7 @@ import { LeftArrowComponent } from './LeftArrowComponent';
 import { LikeDislikeComponent } from './LikeDislikeComponent'
 
 import { css, cx } from 'emotion';
-import { pinkText, emulateButton, fadeInAnimation } from '../style.js';
+import { pinkText, emulateButton, fadeInAnimation, loadingAnimation } from '../style.js';
 
 import placeholderImage from '../images/placeholder.png';
 
@@ -50,10 +50,18 @@ const rightColumn = css`
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
-        const { episodes, errorMessage, showInfo, onLikeClick, onDislikeClick, isUserLoggedIn } = this.props;
+        const { episodes, 
+            errorMessage, 
+            showInfo, 
+            onLikeClick, 
+            onDislikeClick, 
+            isUserLoggedIn, 
+            loadingDone,
+            ...other,
+         } = this.props;
         return (
             <div>
-                <HeaderContainer />
+                <HeaderComponent {...other} />
                 <LeftArrowComponent
                     linkTo='/'
                     sideTextBox='Back To home'
@@ -86,7 +94,10 @@ export class ShowDetailsComponent extends Component {
                                 </div>
 
                                 <div>
-                                    <EpisodesListComponent episodes={episodes} showId={showInfo._id} />
+                                    {!loadingDone ?
+                                    <div className={loadingAnimation}></div>
+                                    :
+                                    <EpisodesListComponent episodes={episodes} showId={showInfo._id} />}
                                 </div>
                             </div>
 

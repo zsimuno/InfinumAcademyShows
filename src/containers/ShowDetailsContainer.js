@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { action } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 
 import { ShowDetailsComponent } from '../components/ShowDetailsComponent';
 
@@ -10,12 +10,18 @@ import { getInfo as getShowInfo, getAllEpisodes as getAllShowEpisodes, like as l
 @observer
 export class ShowDetailsContainer extends Component {
 
+    @observable
+    componentState = {
+        loadingDone: false,
+    };
+
     @action
     componentDidMount() {
         const { showId } = this.props.match.params;
 
         getShowInfo(this.props.state, showId);
-        getAllShowEpisodes(this.props.state, showId);
+        getAllShowEpisodes(this.props.state, showId)
+            .then(() => runInAction(() => this.componentState.loadingDone = true));
 
     }
 
@@ -37,6 +43,10 @@ export class ShowDetailsContainer extends Component {
             onLikeClick={this._like}
             onDislikeClick={this._dislike}
             isUserLoggedIn={this.props.state.getUsername}
+            loadingDone={this.componentState.loadingDone}
+
+            username={this.props.state.getUsername}
+            logout={this.props.state._logout}
         />
 
     }

@@ -10,7 +10,7 @@ const line = css`
 `;
 
 const lineToEnd = (widthToEnd) => css`
-    ${ widthToEnd && `left: 0; right: 0;`}   
+    ${ widthToEnd && `margin-left: -10%; margin-right: -10%;`}   
 `;
 
 @observer
