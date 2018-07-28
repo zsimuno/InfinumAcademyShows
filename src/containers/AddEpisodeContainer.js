@@ -17,10 +17,11 @@ export class AddEpisodeContainer extends Component {
         description: '',
         episodeNumber: '',
         season: '',
-        addingFailed: false,
-        episodeOptions: Array.from(new Array(40), (x,i) => i),
-        seasonOptions: Array.from(new Array(40), (x,i) => i),
+        addingFailed: '',
+        episodeOptions: Array.from(new Array(40), (x, i) => i),
+        seasonOptions: Array.from(new Array(40), (x, i) => i),
         image: undefined,
+        imageFile: undefined,
     }
 
 
@@ -39,16 +40,23 @@ export class AddEpisodeContainer extends Component {
 
         }
 
-        addEpisode(this.props.state, episodeData)
-            .then(() => runInAction(() => this.props.history.push('./')))
-            .catch((err) => runInAction(() => this.componentState.addingFailed = true))
-            .then(() => runInAction(() => Object.assign(this.componentState,
-                {
-                    title: '',
-                    description: '',
-                    episodeNumber: '',
-                    season: '',
-                })));
+        uploadEpisodeImage(this.props.state, this.componentState.imageFile)
+            .then(() => {
+                if(!this.props.state.mediaData._id){
+                    return Promise.reject(this.props.state.mediaData.error || ['Episode picture failed to add']);
+                }
+                episodeData.mediaId = this.props.state.mediaData._id;
+            })
+            .then(() => addEpisode(this.props.state, episodeData)
+                .then(() => runInAction(() => this.props.history.push('./')))
+                .catch((err) => runInAction(() => this.componentState.addingFailed = err))
+                .then(() => runInAction(() => Object.assign(this.componentState,
+                    {
+                        title: '',
+                        description: '',
+                        episodeNumber: '',
+                        season: '',
+                    }))));
 
 
     }
@@ -63,14 +71,12 @@ export class AddEpisodeContainer extends Component {
 
     @action.bound
     _onDrop(files) {
-        console.log(files);
+        this.componentState.imageFile = new FormData();
+        this.componentState.imageFile.append('file', files[0]);
+
         this.componentState.image = files[0];
-        console.log(this.componentState.image);
-
-        // const data = new FormData();
-        // data.append('file', files[0]);
-
-      }
+        console.log(this.componentState.imageFile);
+    }
 
     @action.bound
     _onClose() {
@@ -79,13 +85,13 @@ export class AddEpisodeContainer extends Component {
 
     render() {
         return (
-            <AddEpisodeComponent 
+            <AddEpisodeComponent
                 {...this.componentState}
                 onDrop={this._onDrop}
-                onChangeFunction={this._onInputChange} 
+                onChangeFunction={this._onInputChange}
                 onSubmit={this._addEpisode}
                 onClose={this._onClose}
-                />
+            />
         )
     }
 }

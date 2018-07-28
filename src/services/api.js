@@ -10,7 +10,7 @@ export function post(model, token, data) {
     method: 'POST',
     headers: {
       'Authorization': token || undefined,
-      'Content-Type': (model === 'media') ? undefined : 'application/json',
+      'Content-Type': (model === 'media') ? 'multipart/form-data' : 'application/json',
     },
     body: (model === 'media') ? data : JSON.stringify(data),
   })

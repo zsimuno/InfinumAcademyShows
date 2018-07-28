@@ -29,7 +29,7 @@ export class LikeDislikeComponent extends Component {
             object.likesCount !== undefined &&
             <div className={cx(marginOnTop(marginTop), container)}>
                 <div
-                    className={emulateButtonIfLogged(isUserLoggedIn)}
+                    className={emulateButtonIfLogged(isUserLoggedIn, '#388E3C')}
                     onClick={onLikeClick}
                 >
                     LIKE
@@ -38,7 +38,7 @@ export class LikeDislikeComponent extends Component {
                     {object.likesCount}
                 </div>
                 <div
-                    className={emulateButtonIfLogged(isUserLoggedIn)}
+                    className={emulateButtonIfLogged(isUserLoggedIn, '#D32F2F')}
                     onClick={onDislikeClick}
                 >
                     DISLIKE

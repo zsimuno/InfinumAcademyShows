@@ -93,7 +93,7 @@ export const displayFlexColumn = css`
     flex-direction: column;
 `;
 
-export const emulateButtonIfLogged = (isUserLoggedIn) => css`
+export const emulateButtonIfLogged = (isUserLoggedIn, onHoverColor = '#FF7CAA') => css`
     display: inline-block;
     text-align: center;
     border-radius: 8px;
@@ -113,7 +113,7 @@ export const emulateButtonIfLogged = (isUserLoggedIn) => css`
     ${ isUserLoggedIn &&
     `transition: background-color 0.1s ease;
     &:hover {
-        background: #FF7CAA;
+        background: ${onHoverColor};
         color: white;
     }`
     }

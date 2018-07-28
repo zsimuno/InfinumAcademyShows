@@ -145,7 +145,7 @@ export class AddEpisodeComponent extends Component {
         return (
             <div className={backgroundContainer}>
                 <form className={cx(fadeInAnimation(1), container)} onSubmit={onSubmit}>
-                    {addingFailed && <h4>Adding episode failed!</h4>}
+                    {addingFailed && <h4>{addingFailed.map((error) => <p>{error}</p>)}</h4>}
 
                     <div className={displayFlex}>
                         <h2>Add new episode:</h2>
