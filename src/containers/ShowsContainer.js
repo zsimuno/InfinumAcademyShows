@@ -20,8 +20,7 @@ export class ShowsContainer extends Component {
       shows={this.props.state.shows}
 
       headerProps={{username: this.props.state.getUsername, logout: this.props.state._logout}}
-      // username={this.props.state.getUsername}
-      // logout={this.props.state._logout}
+
     />
   }
 }

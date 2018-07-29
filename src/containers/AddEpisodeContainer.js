@@ -47,16 +47,18 @@ export class AddEpisodeContainer extends Component {
                 }
                 episodeData.mediaId = this.props.state.mediaData._id;
             })
-            .then(() => addEpisode(this.props.state, episodeData)
+            .then(() => 
+            addEpisode(this.props.state, episodeData)
                 .then(() => runInAction(() => this.props.history.push('./')))
-                .catch((err) => runInAction(() => this.componentState.addingFailed = err))
-                .then(() => runInAction(() => Object.assign(this.componentState,
-                    {
-                        title: '',
-                        description: '',
-                        episodeNumber: '',
-                        season: '',
-                    }))));
+                .catch((err) => runInAction(() => this.componentState.addingFailed = err)))
+                    .catch((err) => runInAction(() => this.componentState.addingFailed = err))
+                    .then(() => runInAction(() => Object.assign(this.componentState,
+                        {
+                            title: '',
+                            description: '',
+                            episodeNumber: '',
+                            season: '',
+                        })));
 
 
     }
@@ -91,6 +93,7 @@ export class AddEpisodeContainer extends Component {
                 onChangeFunction={this._onInputChange}
                 onSubmit={this._addEpisode}
                 onClose={this._onClose}
+                isUserLoggedIn={this.props.state.getUsername}
             />
         )
     }

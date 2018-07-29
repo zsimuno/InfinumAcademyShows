@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import Dropzone from 'react-dropzone';
+import { Link } from 'react-router-dom';
 
 import { css, cx } from 'emotion';
-import { customTextArea, fadeInAnimation } from '../style';
+import { customTextArea, fadeInAnimation, emulateButton } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 
@@ -114,6 +115,7 @@ const close = css`
     &:after {
         transform: rotate(-45deg);
     }
+    cursor: pointer;
 `;
 
 const imageStyle = css`
@@ -141,94 +143,106 @@ export class AddEpisodeComponent extends Component {
             description,
             onClose,
             image,
+            isUserLoggedIn,
         } = this.props;
+        console.log(addingFailed);
         return (
             <div className={backgroundContainer}>
-                <form className={cx(fadeInAnimation(1), container)} onSubmit={onSubmit}>
-                    {addingFailed && <h4>{addingFailed.map((error) => <p>{error}</p>)}</h4>}
-
-                    <div className={displayFlex}>
-                        <h2>Add new episode:</h2>
+                {!isUserLoggedIn ?
+                    <div className={cx(fadeInAnimation(1), container)}>
+                        <h3>
+                            You must be logged in to do this!
+                        </h3>
                         <div className={close} onClick={onClose}></div>
+                        <Link to='/login' className={emulateButton}>Log in</Link>
                     </div>
-                    <Dropzone
-                        className={dropzoneStyle}
-                        acceptClassName={dropzoneAccept}
-                        rejectClassName={dropzoneReject}
-                        onDrop={onDrop}
-                        accept='image/*'
-                        multiple={false}                        
-                    >
-                        {image ? 
-                        <img className={imageStyle} src={image.preview} alt={image.name} />
-                        :
-                        <b className={textInDropzone}>Drag your image here</b>}
-                    </Dropzone>
-                    <input
-                        id="title"
-                        type="text"
-                        className={customInput}
-                        value={title}
-                        onChange={onChangeFunction('title')}
-                        placeholder="Episode title"
-                        autoFocus="true"
-                    />
-                    <div className={displayFlex}>
-                        <label
-                            htmlFor="season"
-                            className={inputLabel}
-                        >
-                            Season:
-                            </label>
-                        <select
-                            id="season"
-                            type="number"
-                            className={cx(selectInput, customInput)}
-                            value={season}
-                            onChange={onChangeFunction('season')}
-                        >
-                            {
-                                seasonOptions.map((option, index) =>
-                                    <option key={index} value={option}>{option}</option>
-                                )
-                            }
-                        </select>
-                        <label
-                            htmlFor="episodeNumber"
-                            className={inputLabel}
-                        >
-                            Episode:
-                            </label>
-                        <select
-                            id="episodeNumber"
-                            type="number"
-                            className={cx(selectInput, customInput)}
-                            value={episodeNumber}
-                            onChange={onChangeFunction('episodeNumber')}
-                        >
-                            {
-                                episodeOptions.map((option, index) =>
-                                    <option key={index} value={option}>{option}</option>
-                                )
-                            }
-                        </select>
-                    </div>
-                    <textarea
-                        id="description"
-                        type="text"
-                        className={textAreaStyle}
-                        value={description}
-                        onChange={onChangeFunction('description')}
-                        placeholder="Episode description"
-                    />
+                    :
+                    <form className={cx(fadeInAnimation(1), container)} onSubmit={onSubmit}>
+                        {addingFailed && addingFailed.map((error, index) => <p key={index}>{error}</p>)}
 
-                    <ButtonComponent
-                        type="submit"
-                        text="ADD EPISODE"
-                        justifySelf="center"
-                        disabled={!image || !title || !description }
-                    />
-                </form>
+                        <div className={displayFlex}>
+                            <h2>Add new episode:</h2>
+                            <div className={close} onClick={onClose}></div>
+                        </div>
+                        <Dropzone
+                            className={dropzoneStyle}
+                            acceptClassName={dropzoneAccept}
+                            rejectClassName={dropzoneReject}
+                            onDrop={onDrop}
+                            accept='image/*'
+                            multiple={false}
+                        >
+                            {image ?
+                                <img className={imageStyle} src={image.preview} alt={image.name} />
+                                :
+                                <b className={textInDropzone}>Drag your image here</b>}
+                        </Dropzone>
+                        <input
+                            id="title"
+                            type="text"
+                            className={customInput}
+                            value={title}
+                            onChange={onChangeFunction('title')}
+                            placeholder="Episode title"
+                            autoFocus="true"
+                        />
+                        <div className={displayFlex}>
+                            <label
+                                htmlFor="season"
+                                className={inputLabel}
+                            >
+                                Season:
+                            </label>
+                            <select
+                                id="season"
+                                type="number"
+                                className={cx(selectInput, customInput)}
+                                value={season}
+                                onChange={onChangeFunction('season')}
+                            >
+                                {
+                                    seasonOptions.map((option, index) =>
+                                        <option key={index} value={option}>{option}</option>
+                                    )
+                                }
+                            </select>
+                            <label
+                                htmlFor="episodeNumber"
+                                className={inputLabel}
+                            >
+                                Episode:
+                            </label>
+                            <select
+                                id="episodeNumber"
+                                type="number"
+                                className={cx(selectInput, customInput)}
+                                value={episodeNumber}
+                                onChange={onChangeFunction('episodeNumber')}
+                            >
+                                {
+                                    episodeOptions.map((option, index) =>
+                                        <option key={index} value={option}>{option}</option>
+                                    )
+                                }
+                            </select>
+                        </div>
+                        <textarea
+                            id="description"
+                            type="text"
+                            className={textAreaStyle}
+                            value={description}
+                            onChange={onChangeFunction('description')}
+                            placeholder="Episode description"
+                        />
+
+                        <ButtonComponent
+                            type="submit"
+                            text="ADD EPISODE"
+                            justifySelf="center"
+                            disabled={!image || !title || !description}
+                        />
+                    </form>
+                }
             </div>
         )
     }

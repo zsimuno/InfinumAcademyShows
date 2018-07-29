@@ -122,10 +122,10 @@ export class ShowDetailsComponent extends Component {
                                 />
 
                                 <div className={pinkText} >
-                                    <LineComponent /> <br />
-                                    Official Website <br />
-                                    Wikipedia <br />
-                                    IMBD <br />
+                                    <LineComponent />
+                                   <div> Official Website </div>
+                                   <div> Wikipedia </div>
+                                   <div> IMBD </div>
                                 </div>
                             </div>
 

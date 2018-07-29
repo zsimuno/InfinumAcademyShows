@@ -1,16 +1,26 @@
 import { css, keyframes } from 'emotion';
 
 export const fadeInImage = keyframes`
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
+    from { opacity: 0; }
+    to {   opacity: 1; }
 `;
 
 export const fadeInAnimation = (duration) => css`
     animation: ${fadeInImage} ${duration}s ease;
+`;
+
+export const spin = keyframes`
+    from { transform: rotate(0deg); }
+    to {   transform: rotate(360deg); }
+`;
+
+export const loadingAnimation = css` 
+    border: 13px solid #EAEAEA; 
+    border-top: 13px solid #FF7CAA;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: ${spin} 2s linear infinite;
 `;
 
 export const image = css`
@@ -45,23 +55,6 @@ export const pinkText = css`
     color: #FF7CAA;
 `;
 
-export const emulateButton = css`
-    display: inline-block;
-    text-align: center;
-    border-radius: 8px;
-    border: 1px solid #EAEAEA;
-    transition: background-color 0.1s ease;
-    &:hover {
-        background: #FF7CAA;
-        color: white;
-    }
-    color: #505050;
-    margin: 5px;
-    padding: 5px;
-    user-select: none;         
-    text-decoration: none; 
-`;
-
 export const greyText = css`
     color: #A5A5A5;
 `;
@@ -74,19 +67,6 @@ export const customTextArea = css`
     padding: 10px;
 `;
 
-export const spin = keyframes`
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-`;
-
-export const loadingAnimation = css` 
-    border: 13px solid #EAEAEA; 
-    border-top: 13px solid #FF7CAA;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: ${spin} 2s linear infinite;
-`;
 
 export const displayFlexColumn = css`
     display: flex;
@@ -104,17 +84,17 @@ export const emulateButtonIfLogged = (isUserLoggedIn, onHoverColor = '#FF7CAA') 
     user-select: none;  
     text-decoration: none; 
 
-    ${ !isUserLoggedIn &&
-    `pointer-events: none;
-    background: #EAEAEA;
-    opacity: 0.5;`
-    }
-
-    ${ isUserLoggedIn &&
+    ${ isUserLoggedIn ?
     `transition: background-color 0.1s ease;
     &:hover {
         background: ${onHoverColor};
         color: white;
     }`
+    :
+    `pointer-events: none;
+    background: #EAEAEA;
+    opacity: 0.5;`
     }
 `;
+
+export const emulateButton = emulateButtonIfLogged(true);
