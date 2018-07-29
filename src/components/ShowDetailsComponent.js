@@ -102,7 +102,7 @@ export class ShowDetailsComponent extends Component {
                                     {!loadingDone ?
                                         <div className={loadingAnimation}></div>
                                         :
-                                        <EpisodesListComponent episodes={episodes} showId={showInfo._id} />}
+                                        <EpisodesListComponent episodes={episodes} showId={showInfo._id} loadingDone={loadingDone} />}
                                 </div>
                             </div>
 

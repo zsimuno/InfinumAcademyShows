@@ -36,12 +36,12 @@ const image = css`
 @observer
 export class EpisodesListComponent extends Component {
     render() {
-        const { episodes, showId } = this.props;
+        const { episodes, showId, loadingDone } = this.props;
         return (
-            <div className={fadeInAnimation(0.6)}>
+            <div className={fadeInAnimation(1)}>
                 <div className={pinkText}>SEASONS AND EPISODES:</div>
                 <LineComponent />
-                {episodes.length === 0 ?
+                {episodes.length === 0 && loadingDone ?
                     <h2>No episodes available</h2>
                     :
                     episodes.map((episode) => (

@@ -145,7 +145,6 @@ export class AddEpisodeComponent extends Component {
             image,
             isUserLoggedIn,
         } = this.props;
-        console.log(addingFailed);
         return (
             <div className={backgroundContainer}>
                 {!isUserLoggedIn ?

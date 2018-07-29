@@ -29,7 +29,6 @@ export class AddEpisodeContainer extends Component {
     _addEpisode(event) {
         event.preventDefault();
         const { showId } = this.props.match.params;
-        console.log(showId);
         const episodeData = {
             showId: showId,
             mediaId: "",
@@ -77,7 +76,6 @@ export class AddEpisodeContainer extends Component {
         this.componentState.imageFile.append('file', files[0]);
 
         this.componentState.image = files[0];
-        console.log(this.componentState.imageFile);
     }
 
     @action.bound

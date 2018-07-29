@@ -6,7 +6,7 @@ import { css } from 'emotion';
 import { ButtonComponent } from '../components/ButtonComponent';
 import { HeaderComponent } from '../components/HeaderComponent';
 
-import { customInput, inputLabel, showHidePassword } from '../style';
+import { customInput, inputLabel, showHidePassword, pinkText } from '../style';
 
 import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
 
@@ -42,7 +42,7 @@ export class UserFormComponent extends Component {
                 {
                 userLoggedIn ?
                     <h1>
-                        You are already logged in!
+                        You are already logged in! <br /> <Link to='/' className={pinkText}>Home</Link>
                     </h1>
                     :
                     <form className={container} onSubmit={onSubmit}>
