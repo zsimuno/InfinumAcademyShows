@@ -1,34 +1,20 @@
 export function get(model) {
   return fetch(`https://api.infinum.academy/api/${model}`)
     .then((response) => response.json())
-    .then((response) => response.data)
-    .catch((err) => console.log(err));
+    .then((response) => response.data || response)
+    .catch((err) => err);
 }
 
-export function post(model, data) {
+export function post(model, token, data) {
   return fetch(`https://api.infinum.academy/api/${model}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Authorization': token || undefined,
+      'Content-Type': (model === 'media') ? 'multipart/form-data' : 'application/json',
     },
-    body: JSON.stringify(data),
+    body: (model === 'media') ? data : JSON.stringify(data),
   })
     .then((response) => response.json())
-    .then((response) => response.data)
-    .catch((err) => console.log(err));
-
-}
-
-export function userPost(model, token ,data) {
-  return fetch(`https://api.infinum.academy/api/${model}`, {
-    method: 'POST',
-    headers: {
-      'Authorization': token,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((response) => response) // Nije .data zato sto kod like/dislike nema .data pri povratku podataka
-    .catch((err) => console.log(err));
+    .then((response) => response.data || response)
+    .catch((err) => err);
 }

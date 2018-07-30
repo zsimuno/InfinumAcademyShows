@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css, cx } from 'emotion';
-import { pinkText, emulateButton } from '../style.js';
+import { pinkText, emulateButtonIfLogged } from '../style.js';
 
 const likesCount = css`
     display: inline-block;
@@ -28,26 +28,21 @@ export class LikeDislikeComponent extends Component {
         return (
             object.likesCount !== undefined &&
             <div className={cx(marginOnTop(marginTop), container)}>
-                {
-                    isUserLoggedIn &&
-                    <div
-                        className={emulateButton}
-                        onClick={onLikeClick}
-                    >
-                        LIKE
-                </div>}
+                <div
+                    className={emulateButtonIfLogged(isUserLoggedIn, '#388E3C')}
+                    onClick={onLikeClick}
+                >
+                    LIKE
+                </div>
                 <div className={cx(likesCount, pinkText)}>
-                    Score: {object.likesCount}
+                    {object.likesCount}
                 </div>
-                {
-                    isUserLoggedIn &&
-                    <div
-                        className={emulateButton}
-                        onClick={onDislikeClick}
-                    >
-                        DISLIKE
+                <div
+                    className={emulateButtonIfLogged(isUserLoggedIn, '#D32F2F')}
+                    onClick={onDislikeClick}
+                >
+                    DISLIKE
                 </div>
-                }
             </div>
         );
     }

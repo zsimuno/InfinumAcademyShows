@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { HeaderContainer } from '../containers/HeaderContainer';
-import { FooterComponent } from './FooterComponent';
 
 import { css, cx } from 'emotion';
 import { Link } from 'react-router-dom';
 import { fadeInAnimation } from '../style';
+
+import placeholderImage from '../images/placeholder.png';
 
 const container = css`
     display: grid;
@@ -36,7 +36,6 @@ export class ShowsComponent extends Component {
         const { shows } = this.props;
         return (
             <div>
-                <HeaderContainer />
                 <h3>All shows:</h3>
                 <div className={container}>
                     {
@@ -46,7 +45,10 @@ export class ShowsComponent extends Component {
                                     <div className={cx(imageLink, fadeInAnimation(1))}>
                                         <img
                                             className={image}
-                                            src={`/images/shows/${show._id}.jpg`}
+                                            src={show.imageUrl ? 
+                                                `https://api.infinum.academy${show.imageUrl}` 
+                                                :  
+                                                placeholderImage}
                                             alt={show.title}
                                         />
                                         <div>{show.title}</div>
@@ -54,13 +56,10 @@ export class ShowsComponent extends Component {
                                 </Link>
 
                             </div>
-                        )
-
-                        )
+                        ))
                     }
                 </div>
-                <FooterComponent />
             </div>
-        )
+        );
     }
 }

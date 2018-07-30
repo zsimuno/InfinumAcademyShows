@@ -14,22 +14,23 @@ const buttonStyle = css`
     border-radius: 8px;
 `;
 
-const buttonOptionalStyles = (align, justify, disabled) => css`
+const buttonOptionalStyles = (justifySelf, alignSelf, disabled) => css`
     ${disabled && `opacity: 0.5;`}
-    align-self: ${align || 'start'};
-    justify-self: ${justify || 'start'};
+    align-self: ${alignSelf || 'start'};
+    justify-self: ${justifySelf || 'start'};
 `;
 
 
 @observer
 export class ButtonComponent extends Component {
     render() {
-        const { text, onClick, linkTo, justify, align, disabled } = this.props;
+        const { type, text, onClick, linkTo, justifySelf, alignSelf, disabled } = this.props;
 
         const button =
             <button
+                type={type}
                 onClick={onClick}
-                className={cx(buttonStyle, buttonOptionalStyles(justify, align, disabled))}
+                className={cx(buttonStyle, buttonOptionalStyles(justifySelf, alignSelf, disabled))}
                 disabled={disabled}
             >
                 {text}

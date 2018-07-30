@@ -84,6 +84,6 @@ export class FooterComponent extends Component {
                 </div>
             </div>
 
-        )
+        );
     }
 }

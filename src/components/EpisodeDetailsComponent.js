@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css, cx } from 'emotion';
-import { pinkText, greyText, image, customTextArea, fadeInAnimation } from '../style';
+import { pinkText, greyText, image, customTextArea, loadingAnimation, displayFlexColumn } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 import { LineComponent } from './LineComponent';
-import { HeaderContainer } from '../containers/HeaderContainer';
-import { FooterComponent } from './FooterComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
 
-import placeholderImage from '../images/img-placeholder-user3.png';
-
+import placeholderUserImage from '../images/img-placeholder-user3.png';
+import placeholderImage from '../images/placeholder.png';
 
 
 const container = css`
-    display: flex;
-    flex-direction: column;
     align-items: center;
 `;
 
@@ -37,11 +33,6 @@ const commentInput = css`
     margin: 20px 0px 20px 0px;
 `;
 
-const commentTextContainer = css`
-    display: flex;
-    flex-direction: column;
-`;
-
 const usernameAndComment = css`
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -49,8 +40,6 @@ const usernameAndComment = css`
 `;
 
 const underImage = css`
-    display: flex;
-    flex-direction: column;
     width: 70%;
     `;
 
@@ -62,27 +51,30 @@ export class EpisodeDetailsComponent extends Component {
             episodeComments,
             commentText,
             sendComment,
-            onTextAreaChange,
-            userLoggedIn
+            onInputChange,
+            userLoggedIn,
+            loadingDone,
         } = this.props;
 
         return (
             <div>
-                <HeaderContainer />
                 <LeftArrowComponent
-                    linkTo='../'
+                    linkTo={`/show/${episodeInformation.showId}`}
                     bottomAndRightMargin='-200px'
                     sideTextBox='Back To TV Show'
                 />
-                <div className={container}>
+                <div className={cx(container, displayFlexColumn)}>
 
                     <img
-                        className={cx(image, fadeInAnimation(0.6))}
-                        src={`/images/placeholder.png`}
+                        className={image}
+                        src={episodeInformation.imageUrl ? 
+                            `https://api.infinum.academy${episodeInformation.imageUrl}` 
+                            :  
+                            placeholderImage}
                         alt={episodeInformation.title}
                     />
 
-                    <div className={underImage}>
+                    <div className={cx(underImage, displayFlexColumn)}>
                         <h2>{episodeInformation.title}</h2>
                         <p>{episodeInformation.description}</p>
 
@@ -94,23 +86,24 @@ export class EpisodeDetailsComponent extends Component {
                         </p>
 
 
-                        <div className={commentTextContainer}>
+                        <div className={displayFlexColumn}>
                             <textarea
-                                className={cx(commentInput, customTextArea) }
+                                className={cx(commentInput, customTextArea)}
                                 placeholder="Post a comment..."
                                 value={commentText}
-                                onChange={onTextAreaChange}
-                                disabled={!(userLoggedIn)}
+                                onChange={onInputChange('commentText')}
+                                disabled={!userLoggedIn}
                             />
                             <ButtonComponent
                                 text="COMMENT"
                                 onClick={sendComment}
-                                align="flex-end"
-                                disabled={!(userLoggedIn)}
+                                alignSelf="flex-end"
+                                disabled={!userLoggedIn || !commentText}
                             />
                         </div>
-
-                        {
+                        {!loadingDone ?
+                            <div className={loadingAnimation}></div>
+                            :
                             episodeComments.length === 0 ?
                                 <div>No comments yet</div>
                                 :
@@ -118,7 +111,7 @@ export class EpisodeDetailsComponent extends Component {
                                     <div key={comment._id}>
                                         <div className={comments} >
                                             <img
-                                                src={placeholderImage}
+                                                src={placeholderUserImage}
                                                 className={cx(userImageMargin, image)}
                                                 alt="User"
                                             />
@@ -140,7 +133,7 @@ export class EpisodeDetailsComponent extends Component {
                         }
                     </div>
                 </div>
-                <FooterComponent />
+
             </div>
         );
     }

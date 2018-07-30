@@ -1,28 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { observable, action, runInAction } from 'mobx';
 import { login } from '../services/user';
 
-import { ButtonComponent } from '../components/ButtonComponent';
+import { UserFormComponent } from '../components/UserFormComponent';
 import { HeaderComponent } from '../components/HeaderComponent';
-
-import { css } from 'emotion';
-import { customInput, inputLabel, showHidePassword } from '../style';
-
-import eyeImage from '../images/ic-akcije-show-password-red@3x.png';
-
-
-const container = css`
-    display: grid;
-    grid-template-rows: repeat(5, 1fr);
-    grid-gap: 30px;
-`;
-
-const link = css` 
-    color: #FF7CAA;
-    text-decoration: none;
-`;
 
 @inject("state")
 @observer
@@ -34,19 +16,21 @@ export class LoginContainer extends Component {
         password: '',
         isInputPassword: true,
         loginData: {},
-        rememberMeChecked: false,
-        loginFailed: false,
+        rememberMe: false,
+        errors: [],
     };
 
     @action.bound
-    _login() {
+    _submitForm(event) {
+        event.preventDefault();
         login(this.componentState, this.componentState.username, this.componentState.password)
+            .then(() => this.componentState.loginData.errors &&
+                Promise.reject(this.componentState.loginData.errors))
             .then(() => this._succesfulLogin())
             .then(() => console.log('token:', this.componentState.loginData.token))
             .then(() => this.props.history.push('/'))
-            .catch((err) => runInAction(() => {
-                console.log(err);
-                this.componentState.loginFailed = true;
+            .catch((errors) => runInAction(() => {
+                this.componentState.errors = errors.length > 0 ? errors : ['Wrong username/password'];
             }))
             .then(() => runInAction(() => {
                 this.componentState.username = '';
@@ -56,7 +40,7 @@ export class LoginContainer extends Component {
 
     @action.bound
     _succesfulLogin() {
-        if (this.componentState.rememberMeChecked) {
+        if (this.componentState.rememberMe) {
             localStorage.setItem('token', this.componentState.loginData.token);
             localStorage.setItem('user', this.componentState.username.split('@')[0]);
         }
@@ -69,101 +53,36 @@ export class LoginContainer extends Component {
     }
 
     @action.bound
-    _handleUsernameChange(event) {
-        this.componentState.username = event.target.value;
+    _onInputChange(fieldName, fieldValue = 'value') {
+        return action((event) => {
+            const value = event.target[fieldValue];
+            this.componentState[fieldName] = value;
+        });
     }
 
     @action.bound
-    _handlePasswordChange(event) {
-        this.componentState.password = event.target.value;
-    }
-
-    @action.bound
-    _showHidePassword() {
+    _showHidePassword(event) {
         this.componentState.isInputPassword = !this.componentState.isInputPassword;
     }
-
-    @action.bound
-    _togleRememberMe() {
-        this.componentState.rememberMeChecked = !this.componentState.rememberMeChecked;
-    }
-
 
     render() {
         return (
             <div>
-                <HeaderComponent hideLine={true} hideLogin={true} />
-                {
-                this.props.state.getUsername ?
-                <h1>
-                    You are already logged in!
-                </h1>
-                :
-                <div className={container}>
-                    <div>
-                        {this.componentState.loginFailed && <h4>Login Failed!</h4>}
-                        <label
-                            htmlFor="username"
-                            className={inputLabel}
-                        >
-                            My username is
-                        </label> <br />
-                        <input
-                            className={customInput}
-                            type="text"
-                            id="username"
-                            value={this.componentState.username}
-                            onChange={this._handleUsernameChange}
-                        />
-                    </div>
+                <HeaderComponent hideLine hideLogin />
+                <UserFormComponent
+                    onSubmit={this._submitForm}
+                    onChangeFunction={this._onInputChange}
+                    username={this.componentState.username}
+                    password={this.componentState.password}
+                    rememberMe={this.componentState.rememberMe}
+                    isInputPassword={this.componentState.isInputPassword}
+                    userLoggedIn={this.props.state.getUsername}
+                    showHidePasswordFunction={this._showHidePassword}
 
-                    <div >
-                        <label
-                            htmlFor="password"
-                            className={inputLabel}
-                        >
-                            and my password is
-                            </label> <br />
-                        <input
-                            className={customInput}
-                            type={this.componentState.isInputPassword ? "password" : "text"}
-                            id="password"
-                            value={this.componentState.password}
-                            onChange={this._handlePasswordChange}
-                        />
-                        <img
-                            className={showHidePassword}
-                            src={eyeImage}
-                            alt="S/H"
-                            onClick={this._showHidePassword}
-                        />
-                    </div>
-
-                    <div>
-                        <input
-                            id="rememberme"
-                            type="checkbox"
-                            name="rememberMe"
-                            value="Remember me"
-                            checked={this.componentState.rememberMeChecked}
-                            onChange={this._togleRememberMe}
-                        />
-                        <label htmlFor="rememberme"> Remember me</label>
-                    </div>
-
-                    <div>
-                        <ButtonComponent
-                            onClick={this._login}
-                            text='LOGIN'
-                        />
-                    </div>
-
-                    <div>
-                        Still don't have an account? <Link to='/register' className={link}>Register</Link>
-                    </div>
-                </div>
-                }
+                    errors={this.componentState.errors}
+                    buttonText='LOGIN'
+                />
             </div>
-        )
+        );
     }
 }

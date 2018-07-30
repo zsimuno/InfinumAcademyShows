@@ -2,23 +2,27 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
-import { HeaderContainer } from '../containers/HeaderContainer';
-import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
 import { EpisodesListComponent } from './EpisodesListComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
 import { LikeDislikeComponent } from './LikeDislikeComponent'
 
 import { css, cx } from 'emotion';
-import { pinkText, emulateButton, fadeInAnimation } from '../style.js';
-;
+import { pinkText, fadeInAnimation, loadingAnimation, emulateButtonIfLogged } from '../style.js';
+
+import placeholderImage from '../images/placeholder.png';
 
 const container = css`
     display: grid;
+    position: relative;
     grid-template-columns: 4fr 1fr;
     grid-gap: 20px;
     width: 90%;
     margin: 0 auto;
+`;
+
+const bodyContainer = css`
+    position: relative;
 `;
 
 
@@ -49,10 +53,16 @@ const rightColumn = css`
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
-        const { episodes, errorMessage, showInfo, onLikeClick, onDislikeClick, isUserLoggedIn } = this.props;
+        const { episodes,
+            errorMessage,
+            showInfo,
+            onLikeClick,
+            onDislikeClick,
+            isUserLoggedIn,
+            loadingDone,
+        } = this.props;
         return (
-            <div>
-                <HeaderContainer />
+            <div className={bodyContainer}>
                 <LeftArrowComponent
                     linkTo='/'
                     sideTextBox='Back To home'
@@ -85,40 +95,46 @@ export class ShowDetailsComponent extends Component {
                                 </div>
 
                                 <div>
-                                    <EpisodesListComponent episodes={episodes} showId={showInfo._id} />
+                                    {!loadingDone ?
+                                        <div className={loadingAnimation}></div>
+                                        :
+                                        <EpisodesListComponent episodes={episodes} showId={showInfo._id} loadingDone={loadingDone} />}
                                 </div>
                             </div>
 
                             <div className={rightColumn}>
                                 <div>
-                                    <Link to={`/show/${showInfo._id}/addEpisode`}>
-                                        <span className={emulateButton}><b>+</b> Add Episode</span>
+                                    <Link to={`/show/${showInfo._id}/addEpisode`} className={emulateButtonIfLogged(isUserLoggedIn)}>
+                                        <b>+</b> Add Episode
                                     </Link>
-                                    <span className={emulateButton}>&hearts; Favorite</span>
+                                    <span className={emulateButtonIfLogged(isUserLoggedIn)}>&hearts; Favorite</span>
                                 </div>
+
 
                                 <img
                                     className={cx(fadeInAnimation(0.6), image)}
-                                    src={`/images/shows/${showInfo._id}.jpg`}
+                                    src={showInfo.imageUrl ? 
+                                        `https://api.infinum.academy${showInfo.imageUrl}` 
+                                        :  
+                                        placeholderImage}
                                     alt={showInfo.title}
                                 />
 
                                 <div className={pinkText} >
-                                    <LineComponent /> <br />
-                                    Official Website <br />
-                                    Wikipedia <br />
-                                    IMBD <br />
+                                    <LineComponent />
+                                   <div> Official Website </div>
+                                   <div> Wikipedia </div>
+                                   <div> IMBD </div>
                                 </div>
                             </div>
 
                         </div>
                 }
-                <FooterComponent />
             </div>
 
 
 
-        )
+        );
     }
 
 }

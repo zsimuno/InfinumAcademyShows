@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { action } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
+import { logout } from '../services/user';
 
 import { ShowDetailsComponent } from '../components/ShowDetailsComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
+import { FooterComponent } from '../components/FooterComponent';
 
-import { getInfo as getShowInfo, getAllEpisodes as getAllShowEpisodes, like as likeShow, dislike as dislikeShow } from '../services/show';
+
+import { getInfo as getShowInfo,
+     getAllEpisodes as getAllShowEpisodes, 
+     like as likeShow, 
+     dislike as dislikeShow, 
+    } from '../services/show';
 
 @inject("state")
 @observer
 export class ShowDetailsContainer extends Component {
+
+    @observable
+    componentState = {
+        loadingDone: false,
+    };
 
     @action
     componentDidMount() {
         const { showId } = this.props.match.params;
 
         getShowInfo(this.props.state, showId);
-        getAllShowEpisodes(this.props.state, showId);
+        getAllShowEpisodes(this.props.state, showId)
+            .then(() => runInAction(() => this.componentState.loadingDone = true));
 
     }
 
@@ -30,14 +44,21 @@ export class ShowDetailsContainer extends Component {
     }
 
     render() {
-        return <ShowDetailsComponent
-            episodes={this.props.state.episodes}
-            errorMessage={this.props.state.errorMessage}
-            showInfo={this.props.state.showInfo}
-            onLikeClick={this._like}
-            onDislikeClick={this._dislike}
-            isUserLoggedIn={this.props.state.getUsername}
-        />
+        return (
+            <div>
+                <HeaderComponent username={this.props.state.getUsername} logout={() => logout(this.props.state)} />
+                <ShowDetailsComponent
+                    episodes={this.props.state.episodes}
+                    errorMessage={this.props.state.errorMessage}
+                    showInfo={this.props.state.showInfo}
+                    onLikeClick={this._like}
+                    onDislikeClick={this._dislike}
+                    isUserLoggedIn={this.props.state.getUsername}
+                    loadingDone={this.componentState.loadingDone}
 
+                />
+                <FooterComponent />
+            </div>
+        );
     }
 }

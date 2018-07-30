@@ -1,4 +1,4 @@
-import { get, userPost } from './api';
+import { get, post } from './api';
 import { getInfo as getEpisodeInfo } from './episode.js';
 import { runInAction } from 'mobx';
 
@@ -24,11 +24,11 @@ export async function getAllEpisodes(state, showId) {
 }
 
 export async function like(state, showId) {
-  const newShowInfo = await userPost(`shows/${showId}/like`, state.userToken);
+  const newShowInfo = await post(`shows/${showId}/like`, state.userToken);
   runInAction(() => state.showInfo.likesCount = newShowInfo.likesCount);
 }
 
 export async function dislike(state, showId) {
-  const newShowInfo = await userPost(`shows/${showId}/dislike`, state.userToken);
+  const newShowInfo = await post(`shows/${showId}/dislike`, state.userToken);
   runInAction(() => state.showInfo.likesCount = newShowInfo.likesCount);
 }
