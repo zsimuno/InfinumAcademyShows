@@ -107,7 +107,7 @@ export class ShowDetailsComponent extends Component {
                                     <Link to={`/show/${showInfo._id}/addEpisode`} className={emulateButtonIfLogged(isUserLoggedIn)}>
                                         <b>+</b> Add Episode
                                     </Link>
-                                    <span className={emulateButtonIfLogged(isUserLoggedIn)}>&hearts; Favorite</span>
+                                    <span className={emulateButtonIfLogged(false)}>&hearts; Favorite</span>
                                 </div>
 
 

@@ -83,6 +83,7 @@ export const emulateButtonIfLogged = (isUserLoggedIn, onHoverColor = '#FF7CAA') 
     padding: 5px;
     user-select: none;  
     text-decoration: none; 
+    cursor: pointer;
 
     ${ isUserLoggedIn ?
     `transition: background-color 0.1s ease;

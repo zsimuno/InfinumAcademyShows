@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css, cx } from 'emotion';
-import { pinkText, greyText, image, customTextArea, loadingAnimation, displayFlexColumn } from '../style';
+import { pinkText, greyText, image, customTextArea, loadingAnimation, displayFlexColumn, emulateButtonIfLogged } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 import { LineComponent } from './LineComponent';
@@ -17,7 +17,6 @@ const container = css`
 
 const comments = css`
     display: flex;
-    flex-wrap: wrap;
     align-items: flex-end;
     margin-bottom: 20px;
 `;
@@ -37,11 +36,16 @@ const usernameAndComment = css`
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-gap: 5px;
+    margin-right: auto;
 `;
 
 const underImage = css`
     width: 70%;
     `;
+
+const deleteButton = css`
+    justify-self: end;
+`;
 
 @observer
 export class EpisodeDetailsComponent extends Component {
@@ -52,9 +56,11 @@ export class EpisodeDetailsComponent extends Component {
             commentText,
             sendComment,
             onInputChange,
-            userLoggedIn,
+            username,
             loadingDone,
+            deleteComment,
         } = this.props;
+        const isUserLoggedIn = username;
 
         return (
             <div>
@@ -67,9 +73,9 @@ export class EpisodeDetailsComponent extends Component {
 
                     <img
                         className={image}
-                        src={episodeInformation.imageUrl ? 
-                            `https://api.infinum.academy${episodeInformation.imageUrl}` 
-                            :  
+                        src={episodeInformation.imageUrl ?
+                            `https://api.infinum.academy${episodeInformation.imageUrl}`
+                            :
                             placeholderImage}
                         alt={episodeInformation.title}
                     />
@@ -86,21 +92,21 @@ export class EpisodeDetailsComponent extends Component {
                         </p>
 
 
-                        <div className={displayFlexColumn}>
+                        <form className={displayFlexColumn} onSubmit={sendComment}>
                             <textarea
                                 className={cx(commentInput, customTextArea)}
                                 placeholder="Post a comment..."
                                 value={commentText}
                                 onChange={onInputChange('commentText')}
-                                disabled={!userLoggedIn}
+                                disabled={!isUserLoggedIn}
                             />
                             <ButtonComponent
                                 text="COMMENT"
-                                onClick={sendComment}
+                                type="submit"
                                 alignSelf="flex-end"
-                                disabled={!userLoggedIn || !commentText}
+                                disabled={!isUserLoggedIn || !commentText}
                             />
-                        </div>
+                        </form>
                         {!loadingDone ?
                             <div className={loadingAnimation}></div>
                             :
@@ -118,12 +124,22 @@ export class EpisodeDetailsComponent extends Component {
                                             <div className={usernameAndComment}>
                                                 <div className={pinkText}>
                                                     {comment.userEmail ?
-                                                        comment.userEmail.split('@')[0]
+                                                        comment.userEmail
                                                         :
                                                         'anonymous'}
                                                 </div>
                                                 <div>{comment.text}</div>
                                             </div>
+                                            
+                                            { username === comment.userEmail &&
+                                            <div 
+                                            className={
+                                                cx(deleteButton, emulateButtonIfLogged(isUserLoggedIn, '#D32F2F'))
+                                            }
+                                            onClick={deleteComment(comment._id)}
+                                            >
+                                                Delete
+                                            </div> }
 
 
                                         </div>
