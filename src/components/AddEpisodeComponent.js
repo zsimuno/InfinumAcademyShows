@@ -243,6 +243,6 @@ export class AddEpisodeComponent extends Component {
                     </form>
                 }
             </div>
-        )
+        );
     }
 }

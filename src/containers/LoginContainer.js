@@ -4,6 +4,7 @@ import { observable, action, runInAction } from 'mobx';
 import { login } from '../services/user';
 
 import { UserFormComponent } from '../components/UserFormComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
 
 @inject("state")
 @observer
@@ -66,21 +67,22 @@ export class LoginContainer extends Component {
 
     render() {
         return (
-            <UserFormComponent
-                onSubmit={this._submitForm}
-                onChangeFunction={this._onInputChange}
-                username={this.componentState.username}
-                password={this.componentState.password}
-                rememberMe={this.componentState.rememberMe}
-                isInputPassword={this.componentState.isInputPassword}
-                userLoggedIn={this.props.state.getUsername}
-                showHidePasswordFunction={this._showHidePassword}
-                
-                errors={this.componentState.errors}
-                buttonText='LOGIN'
-            />
+            <div>
+                <HeaderComponent hideLine hideLogin />
+                <UserFormComponent
+                    onSubmit={this._submitForm}
+                    onChangeFunction={this._onInputChange}
+                    username={this.componentState.username}
+                    password={this.componentState.password}
+                    rememberMe={this.componentState.rememberMe}
+                    isInputPassword={this.componentState.isInputPassword}
+                    userLoggedIn={this.props.state.getUsername}
+                    showHidePasswordFunction={this._showHidePassword}
 
-
-        )
+                    errors={this.componentState.errors}
+                    buttonText='LOGIN'
+                />
+            </div>
+        );
     }
 }

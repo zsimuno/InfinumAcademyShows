@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { HeaderComponent } from './HeaderComponent';
-import { FooterComponent } from './FooterComponent';
 
 import { css, cx } from 'emotion';
 import { Link } from 'react-router-dom';
@@ -35,10 +33,9 @@ const imageLink = css`
 @observer
 export class ShowsComponent extends Component {
     render() {
-        const { shows, headerProps } = this.props;
+        const { shows } = this.props;
         return (
             <div>
-                <HeaderComponent {...headerProps} />
                 <h3>All shows:</h3>
                 <div className={container}>
                     {
@@ -48,7 +45,10 @@ export class ShowsComponent extends Component {
                                     <div className={cx(imageLink, fadeInAnimation(1))}>
                                         <img
                                             className={image}
-                                            src={show.imageUrl || placeholderImage}
+                                            src={show.imageUrl ? 
+                                                `https://api.infinum.academy${show.imageUrl}` 
+                                                :  
+                                                placeholderImage}
                                             alt={show.title}
                                         />
                                         <div>{show.title}</div>
@@ -59,8 +59,7 @@ export class ShowsComponent extends Component {
                         ))
                     }
                 </div>
-                <FooterComponent />
             </div>
-        )
+        );
     }
 }

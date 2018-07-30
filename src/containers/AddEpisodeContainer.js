@@ -20,8 +20,8 @@ export class AddEpisodeContainer extends Component {
         addingFailed: '',
         episodeOptions: Array.from(new Array(40), (x, i) => i),
         seasonOptions: Array.from(new Array(40), (x, i) => i),
-        image: undefined,
-        imageFile: undefined,
+        image: null,
+        imageFile: null,
     }
 
 
@@ -41,23 +41,23 @@ export class AddEpisodeContainer extends Component {
 
         uploadEpisodeImage(this.props.state, this.componentState.imageFile)
             .then(() => {
-                if(!this.props.state.mediaData._id){
+                if (!this.props.state.mediaData._id) {
                     return Promise.reject(this.props.state.mediaData.error || ['Episode picture failed to add']);
                 }
                 episodeData.mediaId = this.props.state.mediaData._id;
             })
-            .then(() => 
-            addEpisode(this.props.state, episodeData)
-                .then(() => runInAction(() => this.props.history.push('./')))
-                .catch((err) => runInAction(() => this.componentState.addingFailed = err)))
-                    .catch((err) => runInAction(() => this.componentState.addingFailed = err))
-                    .then(() => runInAction(() => Object.assign(this.componentState,
-                        {
-                            title: '',
-                            description: '',
-                            episodeNumber: '',
-                            season: '',
-                        })));
+            .then(() =>
+                addEpisode(this.props.state, episodeData)
+                    .then(() => runInAction(() => this.props.history.push('./')))
+                    .catch((err) => runInAction(() => this.componentState.addingFailed = err)))
+            .catch((err) => runInAction(() => this.componentState.addingFailed = err))
+            .then(() => runInAction(() => Object.assign(this.componentState,
+                {
+                    title: '',
+                    description: '',
+                    episodeNumber: '',
+                    season: '',
+                })));
 
 
     }
@@ -93,6 +93,6 @@ export class AddEpisodeContainer extends Component {
                 onClose={this._onClose}
                 isUserLoggedIn={this.props.state.getUsername}
             />
-        )
+        );
     }
 }

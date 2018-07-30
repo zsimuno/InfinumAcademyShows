@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
-import { HeaderComponent } from './HeaderComponent';
-import { FooterComponent } from './FooterComponent';
 import { LineComponent } from './LineComponent';
 import { EpisodesListComponent } from './EpisodesListComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
@@ -62,11 +60,9 @@ export class ShowDetailsComponent extends Component {
             onDislikeClick,
             isUserLoggedIn,
             loadingDone,
-            headerProps,
         } = this.props;
         return (
             <div className={bodyContainer}>
-                <HeaderComponent {...headerProps} />
                 <LeftArrowComponent
                     linkTo='/'
                     sideTextBox='Back To home'
@@ -117,7 +113,10 @@ export class ShowDetailsComponent extends Component {
 
                                 <img
                                     className={cx(fadeInAnimation(0.6), image)}
-                                    src={showInfo.imageUrl || placeholderImage}
+                                    src={showInfo.imageUrl ? 
+                                        `https://api.infinum.academy${showInfo.imageUrl}` 
+                                        :  
+                                        placeholderImage}
                                     alt={showInfo.title}
                                 />
 
@@ -131,12 +130,11 @@ export class ShowDetailsComponent extends Component {
 
                         </div>
                 }
-                <FooterComponent />
             </div>
 
 
 
-        )
+        );
     }
 
 }

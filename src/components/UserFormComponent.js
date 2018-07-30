@@ -4,7 +4,6 @@ import { observer } from 'mobx-react';
 import { css } from 'emotion';
 
 import { ButtonComponent } from '../components/ButtonComponent';
-import { HeaderComponent } from '../components/HeaderComponent';
 
 import { customInput, inputLabel, showHidePassword, pinkText } from '../style';
 
@@ -38,7 +37,6 @@ export class UserFormComponent extends Component {
         const isLoginScreen = (rememberMe !== undefined);
         return (
             <div>
-                <HeaderComponent hideLine hideLogin />
                 {
                 userLoggedIn ?
                     <h1>
@@ -119,6 +117,6 @@ export class UserFormComponent extends Component {
                     </form>
                 }
             </div>
-        )
+        );
     }
 }

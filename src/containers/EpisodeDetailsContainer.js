@@ -6,7 +6,11 @@ import {
     getComments as getEpisodeComments,
     addComment as addCommentToEpisode,
 } from '../services/episode';
+import { logout } from '../services/user';
 import { EpisodeDetailsComponent } from '../components/EpisodeDetailsComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
+import { FooterComponent } from '../components/FooterComponent';
+
 
 @inject("state")
 @observer
@@ -26,8 +30,11 @@ export class EpisodeDetailsContainer extends Component {
     }
 
     @action.bound
-    _handleCommentChange(event) {
-        this.componentState.commentText = event.target.value;
+    _onInputChange(fieldName, fieldValue = 'value') {
+        return action((event) => {
+            const value = event.target[fieldValue];
+            this.componentState[fieldName] = value;
+        });
     }
 
     @action
@@ -43,17 +50,20 @@ export class EpisodeDetailsContainer extends Component {
     }
 
     render() {
-        return <EpisodeDetailsComponent
-            episodeInformation={this.props.state.episodeInformation}
-            episodeComments={this.props.state.episodeComments}
-            commentText={this.componentState.commentText}
-            sendComment={this._sendComment}
-            onTextAreaChange={this._handleCommentChange}
-            userLoggedIn={this.props.state.getUsername}
-            loadingDone={this.componentState.loadingDone}
-
-            headerProps={{username: this.props.state.getUsername, logout: this.props.state._logout}}
-                
-        />
+        return (
+            <div>
+                <HeaderComponent username={this.props.state.getUsername} logout={() => logout(this.props.state)} />
+                <EpisodeDetailsComponent
+                    episodeInformation={this.props.state.episodeInformation}
+                    episodeComments={this.props.state.episodeComments}
+                    commentText={this.componentState.commentText}
+                    sendComment={this._sendComment}
+                    onInputChange={this._onInputChange}
+                    userLoggedIn={this.props.state.getUsername}
+                    loadingDone={this.componentState.loadingDone}
+                />
+                <FooterComponent />
+            </div>
+        );
     }
 }

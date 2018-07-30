@@ -41,7 +41,7 @@ const textBubble = css`
     align-items: center;
     align-self: center;
     background-color: #090201;
-    opacity: 0.5;
+    opacity: 0.9;
     padding: 5px;
     border-radius: 5px;
     height 50%;
@@ -50,7 +50,7 @@ const textBubble = css`
 `;
 
 const littleArrow = css`
-    opacity: 0.5;
+    opacity: 0.;
     height: 5%;
     align-self: center;
     border: solid 5px transparent;

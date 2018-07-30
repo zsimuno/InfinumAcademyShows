@@ -52,7 +52,10 @@ export class EpisodesListComponent extends Component {
                         >
                             <img
                                 className={image}
-                                src={episode.imageUrl || placeholderImage}
+                                src={episode.imageUrl ? 
+                                    `https://api.infinum.academy${episode.imageUrl}` 
+                                    :  
+                                    placeholderImage}
                                 alt={episode.title}
                             />
 

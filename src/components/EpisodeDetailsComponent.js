@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { css, cx } from 'emotion';
-import { pinkText, greyText, image, customTextArea, fadeInAnimation, loadingAnimation, displayFlexColumn } from '../style';
+import { pinkText, greyText, image, customTextArea, loadingAnimation, displayFlexColumn } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 import { LineComponent } from './LineComponent';
-import { HeaderComponent } from './HeaderComponent';
-import { FooterComponent } from './FooterComponent';
 import { LeftArrowComponent } from './LeftArrowComponent';
 
 import placeholderUserImage from '../images/img-placeholder-user3.png';
@@ -53,15 +51,13 @@ export class EpisodeDetailsComponent extends Component {
             episodeComments,
             commentText,
             sendComment,
-            onTextAreaChange,
+            onInputChange,
             userLoggedIn,
             loadingDone,
-            headerProps,
         } = this.props;
 
         return (
             <div>
-                <HeaderComponent {...headerProps} />
                 <LeftArrowComponent
                     linkTo={`/show/${episodeInformation.showId}`}
                     bottomAndRightMargin='-200px'
@@ -70,8 +66,11 @@ export class EpisodeDetailsComponent extends Component {
                 <div className={cx(container, displayFlexColumn)}>
 
                     <img
-                        className={cx(image, fadeInAnimation(0.6))}
-                        src={episodeInformation.imageUrl || placeholderImage}
+                        className={image}
+                        src={episodeInformation.imageUrl ? 
+                            `https://api.infinum.academy${episodeInformation.imageUrl}` 
+                            :  
+                            placeholderImage}
                         alt={episodeInformation.title}
                     />
 
@@ -92,7 +91,7 @@ export class EpisodeDetailsComponent extends Component {
                                 className={cx(commentInput, customTextArea)}
                                 placeholder="Post a comment..."
                                 value={commentText}
-                                onChange={onTextAreaChange}
+                                onChange={onInputChange('commentText')}
                                 disabled={!userLoggedIn}
                             />
                             <ButtonComponent
@@ -134,7 +133,7 @@ export class EpisodeDetailsComponent extends Component {
                         }
                     </div>
                 </div>
-                <FooterComponent />
+
             </div>
         );
     }

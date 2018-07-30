@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { action } from 'mobx';
 import { getAll as getAllShows } from '../services/show';
+import { logout } from '../services/user';
 
 import { ShowsComponent } from '../components/ShowsComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
+import { FooterComponent } from '../components/FooterComponent';
+
 
 @inject("state")
 @observer
@@ -16,11 +20,14 @@ export class ShowsContainer extends Component {
 
 
   render() {
-    return <ShowsComponent
-      shows={this.props.state.shows}
-
-      headerProps={{username: this.props.state.getUsername, logout: this.props.state._logout}}
-
-    />
+    return (
+      <div>
+        <HeaderComponent username={this.props.state.getUsername} logout={() => logout(this.props.state)} />
+        <ShowsComponent
+          shows={this.props.state.shows}
+        />
+        <FooterComponent />
+      </div>
+    );
   }
 }

@@ -72,6 +72,6 @@ export class HeaderComponent extends Component {
                 }
             </div>
 
-        )
+        );
     }
 }

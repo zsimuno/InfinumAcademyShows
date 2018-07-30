@@ -4,6 +4,8 @@ import { observable, action, runInAction } from 'mobx';
 import { register } from '../services/user';
 
 import { UserFormComponent } from '../components/UserFormComponent';
+import { HeaderComponent } from '../components/HeaderComponent';
+
 
 @inject("state")
 @observer
@@ -50,17 +52,20 @@ export class RegisterContainer extends Component {
 
     render() {
         return (
-            <UserFormComponent
-                onSubmit={this._submitForm}
-                onChangeFunction={this._onInputChange}
-                username={this.componentState.username}
-                password={this.componentState.password}
-                isInputPassword={this.componentState.isInputPassword}
-                userLoggedIn={this.props.state.getUsername}
-                showHidePasswordFunction={this._showHidePassword}
-                errors={this.componentState.errors}
-                buttonText='REGISTER'
-            />
-        )
+            <div>
+                <HeaderComponent hideLine hideLogin />
+                <UserFormComponent
+                    onSubmit={this._submitForm}
+                    onChangeFunction={this._onInputChange}
+                    username={this.componentState.username}
+                    password={this.componentState.password}
+                    isInputPassword={this.componentState.isInputPassword}
+                    userLoggedIn={this.props.state.getUsername}
+                    showHidePasswordFunction={this._showHidePassword}
+                    errors={this.componentState.errors}
+                    buttonText='REGISTER'
+                />
+            </div>
+        );
     }
 }
