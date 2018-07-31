@@ -24,13 +24,26 @@ class State {
   token = '';
 
   @computed
-  get userToken(){
+  get userToken() {
     return this.token || sessionStorage.getItem('token') || localStorage.getItem('token');
   }
 
   @computed
-  get getUsername(){
+  get getUsername() {
     return this.username || sessionStorage.getItem('user') || localStorage.getItem('user');
+  }
+
+  @computed
+  get getFavoriteShows() {
+
+    if (this.getUsername &&
+      localStorage.getItem('favoriteShows') &&
+      JSON.parse(localStorage.getItem('favoriteShows'))[this.getUsername]) {
+      return JSON.parse(localStorage.getItem('favoriteShows'))[this.getUsername];
+    }
+    else {
+      return [];
+    }
   }
 
   @observable

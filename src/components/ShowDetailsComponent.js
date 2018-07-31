@@ -53,13 +53,16 @@ const rightColumn = css`
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
-        const { episodes,
+        const { 
+            episodes,
             errorMessage,
             showInfo,
             onLikeClick,
             onDislikeClick,
             isUserLoggedIn,
             loadingDone,
+            toggleFavoriteShow,
+            isShowFavorite,
         } = this.props;
         return (
             <div className={bodyContainer}>
@@ -104,27 +107,39 @@ export class ShowDetailsComponent extends Component {
 
                             <div className={rightColumn}>
                                 <div>
-                                    <Link to={`/show/${showInfo._id}/addEpisode`} className={emulateButtonIfLogged(isUserLoggedIn)}>
+                                    <Link
+                                        to={`/show/${showInfo._id}/addEpisode`}
+                                        className={emulateButtonIfLogged(isUserLoggedIn)}
+                                    >
                                         <b>+</b> Add Episode
                                     </Link>
-                                    <span className={emulateButtonIfLogged(false)}>&hearts; Favorite</span>
+                                    <span
+                                        className={emulateButtonIfLogged(isUserLoggedIn)}
+                                        onClick={toggleFavoriteShow}
+                                    >
+                                        {isShowFavorite ?
+                                            <div><del>&hearts;</del> Unfavorite</div>
+                                            :
+                                            <div>&hearts; Favorite</div>
+                                        }
+                                    </span>
                                 </div>
 
 
                                 <img
                                     className={cx(fadeInAnimation(0.6), image)}
-                                    src={showInfo.imageUrl ? 
-                                        `https://api.infinum.academy${showInfo.imageUrl}` 
-                                        :  
+                                    src={showInfo.imageUrl ?
+                                        `https://api.infinum.academy${showInfo.imageUrl}`
+                                        :
                                         placeholderImage}
                                     alt={showInfo.title}
                                 />
 
                                 <div className={pinkText} >
                                     <LineComponent />
-                                   <div> Official Website </div>
-                                   <div> Wikipedia </div>
-                                   <div> IMBD </div>
+                                    <div> Official Website </div>
+                                    <div> Wikipedia </div>
+                                    <div> IMBD </div>
                                 </div>
                             </div>
 
