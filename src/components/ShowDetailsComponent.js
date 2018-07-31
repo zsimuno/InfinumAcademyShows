@@ -8,7 +8,7 @@ import { LeftArrowComponent } from './LeftArrowComponent';
 import { LikeDislikeComponent } from './LikeDislikeComponent'
 
 import { css, cx } from 'emotion';
-import { pinkText, fadeInAnimation, loadingAnimation, emulateButtonIfLogged } from '../style.js';
+import { pinkText, fadeInAnimation, loadingAnimation, emulateButtonIfLogged, greyText } from '../style.js';
 
 import placeholderImage from '../images/placeholder.png';
 
@@ -48,12 +48,15 @@ const rightColumn = css`
     flex-direction: column;
 `;
 
+const loginToUseFeatures = css`
+    align-self: center;
+`;
 
 
 @observer
 export class ShowDetailsComponent extends Component {
     render() {
-        const { 
+        const {
             episodes,
             errorMessage,
             showInfo,
@@ -86,6 +89,12 @@ export class ShowDetailsComponent extends Component {
                                         onDislikeClick={onDislikeClick}
                                         isUserLoggedIn={isUserLoggedIn}
                                     />
+                                    {
+                                        !isUserLoggedIn &&
+                                        <i className={cx(loginToUseFeatures, greyText)}>
+                                            (Log in to Like, Dislike, Add Episodes and Favorite)
+                                        </i>
+                                    }
                                 </div>
 
                                 <div>
@@ -101,7 +110,11 @@ export class ShowDetailsComponent extends Component {
                                     {!loadingDone ?
                                         <div className={loadingAnimation}></div>
                                         :
-                                        <EpisodesListComponent episodes={episodes} showId={showInfo._id} loadingDone={loadingDone} />}
+                                        <EpisodesListComponent
+                                            episodes={episodes}
+                                            showId={showInfo._id}
+                                            loadingDone={loadingDone}
+                                        />}
                                 </div>
                             </div>
 

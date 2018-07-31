@@ -56,7 +56,7 @@ export class ShowDetailsContainer extends Component {
 
             if (this.componentState.isShowFavorite) {
                 favorites[this.props.state.getUsername] = favorites[this.props.state.getUsername].filter((favoriteShowId) => favoriteShowId !== this.props.state.showInfo._id);
-                if(favorites[this.props.state.getUsername].length === 0){
+                if (favorites[this.props.state.getUsername].length === 0) {
                     delete favorites[this.props.state.getUsername]
                 }
             }
@@ -79,7 +79,10 @@ export class ShowDetailsContainer extends Component {
     render() {
         return (
             <div>
-                <HeaderComponent username={this.props.state.getUsername} logout={() => logout(this.props.state)} />
+                <HeaderComponent
+                    username={this.props.state.getUsername}
+                    logout={() => logout(this.props.state)}
+                />
                 <ShowDetailsComponent
                     episodes={this.props.state.episodes}
                     errorMessage={this.props.state.errorMessage}

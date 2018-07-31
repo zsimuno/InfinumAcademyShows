@@ -18,19 +18,19 @@ class State {
   errorMessage = null;
 
   @observable
-  username = '';
+  username = sessionStorage.getItem('user') || localStorage.getItem('user');
 
   @observable
-  token = '';
+  token = sessionStorage.getItem('token') || localStorage.getItem('token');
 
   @computed
   get userToken() {
-    return this.token || sessionStorage.getItem('token') || localStorage.getItem('token');
+    return this.token;
   }
 
   @computed
   get getUsername() {
-    return this.username || sessionStorage.getItem('user') || localStorage.getItem('user');
+    return this.username;
   }
 
   @computed

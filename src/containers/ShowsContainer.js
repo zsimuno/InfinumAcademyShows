@@ -21,7 +21,10 @@ export class ShowsContainer extends Component {
   render() {
     return (
       <div>
-        <HeaderComponent username={this.props.state.getUsername} logout={() => logout(this.props.state)} />
+        <HeaderComponent
+          username={this.props.state.getUsername}
+          logout={() => logout(this.props.state)}
+        />
         <ShowsComponent
           allShows={this.props.state.shows}
           favoriteShows={this.props.state.getFavoriteShows}

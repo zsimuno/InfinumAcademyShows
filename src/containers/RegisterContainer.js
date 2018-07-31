@@ -26,7 +26,7 @@ export class RegisterContainer extends Component {
         register(this.componentState, this.componentState.username, this.componentState.password)
             .then(() => this.componentState.registerData.errors &&
                 Promise.reject(this.componentState.registerData.errors))
-            .then(() => this.props.history.push('/'))
+            .then(() => this.props.history.push('/login'))
             .then(() => console.log('Register data:', this.componentState.registerData))
             .catch((errors) => runInAction(() => {
                 this.componentState.errors = errors;

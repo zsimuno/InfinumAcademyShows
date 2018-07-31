@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 
 import { css, cx } from 'emotion';
-import { customTextArea, fadeInAnimation, emulateButton } from '../style';
+import { customTextArea, fadeInAnimation, emulateButton, close } from '../style';
 
 import { ButtonComponent } from './ButtonComponent';
 
@@ -91,32 +91,6 @@ const textInDropzone = css`
     align-self: center;
 `;
 
-const close = css`
-    position: absolute;
-    right: 32px;
-    top: 32px;
-    width: 32px;
-    height: 32px;
-    opacity: 0.3;
-    &:hover {
-        opacity: 1;
-    }
-    &:before, &:after {
-        position: absolute;
-        left: 15px;
-        content: ' ';
-        height: 33px;
-        width: 2px;
-        background-color: #333;
-    }
-    &:before {
-        transform: rotate(45deg);
-    }
-    &:after {
-        transform: rotate(-45deg);
-    }
-    cursor: pointer;
-`;
 
 const imageStyle = css`
     justify-self: center;
@@ -125,8 +99,6 @@ const imageStyle = css`
     width: auto;
 `;
 
-const textAreaStyle = cx(_textAreaStyle, customTextArea);
-
 @observer
 export class AddEpisodeComponent extends Component {
     render() {
@@ -134,7 +106,7 @@ export class AddEpisodeComponent extends Component {
             onSubmit,
             onDrop,
             onChangeFunction,
-            addingFailed,
+            errors,
             title,
             season,
             seasonOptions,
@@ -157,7 +129,7 @@ export class AddEpisodeComponent extends Component {
                     </div>
                     :
                     <form className={cx(fadeInAnimation(1), container)} onSubmit={onSubmit}>
-                        {addingFailed && addingFailed.map((error, index) => <p key={index}>{error}</p>)}
+                        {errors && errors.map((error, index) => <p key={index}>{error}</p>)}
 
                         <div className={displayFlex}>
                             <h2>Add new episode:</h2>
@@ -228,7 +200,7 @@ export class AddEpisodeComponent extends Component {
                         <textarea
                             id="description"
                             type="text"
-                            className={textAreaStyle}
+                            className={cx(_textAreaStyle, customTextArea)}
                             value={description}
                             onChange={onChangeFunction('description')}
                             placeholder="Episode description"
