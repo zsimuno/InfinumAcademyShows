@@ -1,6 +1,5 @@
-## Setup
+# Infinum Academy assignment - Shows
 
-```bash
-yarn
-yarn start
-```
+It's a netflix enspired website made in React. 
+
+Made during Infinum Academy summer class.
