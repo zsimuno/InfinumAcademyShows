@@ -5,6 +5,7 @@ import {
     getInfo as getEpisodeInfo,
     getComments as getEpisodeComments,
     addComment as addCommentToEpisode,
+    deleteComment as deleteEpisodeComment,
 } from '../services/episode';
 import { logout } from '../services/user';
 import { EpisodeDetailsComponent } from '../components/EpisodeDetailsComponent';
@@ -23,7 +24,8 @@ export class EpisodeDetailsContainer extends Component {
     }
 
     @action.bound
-    _sendComment() {
+    _sendComment(event) {
+        event.preventDefault();
         const { episodeId } = this.props.match.params;
         addCommentToEpisode(this.props.state, this.componentState.commentText, episodeId)
             .then(() => runInAction(() => this.componentState.commentText = ''));
@@ -35,6 +37,11 @@ export class EpisodeDetailsContainer extends Component {
             const value = event.target[fieldValue];
             this.componentState[fieldName] = value;
         });
+    }
+
+    @action.bound
+    _deleteComment(commentId){
+        return () => deleteEpisodeComment(this.props.state, commentId);
     }
 
     @action
@@ -59,8 +66,9 @@ export class EpisodeDetailsContainer extends Component {
                     commentText={this.componentState.commentText}
                     sendComment={this._sendComment}
                     onInputChange={this._onInputChange}
-                    userLoggedIn={this.props.state.getUsername}
+                    username={this.props.state.getUsername}
                     loadingDone={this.componentState.loadingDone}
+                    deleteComment={this._deleteComment}
                 />
                 <FooterComponent />
             </div>

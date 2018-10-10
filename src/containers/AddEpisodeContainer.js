@@ -17,7 +17,7 @@ export class AddEpisodeContainer extends Component {
         description: '',
         episodeNumber: '',
         season: '',
-        addingFailed: '',
+        errors: '',
         episodeOptions: Array.from(new Array(40), (x, i) => i),
         seasonOptions: Array.from(new Array(40), (x, i) => i),
         image: null,
@@ -49,8 +49,8 @@ export class AddEpisodeContainer extends Component {
             .then(() =>
                 addEpisode(this.props.state, episodeData)
                     .then(() => runInAction(() => this.props.history.push('./')))
-                    .catch((err) => runInAction(() => this.componentState.addingFailed = err)))
-            .catch((err) => runInAction(() => this.componentState.addingFailed = err))
+                    .catch((err) => runInAction(() => this.componentState.errors = err)))
+            .catch((err) => runInAction(() => this.componentState.errors = err))
             .then(() => runInAction(() => Object.assign(this.componentState,
                 {
                     title: '',

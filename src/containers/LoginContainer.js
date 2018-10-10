@@ -42,13 +42,13 @@ export class LoginContainer extends Component {
     _succesfulLogin() {
         if (this.componentState.rememberMe) {
             localStorage.setItem('token', this.componentState.loginData.token);
-            localStorage.setItem('user', this.componentState.username.split('@')[0]);
+            localStorage.setItem('user', this.componentState.username);
         }
         else {
             sessionStorage.setItem('token', this.componentState.loginData.token);
-            sessionStorage.setItem('user', this.componentState.username.split('@')[0]);
+            sessionStorage.setItem('user', this.componentState.username);
         }
-        this.props.state.username = this.componentState.username.split('@')[0];
+        this.props.state.username = this.componentState.username;
         this.props.state.token = this.componentState.loginData.token;
     }
 
@@ -61,7 +61,7 @@ export class LoginContainer extends Component {
     }
 
     @action.bound
-    _showHidePassword(event) {
+    _showHidePassword() {
         this.componentState.isInputPassword = !this.componentState.isInputPassword;
     }
 

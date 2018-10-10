@@ -12,9 +12,33 @@ const likesCount = css`
     padding: 5px;
 `;
 
+const arrow = css`
+    border: solid;
+    border-width: 0 6px 6px 0;
+    display: inline-block;
+    padding: 6px;
+    margin: 5px;
+`;
+
+const upArrow = css`
+    border-color: #388E3C;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+`;
+
+const downArrow = css`
+    border-color: #D32F2F;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+
+`;
+
+
+
 const container = css`
     display: flex;
     align-self: center;
+    align-items: center;
 `;
 
 const marginOnTop = (marginTop) => css`
@@ -29,19 +53,19 @@ export class LikeDislikeComponent extends Component {
             object.likesCount !== undefined &&
             <div className={cx(marginOnTop(marginTop), container)}>
                 <div
-                    className={emulateButtonIfLogged(isUserLoggedIn, '#388E3C')}
+                    className={emulateButtonIfLogged(isUserLoggedIn, '#E8F5E9')}
                     onClick={onLikeClick}
                 >
-                    LIKE
+                    <span className={cx(arrow, upArrow)}></span>
                 </div>
                 <div className={cx(likesCount, pinkText)}>
                     {object.likesCount}
                 </div>
                 <div
-                    className={emulateButtonIfLogged(isUserLoggedIn, '#D32F2F')}
+                    className={emulateButtonIfLogged(isUserLoggedIn, '#FFEBEE')}
                     onClick={onDislikeClick}
                 >
-                    DISLIKE
+                <span className={cx(arrow, downArrow)}></span>
                 </div>
             </div>
         );

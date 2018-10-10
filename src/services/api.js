@@ -18,3 +18,14 @@ export function post(model, token, data) {
     .then((response) => response.data || response)
     .catch((err) => err);
 }
+
+export function apiDelete(model, token) {
+  return fetch(`https://api.infinum.academy/api/${model}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json',
+    },
+  })
+    .catch((err) => err);
+}

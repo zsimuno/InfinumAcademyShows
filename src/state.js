@@ -18,19 +18,32 @@ class State {
   errorMessage = null;
 
   @observable
-  username = '';
+  username = sessionStorage.getItem('user') || localStorage.getItem('user');
 
   @observable
-  token = '';
+  token = sessionStorage.getItem('token') || localStorage.getItem('token');
 
   @computed
-  get userToken(){
-    return this.token || sessionStorage.getItem('token') || localStorage.getItem('token');
+  get userToken() {
+    return this.token;
   }
 
   @computed
-  get getUsername(){
-    return this.username || sessionStorage.getItem('user') || localStorage.getItem('user');
+  get getUsername() {
+    return this.username;
+  }
+
+  @computed
+  get getFavoriteShows() {
+
+    if (this.getUsername &&
+      localStorage.getItem('favoriteShows') &&
+      JSON.parse(localStorage.getItem('favoriteShows'))[this.getUsername]) {
+      return JSON.parse(localStorage.getItem('favoriteShows'))[this.getUsername];
+    }
+    else {
+      return [];
+    }
   }
 
   @observable

@@ -12,8 +12,10 @@ export async function register(state, username, pass) {
 }
 
 export async function logout(state) {
-    localStorage.clear();
-    sessionStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('token');
     runInAction(() => {
         state.username = null;
         state.token = null;

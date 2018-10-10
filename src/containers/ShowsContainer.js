@@ -18,13 +18,16 @@ export class ShowsContainer extends Component {
     getAllShows(this.props.state);
   }
 
-
   render() {
     return (
       <div>
-        <HeaderComponent username={this.props.state.getUsername} logout={() => logout(this.props.state)} />
+        <HeaderComponent
+          username={this.props.state.getUsername}
+          logout={() => logout(this.props.state)}
+        />
         <ShowsComponent
-          shows={this.props.state.shows}
+          allShows={this.props.state.shows}
+          favoriteShows={this.props.state.getFavoriteShows}
         />
         <FooterComponent />
       </div>
